@@ -42,11 +42,15 @@
 			<Add library="glew32" />
 			<Add directory="C:/MinGW/GLFW/lib" />
 		</Linker>
+		<Unit filename="Libs.hpp" />
+		<Unit filename="Main.cpp" />
+		<Unit filename="Main.hpp" />
+		<Unit filename="Shader.cpp" />
+		<Unit filename="Shader.hpp" />
 		<Unit filename="bin/Release/shaders/FragmentShader.glsl">
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="bin/Release/shaders/VertexShader.glsl" />
-		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

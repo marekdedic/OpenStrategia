@@ -1,20 +1,13 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <GL/glew.h>
-#include <GL/glfw.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
+#include "Main.hpp"
 using namespace std;
 
 bool QUIT = false;
 
-GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
+GLuint LoadShaders(string vertex_file_path, string fragment_file_path)
 {
     // Create the shaders
-    /*vertex_file_path = 'shaders/' + vertex_file_path;
-    fragment_file_path = 'shaders/' + fragment_file_path;*/
+    vertex_file_path = "shaders/" + vertex_file_path;
+    fragment_file_path = "shaders/" + fragment_file_path;
     GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
     GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -48,7 +41,7 @@ GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
     int InfoLogLength;
 
     // Compile Vertex Shader
-    printf("Compiling shader : %s\n", vertex_file_path);
+    //printf("Compiling shader : %s\n", vertex_file_path);
     char const * VertexSourcePointer = VertexShaderCode.c_str();
     glShaderSource(VertexShaderID, 1, &VertexSourcePointer , NULL);
     glCompileShader(VertexShaderID);
@@ -61,7 +54,7 @@ GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
     fprintf(stdout, "%s\n", &VertexShaderErrorMessage[0]);
 
     // Compile Fragment Shader
-    printf("Compiling shader : %s\n", fragment_file_path);
+    //printf("Compiling shader : %s\n", fragment_file_path);
     char const * FragmentSourcePointer = FragmentShaderCode.c_str();
     glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer , NULL);
     glCompileShader(FragmentShaderID);
@@ -100,7 +93,7 @@ int main()
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
     glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    if(!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 32, 0, GLFW_WINDOW))
+    if(!glfwOpenWindow(1400, 1050, 0, 0, 0, 0, 32, 0, GLFW_FULLSCREEN))
     {
         cerr << "Failed to open GLFW window" << endl;
         glfwTerminate();
@@ -114,7 +107,7 @@ int main()
     }
     glfwSetWindowTitle("Tutorial 01");
     glfwEnable(GLFW_STICKY_KEYS);
-    GLuint programID = LoadShaders("shaders/VertexShader.glsl", "shaders/FragmentShader.glsl" );
+    GLuint programID = LoadShaders("Vertex.glsl", "Fragment.glsl" );
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
     glEnable(GL_DEPTH_TEST);
 // Accept fragment if it closer to the camera than the former one
