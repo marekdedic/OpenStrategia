@@ -10,5 +10,11 @@
 #include "Libs.hpp"
 
 #include "Shader.hpp"
+#include "Program.hpp"
+#include "RenderObject.hpp"
+
+extern std::ofstream error;
+extern bool QUIT;
+extern glm::mat4 projection;
 
 #endif // MAIN_HPP

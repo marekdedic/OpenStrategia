@@ -8,7 +8,7 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/OpenStrategia" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="C:/MinGW/GLFW/bin" />
+				<Option working_dir="bin/Debug/" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -18,7 +18,7 @@
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/OpenStrategia" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="C:/MinGW/GLFW/bin" />
+				<Option working_dir="bin/Release/" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -45,12 +45,14 @@
 		<Unit filename="Libs.hpp" />
 		<Unit filename="Main.cpp" />
 		<Unit filename="Main.hpp" />
+		<Unit filename="Program.cpp" />
+		<Unit filename="Program.hpp" />
+		<Unit filename="RenderObject.cpp" />
+		<Unit filename="RenderObject.hpp" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.hpp" />
-		<Unit filename="bin/Release/shaders/FragmentShader.glsl">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="bin/Release/shaders/VertexShader.glsl" />
+		<Unit filename="bin/Release/shaders/Fragment.glsl" />
+		<Unit filename="bin/Release/shaders/Vertex.glsl" />
 		<Extensions>
 			<code_completion />
 			<envvars />
