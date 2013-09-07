@@ -13,9 +13,8 @@ class Program
 public:
     const GLuint programID;
     Program();
-    void AddShader(std::string name, GLenum shaderType); /**< name = name of the shader file in shaders subdir, without the path, with extension. */
-    void Link();
-    void Use();
+    void AddShader(const std::string name, const GLenum shaderType); /**< name = name of the shader file in shaders subdir, without the path, with extension. */
+    void Link() const;
     ~Program();
 private:
     std::vector<Shader*> shaders;

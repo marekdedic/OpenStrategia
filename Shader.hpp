@@ -12,7 +12,7 @@ class Shader
 {
 public:
     const GLuint shaderID;
-    Shader(std::string name, GLenum shaderType); /**< name = name of the shader file in shaders subdir, without the path, with extension. */
+    Shader(std::string name, const GLenum shaderType); /**< name = name of the shader file in shaders subdir, without the path, with extension. */
     ~Shader();
 };
 

@@ -2,8 +2,9 @@
 using namespace std;
 using namespace glm;
 
-Shader::Shader(string name, GLenum shaderType) : shaderID(glCreateShader(shaderType))
+Shader::Shader(string name, const GLenum shaderType) : shaderID(glCreateShader(shaderType))
 {
+    /**< Load the shader code from the file */
     name = "shaders/" + name;
     string code;
     ifstream file(name);
@@ -17,11 +18,15 @@ Shader::Shader(string name, GLenum shaderType) : shaderID(glCreateShader(shaderT
         file.close();
     }
     GLchar const *codePtr = code.c_str();
+
+    /**< Handle the code to OpenGL and compile it */
     glShaderSource(shaderID, 1, &codePtr, NULL);
     glCompileShader(shaderID);
+
+    /**< Verify the result */
     GLint result;
     glGetShaderiv(shaderID, GL_COMPILE_STATUS, &result);
-    if(result != GL_TRUE)
+    if(result != GL_TRUE) /**< Error */
     {
         int infoLogLength;
         glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);

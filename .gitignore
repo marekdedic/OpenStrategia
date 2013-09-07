@@ -1,6 +1,7 @@
-bin
-obj
-Data
+bin/*
+!Release/
+obj/
+Data/
 lib_finder.script
 *.layout
 *.depend

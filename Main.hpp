@@ -12,9 +12,14 @@
 #include "Shader.hpp"
 #include "Program.hpp"
 #include "RenderObject.hpp"
+#include "RenderObject2D.hpp"
+#include "RenderObject3D.hpp"
 
 extern std::ofstream error;
 extern bool QUIT;
-extern glm::mat4 projection;
+extern glm::mat4 VIEW;
+extern glm::mat4 PROJECTION;
+extern double DELTA;
+extern int FRAMERATE;
 
 #endif // MAIN_HPP

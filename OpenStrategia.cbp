@@ -49,6 +49,10 @@
 		<Unit filename="Program.hpp" />
 		<Unit filename="RenderObject.cpp" />
 		<Unit filename="RenderObject.hpp" />
+		<Unit filename="RenderObject2D.cpp" />
+		<Unit filename="RenderObject2D.hpp" />
+		<Unit filename="RenderObject3D.cpp" />
+		<Unit filename="RenderObject3D.hpp" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.hpp" />
 		<Unit filename="bin/Release/shaders/Fragment.glsl" />

@@ -8,17 +8,21 @@
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
 
-class RendObj
+class Program;
+
+class RenderObject
 {
 public:
-    glm::vec4 position;
-    RendObj();
+    glm::mat4 position;
+    glm::mat4 orientation;
+    RenderObject();
     virtual void handle();
     virtual void update();
-    virtual void render() const = 0;
-    virtual ~RendObj();
+    virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
+    ~RenderObject();
 protected:
     GLuint VBO;
+    GLuint EBO;
 };
 
  #endif // RENDEROBJECT_HPP
