@@ -6,7 +6,7 @@ RenderObject::RenderObject() {}
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const shaders, const mat4* const viewMatrix, const mat4* const projectionMatrix) const
+void RenderObject::render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
     glUseProgram(shaders->programID);
 
@@ -22,7 +22,7 @@ void RenderObject::render(const Program* const shaders, const mat4* const viewMa
 
     /**< Draw from indexed Vertex Buffer Object */
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,  EBO);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, (void*)0);
+	glDrawElements(GL_TRIANGLES, EBOsize, GL_UNSIGNED_INT, (void*)0);
 	glDisableVertexAttribArray(0);
 }
 

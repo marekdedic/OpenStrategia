@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-ofstream error("ErrorLog.txt", fstream::trunc);
+std::ofstream error("ErrorLog.txt", fstream::trunc);
 bool QUIT = false;
 mat4 VIEW;
 mat4 PROJECTION = perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
@@ -56,11 +56,13 @@ int main()
     glfwSetTime(0);
     glfwSwapBuffers();
     RenderObject3D* objekt = new RenderObject3D();
+    RenderObject2D* objek2 = new RenderObject2D();
     while(!QUIT) /**< Main loop */
     {
         /**< Rendering */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         objekt->render(shaders);
+        objek2->render(shaders);
 
         /**< Timer refresh */
         DELTA = glfwGetTime();

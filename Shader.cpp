@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Shader::Shader(string name, const GLenum shaderType) : shaderID(glCreateShader(shaderType))
+Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateShader(shaderType))
 {
     /**< Load the shader code from the file */
     name = "shaders/" + name;

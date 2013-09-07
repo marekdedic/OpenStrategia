@@ -23,6 +23,7 @@ public:
 protected:
     GLuint VBO;
     GLuint EBO;
+    GLsizei EBOsize;
 };
 
  #endif // RENDEROBJECT_HPP

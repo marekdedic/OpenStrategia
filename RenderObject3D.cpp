@@ -21,6 +21,7 @@ RenderObject3D::RenderObject3D()
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
+	EBOsize = 36;
 }
 
 void RenderObject3D::render(const Program* const shaders) const
