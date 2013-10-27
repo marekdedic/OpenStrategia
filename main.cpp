@@ -48,10 +48,11 @@ int main()
     shaders->Link();
 
     /**< Setting up some important variables */
-    vec3 cameraPosition = vec3(-3, -3, 10);
+    vec3 cameraPosition = vec3(0, 0, -10);
     vec3 cameraPivot = vec3(0, 0, 0);
+    quat cameraOrientation = quat(0.9238795325112867, -0.3826834323650897, 0.0, 0.0);
     float cameraMove = 0.1f;
-    VIEW = lookAt(cameraPosition, cameraPivot, vec3(0, 0, 1));
+    VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
 
     /**< Reset timer and swap buffers, so that the main loop can start immediatelly */
     glfwSetTime(0);
@@ -63,31 +64,23 @@ int main()
         QUIT = (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS);
         if(glfwGetKey(GLFW_KEY_LEFT) == GLFW_PRESS)
         {
-            vec3 cameraAxis = cameraPivot - cameraPosition;
-            vec2 translation = (vec2(cameraAxis.y, cameraAxis.x) * cameraMove) / sqrt(cameraAxis.x * cameraAxis.x + cameraAxis.y * cameraAxis.y);
-            cameraPosition -= vec3(translation, 0);
-            cameraPivot -= vec3(translation, 0);
-            VIEW = lookAt(cameraPosition, cameraPivot, vec3(0, 0, 1));
+            cameraPosition += vec3(0.1, 0, 0);
+            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
         if(glfwGetKey(GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
-            vec3 cameraAxis = cameraPivot - cameraPosition;
-            vec2 translation = (vec2(cameraAxis.y, cameraAxis.x) * cameraMove) / sqrt(cameraAxis.x * cameraAxis.x + cameraAxis.y * cameraAxis.y);
-            cameraPosition += vec3(translation, 0);
-            cameraPivot += vec3(translation, 0);
-            VIEW = lookAt(cameraPosition, cameraPivot, vec3(0, 0, 1));
+            cameraPosition += vec3(-0.1, 0, 0);
+            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
         if(glfwGetKey(GLFW_KEY_UP) == GLFW_PRESS)
         {
-            cameraPosition += vec3(0, 0.1, 0);
-            cameraPivot += vec3(0, 0.1, 0);
-            VIEW = lookAt(cameraPosition, cameraPivot, vec3(0, 0, 1));
+            cameraPosition += vec3(0, -0.1, 0);
+            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
         if(glfwGetKey(GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            cameraPosition += vec3(0, -0.1, 0);
-            cameraPivot += vec3(0, -0.1, 0);
-            VIEW = lookAt(cameraPosition, cameraPivot, vec3(0, 0, 1));
+            cameraPosition += vec3(0, 0.1, 0);
+            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
 
         /**< Updating */
