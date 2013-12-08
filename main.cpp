@@ -8,6 +8,8 @@ mat4 VIEW;
 mat4 PROJECTION = perspective(45.0f, 4.0f / 3.0f, 0.1f, 250.0f);
 double DELTA;
 int FRAMERATE = 120;
+float SPEED = 1.0;
+int PAUSE = 0;
 
 int main()
 {
@@ -65,23 +67,20 @@ int main()
         if(glfwGetKey(GLFW_KEY_LEFT) == GLFW_PRESS)
         {
             cameraPosition += vec3(0.1, 0, 0);
-            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
         if(glfwGetKey(GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
             cameraPosition += vec3(-0.1, 0, 0);
-            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
         if(glfwGetKey(GLFW_KEY_UP) == GLFW_PRESS)
         {
             cameraPosition += vec3(0, -0.1, 0);
-            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
         if(glfwGetKey(GLFW_KEY_DOWN) == GLFW_PRESS)
         {
             cameraPosition += vec3(0, 0.1, 0);
-            VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
         }
+        VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
 
         /**< Updating */
 
