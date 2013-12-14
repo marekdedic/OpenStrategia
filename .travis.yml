@@ -1,6 +1,7 @@
 language: cpp
-compiler:
-  - clang
-  - gcc
-# Change this to your needs
-script: ./configure && make
+compiler: gcc
+before-install: sudo apt-get update
+install: 
+-apt-get install libglfw-dev
+-apt-get install libglm-dev
+script: g++ Main.cpp
