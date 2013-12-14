@@ -5,4 +5,4 @@ install:
  - sudo apt-get install libglew-dev
  - sudo apt-get install libglfw-dev
  - sudo apt-get install libglm-dev
-script: g++ Main.cpp
+script: g++ Main.cpp -lglfw -lglew -lopengl
