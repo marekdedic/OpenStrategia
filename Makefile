@@ -15,7 +15,7 @@ INC = -IC:/MinGW/GLFW/include
 CFLAGS = -Winit-self -Wredundant-decls -Wcast-align -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-default -std=c++11 -Wfatal-errors -Wextra -Wall
 RESINC =
 LIBDIR = -LC:/MinGW/GLFW/lib
-LIB = -lglfw -lopengl32 -lglu32 -lgdi32 -lglew32
+LIB = -lglfw -lGLEW -lGLU -lGL
 LDFLAGS =
 
 INC_DEBUG = $(INC)
