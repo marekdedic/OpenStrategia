@@ -11,10 +11,10 @@ AR = ar
 LD = g++-4.8
 WINDRES = windres
 
-INC = -IC:/MinGW/GLFW/include
+INC =
 CFLAGS = -Winit-self -Wredundant-decls -Wcast-align -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-default -std=c++11 -Wfatal-errors -Wextra -Wall
 RESINC =
-LIBDIR = -LC:/MinGW/GLFW/lib
+LIBDIR =
 LIB = -lglfw -lGLEW -lGLU -lGL
 LDFLAGS =
 
