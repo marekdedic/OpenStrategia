@@ -51,7 +51,6 @@ int main()
 
     /**< Setting up some important variables */
     vec3 cameraPosition = vec3(0, 0, -10);
-    vec3 cameraPivot = vec3(0, 0, 0);
     quat cameraOrientation = quat(0.9238795325112867, -0.3826834323650897, 0.0, 0.0);
     float cameraMove = 0.1f;
     VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
@@ -66,19 +65,19 @@ int main()
         QUIT = (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS);
         if(glfwGetKey(GLFW_KEY_LEFT) == GLFW_PRESS)
         {
-            cameraPosition += vec3(0.1, 0, 0);
+            cameraPosition += vec3(cameraMove, 0, 0);
         }
         if(glfwGetKey(GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
-            cameraPosition += vec3(-0.1, 0, 0);
+            cameraPosition += vec3(-cameraMove, 0, 0);
         }
         if(glfwGetKey(GLFW_KEY_UP) == GLFW_PRESS)
         {
-            cameraPosition += vec3(0, -0.1, 0);
+            cameraPosition += vec3(0, -cameraMove, 0);
         }
         if(glfwGetKey(GLFW_KEY_DOWN) == GLFW_PRESS)
         {
-            cameraPosition += vec3(0, 0.1, 0);
+            cameraPosition += vec3(0, cameraMove, 0);
         }
         VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
 
