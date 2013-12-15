@@ -3,7 +3,6 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="OpenStrategia" />
-		<Option makefile="make" />
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
@@ -47,6 +46,7 @@
 		<Unit filename="Libs.hpp" />
 		<Unit filename="Main.cpp" />
 		<Unit filename="Main.hpp" />
+		<Unit filename="Makefile" />
 		<Unit filename="Program.cpp" />
 		<Unit filename="Program.hpp" />
 		<Unit filename="RenderObject.cpp" />
@@ -59,7 +59,6 @@
 		<Unit filename="Shader.hpp" />
 		<Unit filename="bin/Release/shaders/Fragment.glsl" />
 		<Unit filename="bin/Release/shaders/Vertex.glsl" />
-		<Unit filename="make" />
 		<Extensions>
 			<code_completion />
 			<envvars />
