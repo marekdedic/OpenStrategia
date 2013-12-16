@@ -58,7 +58,6 @@
 		</Compiler>
 		<Linker>
 			<Add library="glfw" />
-			<Add directory="C:/MinGW/GLFW/lib" />
 		</Linker>
 		<Unit filename="Libs.hpp" />
 		<Unit filename="Main.cpp" />
