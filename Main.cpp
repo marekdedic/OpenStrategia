@@ -3,6 +3,7 @@ using namespace std;
 using namespace glm;
 
 std::ofstream error("ErrorLog.txt", fstream::trunc);
+GLFWwindow* WINDOW;
 bool QUIT = false;
 mat4 VIEW;
 mat4 PROJECTION = perspective(45.0f, 4.0f / 3.0f, 0.1f, 250.0f);
@@ -14,34 +15,38 @@ int PAUSE = 0;
 int main()
 {
     /**< GLFW, GLEW and OpenGL Initialization */
-    if(!glfwInit())
+    if(glfwInit() != GL_TRUE)
     {
         error << "Failed to Initialize GLFW." << endl;
         return -1;
     }
-    glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 4);
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 0);
-    glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    if(!glfwOpenWindow(1400, 1050, 0, 0, 0, 0, 32, 0, GLFW_FULLSCREEN))
+    glfwWindowHint(GLFW_SAMPLES, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    WINDOW = glfwCreateWindow(1400, 1050, "OpenStrategia", monitor, NULL);
+    glfwMakeContextCurrent(WINDOW);
+    if(!WINDOW)
     {
         error << "Failed to open GLFW window" << endl;
         glfwTerminate();
         return -1;
     }
-    glewExperimental = true;
-    if(glewInit() != GLEW_OK)
+    glewExperimental = GL_TRUE;
+    GLenum GLEWerror = glewInit();
+    if(GLEWerror != GLEW_OK)
     {
-    error << "Failed to initialize GLEW" << endl;
+    error << "Failed to initialize GLEW: " << glewGetErrorString(GLEWerror) << endl;
+    glfwTerminate();
     return -1;
     }
-    glfwSetWindowTitle("Tutorial 01");
-    glfwEnable(GLFW_STICKY_KEYS);
-    glfwEnable(GLFW_MOUSE_CURSOR);
+    glfwSwapInterval(1);
+    glfwSetInputMode(WINDOW, GLFW_STICKY_KEYS, GL_TRUE);
+    glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    //glEnable(GL_CULL_FACE);
 
     /**< Loading shaders */
     Program* shaders = new Program();
@@ -57,25 +62,25 @@ int main()
 
     /**< Reset timer and swap buffers, so that the main loop can start immediatelly */
     glfwSetTime(0);
-    glfwSwapBuffers();
+    glfwSwapBuffers(WINDOW);
     RenderObject3D* objekt = new RenderObject3D();
     while(!QUIT) /**< Main loop */
     {
         /**< Input handling */
-        QUIT = (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS);
-        if(glfwGetKey(GLFW_KEY_LEFT) == GLFW_PRESS)
+        QUIT = (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS);
+        if(glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS)
         {
             cameraPosition += vec3(cameraMove, 0, 0);
         }
-        if(glfwGetKey(GLFW_KEY_RIGHT) == GLFW_PRESS)
+        if(glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS)
         {
             cameraPosition += vec3(-cameraMove, 0, 0);
         }
-        if(glfwGetKey(GLFW_KEY_UP) == GLFW_PRESS)
+        if(glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS)
         {
             cameraPosition += vec3(0, -cameraMove, 0);
         }
-        if(glfwGetKey(GLFW_KEY_DOWN) == GLFW_PRESS)
+        if(glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS)
         {
             cameraPosition += vec3(0, cameraMove, 0);
         }
@@ -93,11 +98,12 @@ int main()
         {
             if(DELTA < (1.0 / FRAMERATE))
             {
-                glfwSleep((1.0 / FRAMERATE) - DELTA);
+                //glfwSleep(WINDOW, (1.0 / FRAMERATE) - DELTA);
             }
         }
         glfwSetTime(0);
-        glfwSwapBuffers();
+        glfwSwapBuffers(WINDOW);
+        glfwPollEvents();
     }
     glfwTerminate();
 }

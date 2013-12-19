@@ -57,7 +57,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Linker>
-			<Add library="glfw" />
+			<Add library="glfw3" />
 		</Linker>
 		<Unit filename="Libs.hpp" />
 		<Unit filename="Main.cpp" />
