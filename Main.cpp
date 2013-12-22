@@ -7,6 +7,7 @@ GLFWwindow* WINDOW;
 bool QUIT = false;
 mat4 VIEW;
 mat4 PROJECTION = perspective(45.0f, 4.0f / 3.0f, 0.1f, 250.0f);
+Camera* mainCam = new Camera(45.0f, 4.0f / 3.0f);
 double DELTA;
 int FRAMERATE = 120;
 float SPEED = 1.0;
@@ -55,7 +56,7 @@ int main()
     shaders->Link();
 
     /**< Setting up some important variables */
-    vec3 cameraPosition = vec3(0, 0, -10);
+    atomic<vec3> cameraPosition = vec3(0, 0, -10);
     quat cameraOrientation = quat(0.9238795325112867, -0.3826834323650897, 0.0, 0.0);
     float cameraMove = 0.1f;
     VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);

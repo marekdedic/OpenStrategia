@@ -59,6 +59,8 @@
 		<Linker>
 			<Add library="glfw3" />
 		</Linker>
+		<Unit filename="Camera.cpp" />
+		<Unit filename="Camera.hpp" />
 		<Unit filename="Libs.hpp" />
 		<Unit filename="Main.cpp" />
 		<Unit filename="Main.hpp" />
