@@ -17,8 +17,8 @@ public:
     void handle();
     ~Camera();
 private:
-    std::atomic<glm::vec3> position;
-    std::atomic<glm::quat> orientation;
+    std::atomic<glm::vec3*> position;
+    std::atomic<glm::quat*> orientation;
 };
 
  #endif // CAMERA_HPP

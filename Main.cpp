@@ -56,7 +56,7 @@ int main()
     shaders->Link();
 
     /**< Setting up some important variables */
-    atomic<vec3> cameraPosition = vec3(0, 0, -10);
+    vec3 cameraPosition = vec3(0, 0, -10);
     quat cameraOrientation = quat(0.9238795325112867, -0.3826834323650897, 0.0, 0.0);
     float cameraMove = 0.1f;
     VIEW = translate(mat4(1.0f), cameraPosition) * mat4_cast(cameraOrientation);
