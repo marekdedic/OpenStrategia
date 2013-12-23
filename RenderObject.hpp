@@ -9,6 +9,7 @@
 #include "Libs.hpp"
 
 class Program;
+class Camera;
 
 class RenderObject
 {
@@ -18,7 +19,7 @@ public:
     RenderObject();
     virtual void handle();
     virtual void update();
-    virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
+    virtual void render(const Program* const shaders, const Camera* const cam) const;
     ~RenderObject();
 protected:
     GLuint VBO;
