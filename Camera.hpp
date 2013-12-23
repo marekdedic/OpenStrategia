@@ -11,14 +11,15 @@
 class Camera
 {
 public:
-    glm::mat4 view;
-    glm::mat4 projection;
-    Camera(float FOV, float aspect);
+    std::atomic<glm::mat4*> view;
+    std::atomic<glm::mat4*> projection;
+    Camera(float FOV, float aspect, float speed, glm::vec3 position, glm::quat orientation);
     void handle();
     ~Camera();
 private:
     std::atomic<glm::vec3*> position;
     std::atomic<glm::quat*> orientation;
+    float speed;
 };
 
  #endif // CAMERA_HPP

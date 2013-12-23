@@ -19,9 +19,8 @@
 extern std::ofstream error;
 extern GLFWwindow* WINDOW;
 extern bool QUIT;
-extern glm::mat4 VIEW;
-extern glm::mat4 PROJECTION;
 extern Camera* mainCam;
+extern Camera* cam2D;
 extern double DELTA;
 extern int FRAMERATE;
 extern float SPEED;

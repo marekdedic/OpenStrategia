@@ -24,7 +24,7 @@ RenderObject3D::RenderObject3D()
 	EBOsize = 36;
 }
 
-void RenderObject3D::render(const Program* const shaders) const
+void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
 {
-    RenderObject::render(shaders, &VIEW, &PROJECTION);
+    RenderObject::render(shaders, cam);
 }

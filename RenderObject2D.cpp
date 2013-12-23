@@ -22,9 +22,6 @@ RenderObject2D::RenderObject2D()
 void RenderObject2D::render(const Program* const shaders) const
 {
     glDisable(GL_DEPTH_TEST);
-    glDisable(GL_CULL_FACE);
-    mat4 identity = mat4(1.0f);
-    RenderObject::render(shaders, &identity, &identity);
+    RenderObject::render(shaders, cam2D);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
 }
