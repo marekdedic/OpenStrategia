@@ -3,7 +3,7 @@ compiler: gcc
 before-install: sudo apt-get update
 install:
  - sudo apt-get install libglew-dev
- - sudo apt-get install libglfw-dev
+ - sudo apt-get install libglfw3-dev
  - sudo apt-get install libglm-dev
  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
  - sudo apt-get update -qq
