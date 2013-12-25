@@ -6,12 +6,12 @@ RenderObject::RenderObject() {}
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const shaders, const Camera* const cam) const
+void RenderObject::render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
     glUseProgram(shaders->programID);
 
     /**< Compute ModelViewProjection matrix, get it to GLSL */
-    mat4 MVP = *cam->projection * *cam->view * position * orientation;
+    mat4 MVP = *projectionMatrix * *viewMatrix * position * orientation;
     GLuint MVPLoc = glGetUniformLocation(shaders->programID, "MVP");
     glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, &MVP[0][0]);
 

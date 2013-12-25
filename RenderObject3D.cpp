@@ -26,5 +26,5 @@ RenderObject3D::RenderObject3D()
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
 {
-    RenderObject::render(shaders, cam);
+    RenderObject::render(shaders, cam->view, cam->projection);
 }

@@ -2,10 +2,6 @@
 using namespace std;
 using namespace glm;
 
-Camera* RenderObject2D::cam2D = new Camera(0, 4.0 / 3.0, 0, vec3(0, 0, 0), quat(0, 0, 0, 0));
-//mat4* RenderObject2D::cam2D->view = mat4(1);                 //UBER_HACK
-//*cam2D->projection = mat4(1);
-
 RenderObject2D::RenderObject2D()
 {
      static const GLfloat vertex_buffer_data[] = {
@@ -26,6 +22,7 @@ RenderObject2D::RenderObject2D()
 void RenderObject2D::render(const Program* const shaders) const
 {
     glDisable(GL_DEPTH_TEST);
-    RenderObject::render(shaders, cam2D);
+    mat4 identity = mat4(1.0f);
+    RenderObject::render(shaders, &identity, &identity);
     glEnable(GL_DEPTH_TEST);
 }

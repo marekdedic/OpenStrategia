@@ -16,7 +16,7 @@ public:
     RenderObject();
     virtual void handle();
     virtual void update();
-    virtual void render(const Program* const shaders, const Camera* const cam) const;
+    virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
     ~RenderObject();
 protected:
     GLuint VBO;
