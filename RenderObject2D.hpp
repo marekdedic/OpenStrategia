@@ -13,6 +13,8 @@ class RenderObject2D : public RenderObject
 public:
     RenderObject2D();
     virtual void render(const Program* const shaders) const;
+private:
+    static Camera* cam2D;
 };
 
  #endif // RENDEROBJECT2D_HPP

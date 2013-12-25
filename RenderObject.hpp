@@ -8,9 +8,6 @@
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
 
-class Program;
-class Camera;
-
 class RenderObject
 {
 public:

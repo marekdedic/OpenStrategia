@@ -6,7 +6,7 @@ std::ofstream error("ErrorLog.txt", fstream::trunc);
 GLFWwindow* WINDOW;
 bool QUIT = false;
 Camera* mainCam = new Camera(45, 4.0 / 3.0, 0.1, vec3(0, 0, -10), quat(0.9238795325112867, -0.3826834323650897, 0, 0));
-Camera* cam2D = new Camera(0, 4.0 / 3.0, 0, vec3(0, 0, 0), quat(0, 0, 0, 0));   //HACK
+//Camera* cam2D = new Camera(0, 4.0 / 3.0, 0, vec3(0, 0, 0), quat(0, 0, 0, 0));   //HACK
 double DELTA;
 int FRAMERATE = 120;
 float SPEED = 1.0;
@@ -55,19 +55,23 @@ int main()
     shaders->Link();
 
     /**< Setting up some important variables */
-    *cam2D->view = mat4(1);                 //UBER_HACK
-    *cam2D->projection = mat4(1);
+    //*cam2D->view = mat4(1);                 //UBER_HACK
+    //*cam2D->projection = mat4(1);
 
     /**< Reset timer and swap buffers, so that the main loop can start immediatelly */
     glfwSetTime(0);
     glfwSwapBuffers(WINDOW);
     glfwPollEvents();
                                                                         RenderObject3D* objekt = new RenderObject3D();
+                                                                        RenderObject2D* objekt2 = new RenderObject2D();
+
     while(!QUIT) /**< Main loop */
     {
         /**< Rendering */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         objekt->render(shaders, mainCam);
+                                                                        objekt2->render(shaders);
+
 
         /**< Input handling */
         QUIT = (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS);

@@ -2,6 +2,10 @@
 using namespace std;
 using namespace glm;
 
+Camera* RenderObject2D::cam2D = new Camera(0, 4.0 / 3.0, 0, vec3(0, 0, 0), quat(0, 0, 0, 0));
+//mat4* RenderObject2D::cam2D->view = mat4(1);                 //UBER_HACK
+//*cam2D->projection = mat4(1);
+
 RenderObject2D::RenderObject2D()
 {
      static const GLfloat vertex_buffer_data[] = {
