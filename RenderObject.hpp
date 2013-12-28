@@ -30,7 +30,7 @@ public:
 protected:
     GLuint VBO;
     GLuint EBO;
-    DrawElementsIndirectCommand indirectData;
+    DrawElementsIndirectCommand* indirectData;
     GLuint IBO;
 };
 

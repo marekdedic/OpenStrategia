@@ -19,7 +19,7 @@ RenderObject3D::RenderObject3D()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
-	indirectData.count = 36;
+	indirectData->count = 36;
 }
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
