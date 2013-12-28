@@ -78,6 +78,7 @@ void RenderObject::render(const Program* const shaders, const glm::mat4* const v
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     /**< Get the render information to graphics */
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBindBuffer(GL_DRAW_INDIRECT_BUFFER, IBO);
 	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(*indirectData), indirectData, GL_STATIC_DRAW);
 

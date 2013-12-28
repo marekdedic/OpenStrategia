@@ -89,5 +89,9 @@ int main()
         glfwSwapBuffers(WINDOW);
         glfwPollEvents();
     }
+    delete objekt;
+    delete objekt2;
+    delete shaders;
+    delete mainCam;
     glfwTerminate();
 }

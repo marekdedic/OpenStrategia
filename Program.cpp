@@ -30,6 +30,11 @@ void Program::Link() const
 }
 
 Program::~Program()
- {
-     glDeleteProgram(programID);
- }
+{
+    for (unsigned int i = 0; i < shaders.size(); i++)
+    {
+        shaders.erase(shaders.begin() + i);
+    }
+    shaders.clear();
+    glDeleteProgram(programID);
+}

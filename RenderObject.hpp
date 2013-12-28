@@ -10,7 +10,7 @@
 
 typedef struct DrawElementsIndirectCommand_t
 {
-    GLuint  count;
+    GLuint  elementCount;
     GLuint  primCount;
     GLuint  firstIndex;
     GLuint  baseVertex;
@@ -28,7 +28,7 @@ public:
     virtual void handle();
     virtual void update();
     virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
-    ~RenderObject();
+    virtual ~RenderObject();
 protected:
     GLuint VBO;
     GLsizei VBOsize;
