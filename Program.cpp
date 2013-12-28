@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Program::Program() : programID(glCreateProgram()) {}
+Program::Program() : programID(glCreateProgram()), shaders() {}
 
 void Program::AddShader(const std::string name, const GLenum shaderType)
 {
@@ -22,7 +22,7 @@ void Program::Link() const
         int infoLogLength;
         glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
         string errorMessage;
-        glGetProgramInfoLog(programID, infoLogLength, NULL, &errorMessage[0]);
+        glGetProgramInfoLog(programID, infoLogLength, nullptr, &errorMessage[0]);
         error << "Error: " << errorMessage << ", when linking Program: " << programID << endl;
         QUIT = true;
         return;

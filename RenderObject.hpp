@@ -23,15 +23,20 @@ public:
     glm::mat4 position;
     glm::mat4 orientation;
     RenderObject();
+    RenderObject(const RenderObject& other);
+    RenderObject& operator=(const RenderObject&);
     virtual void handle();
     virtual void update();
     virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
     ~RenderObject();
 protected:
     GLuint VBO;
+    GLsizei VBOsize;
     GLuint EBO;
-    DrawElementsIndirectCommand* indirectData;
+    GLsizei EBOsize;
     GLuint IBO;
+    GLsizei IBOsize;
+    DrawElementsIndirectCommand* indirectData;
 };
 
  #endif // RENDEROBJECT_HPP
