@@ -2,7 +2,16 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() {}
+RenderObject::RenderObject()
+{
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    glGenBuffers(1, &IBO);
+    indirectData.primCount = 1;
+    indirectData.firstIndex = 0;
+    indirectData.baseVertex = 0;
+    indirectData.baseInstance = 0;
+}
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
@@ -20,9 +29,13 @@ void RenderObject::render(const Program* const shaders, const glm::mat4* const v
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-    /**< Draw from indexed Vertex Buffer Object */
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,  EBO);
-	glDrawElements(GL_TRIANGLES, EBOsize, GL_UNSIGNED_INT, (void*)0);
+    /**< Get the render information to graphics */
+    glBindBuffer(GL_DRAW_INDIRECT_BUFFER, IBO);
+	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(indirectData), &indirectData, GL_STATIC_DRAW);
+
+    /**< Draw from Draw Indirect Buffer Object */
+	glBindBuffer(GL_DRAW_INDIRECT_BUFFER,  IBO);
+	glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, (void*)0);
 	glDisableVertexAttribArray(0);
 }
 

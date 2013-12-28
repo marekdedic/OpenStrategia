@@ -8,6 +8,15 @@
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
 
+typedef struct DrawElementsIndirectCommand_t
+{
+    GLuint  count;
+    GLuint  primCount;
+    GLuint  firstIndex;
+    GLuint  baseVertex;
+    GLuint  baseInstance;
+} DrawElementsIndirectCommand;
+
 class RenderObject
 {
 public:
@@ -21,7 +30,8 @@ public:
 protected:
     GLuint VBO;
     GLuint EBO;
-    GLsizei EBOsize;
+    DrawElementsIndirectCommand indirectData;
+    GLuint IBO;
 };
 
  #endif // RENDEROBJECT_HPP
