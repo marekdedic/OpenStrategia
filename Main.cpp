@@ -24,7 +24,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    WINDOW = glfwCreateWindow(1400, 1050, "OpenStrategia", monitor, NULL);
+    WINDOW = glfwCreateWindow(1400, 1050, "OpenStrategia", monitor, nullptr);
     glfwMakeContextCurrent(WINDOW);
     if(!WINDOW)
     {
@@ -48,7 +48,7 @@ int main()
     glDepthFunc(GL_LESS);
 
     /**< Loading shaders */
-    Program* shaders = new Program();
+    Program* shaders = new Program;
     shaders->AddShader("Vertex.glsl", GL_VERTEX_SHADER);
     shaders->AddShader("Fragment.glsl", GL_FRAGMENT_SHADER);
     shaders->Link();
@@ -59,8 +59,8 @@ int main()
     glfwSetTime(0);
     glfwSwapBuffers(WINDOW);
     glfwPollEvents();
-                                                                        RenderObject3D* objekt = new RenderObject3D();
-                                                                        RenderObject2D* objekt2 = new RenderObject2D();
+                                                                        RenderObject3D* objekt = new RenderObject3D;
+                                                                        RenderObject2D* objekt2 = new RenderObject2D;
 
     while(!QUIT) /**< Main loop */
     {
@@ -68,7 +68,6 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         objekt->render(shaders, mainCam);
                                                                         objekt2->render(shaders);
-
 
         /**< Input handling */
         QUIT = (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS);
@@ -90,5 +89,9 @@ int main()
         glfwSwapBuffers(WINDOW);
         glfwPollEvents();
     }
+    delete objekt;
+    delete objekt2;
+    delete shaders;
+    delete mainCam;
     glfwTerminate();
 }

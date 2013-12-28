@@ -20,7 +20,7 @@ Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateSha
     GLchar const *codePtr = code.c_str();
 
     /**< Handle the code to OpenGL and compile it */
-    glShaderSource(shaderID, 1, &codePtr, NULL);
+    glShaderSource(shaderID, 1, &codePtr, nullptr);
     glCompileShader(shaderID);
 
     /**< Verify the result */
@@ -31,7 +31,7 @@ Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateSha
         int infoLogLength;
         glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
         string errorMessage;
-        glGetShaderInfoLog(shaderID, infoLogLength, NULL, &errorMessage[0]);
+        glGetShaderInfoLog(shaderID, infoLogLength, nullptr, &errorMessage[0]);
         error << "Error: " << errorMessage << ", when compiling shader: " << name << " of type: " << shaderType << endl;
         QUIT = true;
         return;
