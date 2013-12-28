@@ -69,7 +69,6 @@ int main()
                                                                         objekt->render(shaders, mainCam);
                                                                         objekt2->render(shaders);
 
-
         /**< Input handling */
         QUIT = (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS);
         thread t(&Camera::handle, mainCam);
