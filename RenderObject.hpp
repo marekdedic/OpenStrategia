@@ -8,7 +8,14 @@
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
 
-class Program;
+typedef struct DrawElementsIndirectCommand_t
+{
+    GLuint  elementCount;
+    GLuint  primCount;
+    GLuint  firstIndex;
+    GLuint  baseVertex;
+    GLuint  baseInstance;
+} DrawElementsIndirectCommand;
 
 class RenderObject
 {
@@ -16,14 +23,20 @@ public:
     glm::mat4 position;
     glm::mat4 orientation;
     RenderObject();
+    RenderObject(const RenderObject& other);
+    RenderObject& operator=(const RenderObject&);
     virtual void handle();
     virtual void update();
     virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
-    ~RenderObject();
+    virtual ~RenderObject();
 protected:
     GLuint VBO;
+    GLsizei VBOsize;
     GLuint EBO;
     GLsizei EBOsize;
+    GLuint IBO;
+    GLsizei IBOsize;
+    DrawElementsIndirectCommand* indirectData;
 };
 
  #endif // RENDEROBJECT_HPP

@@ -12,7 +12,7 @@ class RenderObject3D : public RenderObject
 {
 public:
     RenderObject3D();
-    virtual void render(const Program* const shaders) const;
+    virtual void render(const Program* const shaders, const Camera* const cam) const;
 };
 
  #endif // RENDEROBJECT3D_HPP

@@ -10,8 +10,10 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <thread>
+#include <atomic>
 #include <GL/glew.h>
-#include <GL/glfw.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
