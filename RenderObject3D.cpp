@@ -21,14 +21,14 @@ RenderObject3D::RenderObject3D()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
 	indirectData->elementCount = 36;
 }
-RenderObject3D::RenderObject3D(vector<GLfloat> vertexData, vector<GLuint> indexData)
+RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* indexData)
 {
-    error << indexData.size() << endl;
+    error << indexData->size() << endl;
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexData.size() * sizeof(GLfloat), vertexData.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData.size() * sizeof(GLuint), indexData.data(), GL_STATIC_DRAW);
-	indirectData->elementCount = indexData.size();
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
+	indirectData->elementCount = indexData->size();
 }
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
