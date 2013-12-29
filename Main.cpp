@@ -59,15 +59,26 @@ int main()
     glfwSetTime(0);
     glfwSwapBuffers(WINDOW);
     glfwPollEvents();
-                                                                        RenderObject3D* objekt = new RenderObject3D;
-                                                                        RenderObject2D* objekt2 = new RenderObject2D;
+                                                                        vector<GLfloat> vData = {
+		-1.0f,-1.0f,-1.0f,
+		-1.0f,-1.0f, 1.0f,
+		-1.0f, 1.0f,-1.0f,
+        -1.0f, 1.0f, 1.0f,
+		 1.0f, 1.0f,-1.0f,
+		 1.0f,-1.0f, 1.0f,
+		 1.0f,-1.0f,-1.0f,
+		 1.0f, 1.0f, 1.0f,
+	};
+                                                                        vector<GLuint> iData = {0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
+                                                                        RenderObject3D* objekt = new RenderObject3D(vData, iData);
+                                                                        //RenderObject2D* objekt2 = new RenderObject2D;
 
     while(!QUIT) /**< Main loop */
     {
         /**< Rendering */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         objekt->render(shaders, mainCam);
-                                                                        objekt2->render(shaders);
+                                                                        //objekt2->render(shaders);
 
         /**< Input handling */
         QUIT = (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS);
@@ -78,19 +89,12 @@ int main()
 
         /**< Timer refresh */
         DELTA = glfwGetTime();
-        /*if (FRAMERATE > 0)
-        {
-            if(DELTA < (1.0 / FRAMERATE))
-            {
-                glfwSleep(WINDOW, (1.0 / FRAMERATE) - DELTA);
-            }
-        }*/
         glfwSetTime(0);
         glfwSwapBuffers(WINDOW);
         glfwPollEvents();
     }
     delete objekt;
-    delete objekt2;
+    //delete objekt2;
     delete shaders;
     delete mainCam;
     glfwTerminate();
