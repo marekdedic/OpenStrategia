@@ -73,8 +73,11 @@ int main()
         {
             glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         }
-        thread t(&Camera::handle, mainCam);
-        t.detach();
+        if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS))
+        {
+            thread t(&Camera::handle, mainCam);
+            t.detach();
+        }
 
         /**< Updating */
 
