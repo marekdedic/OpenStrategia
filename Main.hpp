@@ -18,7 +18,6 @@
 
 extern std::ofstream error;
 extern GLFWwindow* WINDOW;
-extern bool QUIT;
 extern Camera* mainCam;
 extern double DELTA;
 extern int FRAMERATE;
