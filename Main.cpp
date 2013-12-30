@@ -4,7 +4,6 @@ using namespace glm;
 
 std::ofstream error("ErrorLog.txt", fstream::trunc);
 GLFWwindow* WINDOW;
-bool QUIT = false;
 Camera* mainCam = new Camera(45, 4.0 / 3.0, 0.1, vec3(0, 0, -10), quat(0.9238795325112867, -0.3826834323650897, 0, 0));
 double DELTA;
 int FRAMERATE = 120;
@@ -73,7 +72,7 @@ int main()
                                                                         RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D;
 
-    while(!QUIT) /**< Main loop */
+    while(glfwWindowShouldClose(WINDOW) == GL_FALSE) /**< Main loop */
     {
         /**< Rendering */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -81,7 +80,10 @@ int main()
                                                                         //objekt2->render(shaders);
 
         /**< Input handling */
-        QUIT = (glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS);
+        if(glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        {
+            glfwSetWindowShouldClose(WINDOW, GL_TRUE);
+        }
         thread t(&Camera::handle, mainCam);
         t.detach();
 
