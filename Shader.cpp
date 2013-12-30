@@ -33,7 +33,7 @@ Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateSha
         string errorMessage;
         glGetShaderInfoLog(shaderID, infoLogLength, nullptr, &errorMessage[0]);
         error << "Error: " << errorMessage << ", when compiling shader: " << name << " of type: " << shaderType << endl;
-        QUIT = true;
+        glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         return;
     }
 }
