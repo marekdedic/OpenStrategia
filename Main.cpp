@@ -2,9 +2,9 @@
 using namespace std;
 using namespace glm;
 
-std::ofstream error("ErrorLog.txt", fstream::trunc);
+std::ofstream ERROR("ErrorLog.txt", fstream::trunc);
 GLFWwindow* WINDOW;
-Camera* mainCam = new Camera(45, 4.0 / 3.0, 0.1, vec3(0, 0, -10), quat(0.9238795325112867, -0.3826834323650897, 0, 0));
+Camera* MAINCAM = new Camera(45, 4.0 / 3.0, 0.1, vec3(0, 0, -10), quat(0.9238795325112867, -0.3826834323650897, 0, 0));
 double DELTA;
 int FRAMERATE = 120;
 float SPEED = 1.0;
@@ -19,7 +19,7 @@ int main()
     /**< GLFW, GLEW and OpenGL Initialization */
     if(glfwInit() != GL_TRUE)
     {
-        error << "Failed to Initialize GLFW." << endl;
+        ERROR << "Failed to Initialize GLFW." << endl;
         return -1;
     }
     glfwWindowHint(GLFW_SAMPLES, 4);
@@ -31,7 +31,7 @@ int main()
     glfwMakeContextCurrent(WINDOW);
     if(!WINDOW)
     {
-        error << "Failed to open GLFW window" << endl;
+        ERROR << "Failed to open GLFW window" << endl;
         glfwTerminate();
         return -1;
     }
@@ -44,9 +44,9 @@ int main()
     GLenum GLEWerror = glewInit();
     if(GLEWerror != GLEW_OK)
     {
-    error << "Failed to initialize GLEW: " << glewGetErrorString(GLEWerror) << endl;
-    glfwTerminate();
-    return -1;
+        ERROR << "Failed to initialize GLEW: " << glewGetErrorString(GLEWerror) << endl;
+        glfwTerminate();
+        return -1;
     }
 
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -83,7 +83,7 @@ int main()
     {
         /**< Rendering */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-                                                                        objekt->render(shaders, mainCam);
+                                                                        objekt->render(shaders, MAINCAM);
                                                                         //objekt2->render(shaders);
 
         /**< Input handling */
@@ -94,7 +94,7 @@ int main()
         }
         if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (XCURSOR < 2) or (YCURSOR < 2) or (XCURSOR > (WIDTH - 2)) or (YCURSOR > (HEIGHT - 2)))
         {
-            thread t(&Camera::handle, mainCam);
+            thread t(&Camera::handle, MAINCAM);
             t.detach();
         }
 
@@ -109,6 +109,6 @@ int main()
     delete objekt;
     //delete objekt2;
     delete shaders;
-    delete mainCam;
+    delete MAINCAM;
     glfwTerminate();
 }

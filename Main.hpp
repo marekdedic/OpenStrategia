@@ -16,9 +16,9 @@
 #include "RenderObject2D.hpp"
 #include "RenderObject3D.hpp"
 
-extern std::ofstream error;
+extern std::ofstream ERROR;
 extern GLFWwindow* WINDOW;
-extern Camera* mainCam;
+extern Camera* MAINCAM;
 extern double DELTA;
 extern int FRAMERATE;
 extern float SPEED;

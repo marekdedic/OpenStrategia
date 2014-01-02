@@ -25,12 +25,12 @@ RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* inde
 {
     if((vertexData->size() % 3) != 0)
     {
-        error << "Invalid vertex data passed to RenderObject3D constructor" << endl;
+        ERROR << "Invalid vertex data passed to RenderObject3D constructor" << endl;
         return;
     }
     if((indexData->size() % 3) != 0)
     {
-        error << "Invalid index data passed to RenderObject3D constructor" << endl;
+        ERROR << "Invalid index data passed to RenderObject3D constructor" << endl;
         return;
     }
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
