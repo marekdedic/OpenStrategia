@@ -9,6 +9,10 @@ double DELTA;
 int FRAMERATE = 120;
 float SPEED = 1.0;
 int PAUSE = 0;
+double XCURSOR;
+double YCURSOR;
+int WIDTH;
+int HEIGHT;
 
 int main()
 {
@@ -31,6 +35,11 @@ int main()
         glfwTerminate();
         return -1;
     }
+    glfwSwapInterval(1);
+    glfwSetInputMode(WINDOW, GLFW_STICKY_KEYS, GL_TRUE);
+    glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
+    glfwGetWindowSize(WINDOW, &WIDTH, &HEIGHT);
+
     glewExperimental = GL_TRUE;
     GLenum GLEWerror = glewInit();
     if(GLEWerror != GLEW_OK)
@@ -39,9 +48,7 @@ int main()
     glfwTerminate();
     return -1;
     }
-    glfwSwapInterval(1);
-    glfwSetInputMode(WINDOW, GLFW_STICKY_KEYS, GL_TRUE);
-    glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
+
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -69,11 +76,12 @@ int main()
                                                                         objekt2->render(shaders);
 
         /**< Input handling */
+        glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
         if(glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
             glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         }
-        if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS))
+        if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (XCURSOR < 2) or (YCURSOR < 2) or (XCURSOR > (WIDTH - 2)) or (YCURSOR > (HEIGHT - 2)))
         {
             thread t(&Camera::handle, mainCam);
             t.detach();
