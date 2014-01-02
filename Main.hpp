@@ -23,5 +23,9 @@ extern double DELTA;
 extern int FRAMERATE;
 extern float SPEED;
 extern int PAUSE;
+extern double XCURSOR;
+extern double YCURSOR;
+extern int WIDTH;
+extern int HEIGHT;
 
 #endif // MAIN_HPP
