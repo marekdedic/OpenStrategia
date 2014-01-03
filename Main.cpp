@@ -76,15 +76,17 @@ int main()
 		 1.0f, 1.0f, 1.0f,
 	};
                                                                         vector<GLuint> iData = {0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
-                                                                        RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
+                                                                        //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D;
+                                                                        RenderObject3D* objekt3 = new RenderObject3D("models/tank.obj");
 
     while(glfwWindowShouldClose(WINDOW) == GL_FALSE) /**< Main loop */
     {
         /**< Rendering */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-                                                                        objekt->render(shaders, MAINCAM);
+                                                                        //objekt->render(shaders, MAINCAM);
                                                                         //objekt2->render(shaders);
+                                                                        objekt3->render(shaders, MAINCAM);
 
         /**< Input handling */
         glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
@@ -106,8 +108,9 @@ int main()
         glfwSwapBuffers(WINDOW);
         glfwPollEvents();
     }
-    delete objekt;
+    //delete objekt;
     //delete objekt2;
+    delete objekt3;
     delete shaders;
     delete MAINCAM;
     glfwTerminate();

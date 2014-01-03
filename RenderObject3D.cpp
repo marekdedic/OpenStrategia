@@ -21,6 +21,7 @@ RenderObject3D::RenderObject3D()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
 	indirectData->elementCount = 36;
 }
+
 RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* indexData)
 {
     if((vertexData->size() % 3) != 0)
@@ -38,6 +39,61 @@ RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* inde
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
 	indirectData->elementCount = indexData->size();
+}
+
+RenderObject3D::RenderObject3D(string path)
+{
+    vector<GLuint> vertexIndices, normalIndices;
+    vector<vec3> vertices;
+    vector<vec3> normals;
+    ifstream file(path);
+    string word;
+    vec3 vertex;
+    GLuint index;
+    if(!file.is_open())
+    {
+        ERROR << "Failed to open file:" << path << endl;
+        return;
+    }
+    while(!file.eof())
+    {
+        file >> word;
+        if((word == "#") or (word == "o") or (word == "s"))
+        {
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+        if(word == "vn")
+        {
+            file >> vertex.x >> vertex.y >> vertex.z;
+            normals.push_back(vertex);
+            continue;
+        }
+        if(word == "v")
+        {
+            file >> vertex.x >> vertex.y >> vertex.z;
+            vertices.push_back(vertex);
+            continue;
+        }
+        if(word == "f")
+        {
+            for(unsigned int i = 0; i < 3; i++)
+            {
+                file >> word;
+                index = stoul(word.substr(0, word.find("//")));
+                vertexIndices.push_back(index);
+                word.erase(0, word.find("//") + 2);
+                index = stoul(word);
+                normalIndices.push_back(index);
+            }
+            continue;
+        }
+    }
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
+    indirectData->elementCount = vertexIndices.size();
 }
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
