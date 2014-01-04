@@ -60,6 +60,25 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
     return *this;
 }
 
+RenderObject::RenderObject(vector<GLfloat>* vertexData, vector<GLuint>* indexData) : RenderObject()
+{
+    if((vertexData->size() % 3) != 0)
+    {
+        ERROR << "Invalid vertex data passed to RenderObject constructor" << endl;
+        return;
+    }
+    if((indexData->size() % 3) != 0)
+    {
+        ERROR << "Invalid index data passed to RenderObject constructor" << endl;
+        return;
+    }
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
+	indirectData->elementCount = indexData->size();
+}
+
 void RenderObject::handle() {}
 void RenderObject::update() {}
 

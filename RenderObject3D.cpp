@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject3D::RenderObject3D()
+RenderObject3D::RenderObject3D()        //DEBUG ONLY
 {
     const GLfloat vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
@@ -22,26 +22,9 @@ RenderObject3D::RenderObject3D()
 	indirectData->elementCount = 36;
 }
 
-RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* indexData)
-{
-    if((vertexData->size() % 3) != 0)
-    {
-        ERROR << "Invalid vertex data passed to RenderObject3D constructor" << endl;
-        return;
-    }
-    if((indexData->size() % 3) != 0)
-    {
-        ERROR << "Invalid index data passed to RenderObject3D constructor" << endl;
-        return;
-    }
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
-	indirectData->elementCount = indexData->size();
-}
+RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
 
-RenderObject3D::RenderObject3D(string path)
+RenderObject3D::RenderObject3D(string path) : RenderObject()
 {
     vector<GLuint> vertexIndices, normalIndices;
     vector<vec3> vertices;

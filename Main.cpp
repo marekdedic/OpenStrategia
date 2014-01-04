@@ -75,9 +75,15 @@ int main()
 		 1.0f,-1.0f,-1.0f,
 		 1.0f, 1.0f, 1.0f,
 	};
+                                                                        vector<GLfloat> vData2 = {
+		-0.5f,-1.0f, 0.0f,
+		 1.0f,-1.0f, 0.0f,
+		 1.0f, 1.0f, 0.0f,
+	};
                                                                         vector<GLuint> iData = {0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
+                                                                        vector<GLuint> iData2 = {0,1,2};
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
-                                                                        //RenderObject2D* objekt2 = new RenderObject2D;
+                                                                        //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
                                                                         RenderObject3D* objekt3 = new RenderObject3D("models/tank.obj");
 
     while(glfwWindowShouldClose(WINDOW) == GL_FALSE) /**< Main loop */
