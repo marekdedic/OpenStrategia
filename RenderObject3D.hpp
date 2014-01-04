@@ -12,6 +12,8 @@ class RenderObject3D : public RenderObject
 {
 public:
     RenderObject3D();
+    RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
+    RenderObject3D(std::string path);
     virtual void render(const Program* const shaders, const Camera* const cam) const;
 };
 
