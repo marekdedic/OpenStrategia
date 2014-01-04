@@ -25,6 +25,7 @@ public:
     RenderObject();
     RenderObject(const RenderObject& other);
     RenderObject& operator=(const RenderObject&);
+    RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
     virtual void handle();
     virtual void update();
     virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;

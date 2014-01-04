@@ -12,6 +12,7 @@ class RenderObject2D : public RenderObject
 {
 public:
     RenderObject2D();
+    RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
     virtual void render(const Program* const shaders) const;
 };
 
