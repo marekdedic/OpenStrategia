@@ -92,7 +92,7 @@
 				<doxyfile_build />
 				<doxyfile_warnings warn_if_undocumented="1" />
 				<doxyfile_output />
-				<doxyfile_dot class_diagrams="1" />
+				<doxyfile_dot class_diagrams="1" have_dot="1" />
 				<general />
 			</DoxyBlocks>
 		</Extensions>
