@@ -1,0 +1,6 @@
+obj/
+Data/
+*.layout
+*.depend
+bin/*/OpenStrategia*
+bin/*/ErrorLog.txt
