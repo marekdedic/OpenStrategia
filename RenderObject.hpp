@@ -8,15 +8,6 @@
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
 
-typedef struct DrawElementsIndirectCommand_t
-{
-    GLuint  elementCount;
-    GLuint  primCount;
-    GLuint  firstIndex;
-    GLuint  baseVertex;
-    GLuint  baseInstance;
-} DrawElementsIndirectCommand;
-
 class RenderObject
 {
 public:
@@ -31,6 +22,16 @@ public:
     virtual void render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
     virtual ~RenderObject();
 protected:
+
+    typedef struct DrawElementsIndirectCommand_t
+    {
+        GLuint  elementCount;
+        GLuint  primCount;
+        GLuint  firstIndex;
+        GLuint  baseVertex;
+        GLuint  baseInstance;
+    } DrawElementsIndirectCommand;
+
     GLuint VBO;
     GLsizei VBOsize;
     GLuint EBO;
