@@ -2,8 +2,9 @@
 using namespace std;
 using namespace glm;
 
-RenderObject3D::RenderObject3D()        //DEBUG ONLY
+RenderObject3D::RenderObject3D() : NBO(0), NBOsize(0)        //DEBUG ONLY
 {
+    glGenBuffers(1, &NBO);
     const GLfloat vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
@@ -22,10 +23,14 @@ RenderObject3D::RenderObject3D()        //DEBUG ONLY
 	indirectData->elementCount = 36;
 }
 
-RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
-
-RenderObject3D::RenderObject3D(std::string name) : RenderObject()
+RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO(0), NBOsize(0)
 {
+    glGenBuffers(1, &NBO);
+}
+
+RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsize(0)
+{
+    glGenBuffers(1, &NBO);
     name = "models/" + name;
     vector<GLuint> vertexIndices, normalIndices;
     vector<vec3> vertices;
@@ -77,10 +82,16 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject()
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, NBO);
+    glBufferData(GL_ARRAY_BUFFER, normalIndices.size() * sizeof(GLuint), normalIndices.data(), GL_STATIC_DRAW);
     indirectData->elementCount = vertexIndices.size();
 }
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
 {
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     RenderObject::render(shaders, cam->view, cam->projection);
+    glDisableVertexAttribArray(1);
 }

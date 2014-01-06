@@ -84,24 +84,22 @@ void RenderObject::update() {}
 
 void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
-    glUseProgram(prg->programID);
-
-    /**< Compute ModelViewProjection matrix, get it to GLSL */
+    // Compute ModelViewProjection matrix, get it to GLSL
     mat4 MVP = *projectionMatrix * *viewMatrix * position * orientation;
     GLuint MVPLoc = glGetUniformLocation(prg->programID, "MVP");
     glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, &MVP[0][0]);
 
-    /**< Get the information about the vertices to GLSL */
+    // Get the information about the vertices to GLSL
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-    /**< Get the render information to graphics */
+    // Get the render information to graphics
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBindBuffer(GL_DRAW_INDIRECT_BUFFER, IBO);
 	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(*indirectData), indirectData, GL_STATIC_DRAW);
 
-    /**< Draw from Draw Indirect Buffer Object */
+    // Draw from Draw Indirect Buffer Object
 	glBindBuffer(GL_DRAW_INDIRECT_BUFFER,  IBO);
 	glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, nullptr);
 	glDisableVertexAttribArray(0);
