@@ -22,20 +22,21 @@ RenderObject3D::RenderObject3D()        //DEBUG ONLY
 	indirectData->elementCount = 36;
 }
 
-RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
+RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
 
-RenderObject3D::RenderObject3D(string path) : RenderObject()
+RenderObject3D::RenderObject3D(std::string name) : RenderObject()
 {
+    name = "models/" + name;
     vector<GLuint> vertexIndices, normalIndices;
     vector<vec3> vertices;
     vector<vec3> normals;
-    ifstream file(path);
+    ifstream file(name);
     string word;
     vec3 vertex;
     GLuint index;
     if(!file.is_open())
     {
-        ERROR << "Failed to open file:" << path << endl;
+        ERROR << "Failed to open file: " << name << endl;
         return;
     }
     while(!file.eof())

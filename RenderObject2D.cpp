@@ -17,12 +17,12 @@ RenderObject2D::RenderObject2D()        //DEBUG ONLY
 	indirectData->elementCount = 3;
 }
 
-RenderObject2D::RenderObject2D(vector<GLfloat>* vertexData, vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
+RenderObject2D::RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
 
-void RenderObject2D::render(const Program* const shaders) const
+void RenderObject2D::render(const Program* const prg) const
 {
     glDisable(GL_DEPTH_TEST);
     mat4 identity = mat4(1.0f);
-    RenderObject::render(shaders, &identity, &identity);
+    RenderObject::render(prg, &identity, &identity);
     glEnable(GL_DEPTH_TEST);
 }
