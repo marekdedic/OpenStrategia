@@ -60,7 +60,7 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
     return *this;
 }
 
-RenderObject::RenderObject(vector<GLfloat>* vertexData, vector<GLuint>* indexData) : RenderObject()
+RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject()
 {
     if((vertexData->size() % 3) != 0)
     {
@@ -82,13 +82,13 @@ RenderObject::RenderObject(vector<GLfloat>* vertexData, vector<GLuint>* indexDat
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
+void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
-    glUseProgram(shaders->programID);
+    glUseProgram(prg->programID);
 
     /**< Compute ModelViewProjection matrix, get it to GLSL */
     mat4 MVP = *projectionMatrix * *viewMatrix * position * orientation;
-    GLuint MVPLoc = glGetUniformLocation(shaders->programID, "MVP");
+    GLuint MVPLoc = glGetUniformLocation(prg->programID, "MVP");
     glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, &MVP[0][0]);
 
     /**< Get the information about the vertices to GLSL */

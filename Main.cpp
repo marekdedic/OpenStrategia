@@ -6,7 +6,6 @@ std::ofstream ERROR("ErrorLog.txt", fstream::trunc);
 GLFWwindow* WINDOW;
 Camera* MAINCAM = new Camera(45, 4.0 / 3.0, 0.1, vec3(0, 0, -10), quat(0.9238795325112867, -0.3826834323650897, 0, 0));
 double DELTA;
-int FRAMERATE = 120;
 float SPEED = 1.0;
 int PAUSE = 0;
 double XCURSOR;
@@ -84,7 +83,7 @@ int main()
                                                                         vector<GLuint> iData2 = {0,1,2};
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
-                                                                        RenderObject3D* objekt3 = new RenderObject3D("models/tank.obj");
+                                                                        RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
 
     while(glfwWindowShouldClose(WINDOW) == GL_FALSE) /**< Main loop */
     {
