@@ -47,11 +47,6 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
     while(!file.eof())
     {
         file >> word;
-        if((word == "#") or (word == "o") or (word == "s"))
-        {
-            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            continue;
-        }
         if(word == "vn")
         {
             file >> vertex.x >> vertex.y >> vertex.z;
@@ -77,13 +72,14 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
             }
             continue;
         }
+        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
-    glBufferData(GL_ARRAY_BUFFER, normalIndices.size() * sizeof(GLuint), normalIndices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), normals.data(), GL_STATIC_DRAW);
     indirectData->elementCount = vertexIndices.size();
 }
 

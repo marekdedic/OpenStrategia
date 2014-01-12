@@ -56,6 +56,7 @@ int main()
     Program* shaders = new Program;
     shaders->AddShader("phong.vertex.glsl", GL_VERTEX_SHADER);
     shaders->AddShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
+    if(glfwWindowShouldClose(WINDOW)) {return -1;}
     shaders->Link();
                                                                         glUseProgram(shaders->programID);
 
@@ -86,7 +87,7 @@ int main()
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
-    while(glfwWindowShouldClose(WINDOW) == GL_FALSE) /**< Main loop */
+    while(glfwWindowShouldClose(WINDOW)) /**< Main loop */
     {
         // Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
