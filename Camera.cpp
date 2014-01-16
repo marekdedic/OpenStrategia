@@ -8,19 +8,19 @@ Camera::Camera(float FOV, float aspect, float speed, vec3 position, quat orienta
 
 void Camera::handle()
 {
-    if(glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS)
+    if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (XCURSOR < 2))
     {
         *position += vec3(speed, 0, 0);
     }
-    if(glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS)
+    if((glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (XCURSOR > (WIDTH - 2)))
     {
         *position += vec3(-speed, 0, 0);
     }
-    if(glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS)
+    if((glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (YCURSOR < 2))
     {
         *position += vec3(0, -speed, 0);
     }
-    if(glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS)
+    if((glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (YCURSOR > (HEIGHT - 2)))
     {
         *position += vec3(0, speed, 0);
     }

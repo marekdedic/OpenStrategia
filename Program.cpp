@@ -23,7 +23,7 @@ void Program::Link() const
         glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
         string errorMessage;
         glGetProgramInfoLog(programID, infoLogLength, nullptr, &errorMessage[0]);
-        error << "Error: " << errorMessage << ", when linking Program: " << programID << endl;
+        ERROR << "Error: " << errorMessage << ", when linking Program: " << programID << endl;
         glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         return;
     }

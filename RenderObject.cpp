@@ -60,16 +60,35 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
     return *this;
 }
 
+RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject()
+{
+    if((vertexData->size() % 3) != 0)
+    {
+        ERROR << "Invalid vertex data passed to RenderObject constructor" << endl;
+        return;
+    }
+    if((indexData->size() % 3) != 0)
+    {
+        ERROR << "Invalid index data passed to RenderObject constructor" << endl;
+        return;
+    }
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
+	indirectData->elementCount = indexData->size();
+}
+
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const shaders, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
+void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
-    glUseProgram(shaders->programID);
+    glUseProgram(prg->programID);
 
     /**< Compute ModelViewProjection matrix, get it to GLSL */
     mat4 MVP = *projectionMatrix * *viewMatrix * position * orientation;
-    GLuint MVPLoc = glGetUniformLocation(shaders->programID, "MVP");
+    GLuint MVPLoc = glGetUniformLocation(prg->programID, "MVP");
     glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, &MVP[0][0]);
 
     /**< Get the information about the vertices to GLSL */

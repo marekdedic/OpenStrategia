@@ -4,3 +4,5 @@ Data/
 *.depend
 bin/*/OpenStrategia*
 bin/*/ErrorLog.txt
+doxygen/doxygen.log
+CppCheckResults.xml

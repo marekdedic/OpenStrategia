@@ -1,7 +1,7 @@
 /**
- * @file Libs.hpp
- * File with libraries and dependencies
- * @author GenaBitu
+ * \file Libs.hpp
+ * \brief File with libraries and dependencies
+ * \author GenaBitu
  **/
 
 #ifndef LIBS_HPP
