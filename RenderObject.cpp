@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position(mat4(1)), orientation(mat4(1)), VBO(0), VBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), VBO(0), VBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -86,14 +86,14 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 {
     // Compute ModelViewProjection matrix, get it to GLSL
     vec3 LightPosition = vec3(5, 5, 5);
-    mat4 modelMatrix = position * orientation;
+    mat4 modelMatrix = *position * *orientation;
     mat4 MVP = *projectionMatrix * *viewMatrix * modelMatrix;
     GLuint loc = glGetUniformLocation(prg->programID, "MVP");
     glUniformMatrix4fv(loc, 1, GL_FALSE, &MVP[0][0]);
     loc = glGetUniformLocation(prg->programID, "V");
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(*viewMatrix));
     loc = glGetUniformLocation(prg->programID, "M");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, &modelMatrix[0][0]);
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
     loc = glGetUniformLocation(prg->programID, "LightPosition_w");
     glUniformMatrix4fv(loc, 1, GL_FALSE, &LightPosition[0]);
 
@@ -118,5 +118,7 @@ RenderObject::~RenderObject()
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     glDeleteBuffers(1, &IBO);
+    delete position;
+    delete orientation;
     delete indirectData;
 }

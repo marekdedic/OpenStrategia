@@ -15,8 +15,8 @@
 class RenderObject
 {
 public:
-    glm::mat4 position; /**< Position of the RenderObject represented by a matrix */
-    glm::mat4 orientation; /**< Orientation of the RenderObject represented by a matrix */
+    glm::mat4* position; /**< Position of the RenderObject represented by a matrix */
+    glm::mat4* orientation; /**< Orientation of the RenderObject represented by a matrix */
     RenderObject();
     /** \brief RenderObject class copy constructor
      *
