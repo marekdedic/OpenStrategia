@@ -85,7 +85,6 @@ void RenderObject::update() {}
 void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
     // Compute ModelViewProjection matrix, get it to GLSL
-    vec3 LightPosition = vec3(5, 5, 5);
     mat4 modelMatrix = *position * *orientation;
     mat4 MVP = *projectionMatrix * *viewMatrix * modelMatrix;
     GLuint loc = glGetUniformLocation(prg->programID, "MVP");
