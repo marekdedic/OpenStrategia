@@ -90,12 +90,6 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     mat4 MVP = *projectionMatrix * *viewMatrix * modelMatrix;
     GLuint loc = glGetUniformLocation(prg->programID, "MVP");
     glUniformMatrix4fv(loc, 1, GL_FALSE, &MVP[0][0]);
-    loc = glGetUniformLocation(prg->programID, "V");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(*viewMatrix));
-    loc = glGetUniformLocation(prg->programID, "M");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
-    loc = glGetUniformLocation(prg->programID, "LightPosition_w");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, &LightPosition[0]);
 
     // Get the information about the vertices to GLSL
     glEnableVertexAttribArray(0);
