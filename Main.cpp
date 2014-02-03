@@ -87,7 +87,7 @@ int main()
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
-    while(!glfwWindowShouldClose(WINDOW)) /**< Main loop */
+    while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
