@@ -85,7 +85,7 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     RenderObject::render(shaders, cam->view, cam->projection);

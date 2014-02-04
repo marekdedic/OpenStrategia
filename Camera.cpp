@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Camera::Camera(float FOV, float aspect, float speed, vec3 position, quat orientation) : view(new mat4(translate(mat4(1.0f), position) * mat4_cast(orientation))), projection(new mat4(perspective(FOV, aspect, 0.1f, 250.0f))), position(new vec3(position)), orientation(new quat(orientation)), speed(speed)
+Camera::Camera(float FOV, float aspect, float speed, vec3 position, quat orientation) : position(new vec3(position)), view(new mat4(translate(mat4(1.0f), position) * mat4_cast(orientation))), projection(new mat4(perspective(FOV, aspect, 0.1f, 250.0f))), orientation(new quat(orientation)), speed(speed)
 {
 }
 
