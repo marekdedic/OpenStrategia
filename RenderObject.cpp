@@ -84,19 +84,23 @@ void RenderObject::update() {}
 
 void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
-    // Compute ModelViewProjection matrix, send it to GLSL
+    // Compute Model matrix, send it to GLSL
     mat4 modelMatrix = *position * *orientation;
+    GLuint loc = glGetUniformLocation(prg->programID, "modelMatrix");
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
+
+    // Compute ModelViewProjection matrix, send it to GLSL
     mat4 MVP = *projectionMatrix * *viewMatrix * modelMatrix;
-    GLuint loc = glGetUniformLocation(prg->programID, "MVP");
+    loc = glGetUniformLocation(prg->programID, "MVP");
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
 
     // Send light position to GLSL
     vec3 LightPosition = vec3(5, 5, 5);
-    loc = glGetUniformLocation(prg->programID, "lPosition_g");
+    loc = glGetUniformLocation(prg->programID, "lPosition_w");
     glUniform3fv(loc, 1, value_ptr(LightPosition));
 
     // Send camera position to GLSL
-    loc = glGetUniformLocation(prg->programID, "cPosition_g");
+    loc = glGetUniformLocation(prg->programID, "cPosition_w");
     glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
 
     // Get the information about the vertices to GLSL
