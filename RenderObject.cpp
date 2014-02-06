@@ -95,7 +95,7 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
 
     // Send light position to GLSL
-    vec3 LightPosition = vec3(5, 5, 5);
+    vec3 LightPosition = vec3(-3, 1, 5);
     loc = glGetUniformLocation(prg->programID, "lPosition_w");
     glUniform3fv(loc, 1, value_ptr(LightPosition));
 
