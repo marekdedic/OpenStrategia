@@ -4,8 +4,8 @@ layout(location = 0) in vec4 vPosition_m;
 layout(location = 1) in vec4 vNormal_m;
 
 out vec4 vNormal_w;
-out vec4 toCamera;
-out vec4 toLight;
+out vec4 vToCamera_w;
+out vec4 vToLight_w;
 
 uniform mat4 MVP;
 uniform mat4 modelMatrix;
@@ -16,8 +16,7 @@ void main()
 {
     vec4 vPosition_w = modelMatrix * vPosition_m;
     vNormal_w = modelMatrix * vNormal_m;
-    toCamera = cPosition_w - vPosition_w;
-    toLight = lPosition_w - vPosition_w;
-
+    vToCamera_w = cPosition_w - vPosition_w;
+    vToLight_w = lPosition_w - vPosition_w;
     gl_Position = MVP * vPosition_m;
 }
