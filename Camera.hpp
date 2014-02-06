@@ -15,6 +15,7 @@
 class Camera
 {
 public:
+    std::atomic<glm::vec3*> position; /**< Position of the camera represented by a matrix. */
     std::atomic<glm::mat4*> view; /**< View matrix */
     std::atomic<glm::mat4*> projection; /**< Projection matrix */
     /** \brief Camera class constructor
@@ -39,7 +40,6 @@ public:
 
     ~Camera();
 private:
-    std::atomic<glm::vec3*> position; /**< Position of the camera represented by a matrix. */
     std::atomic<glm::quat*> orientation; /**< Orientation of the camera represented by a quaternion */
     float speed; /**< Movement speed. */
 };

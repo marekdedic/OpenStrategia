@@ -8,15 +8,18 @@ Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateSha
     name = "shaders/" + name;
     string code;
     ifstream file(name);
-    if(file.is_open())
+    if(!file.is_open())
     {
-        string line;
+        ERROR << "Failed to load shader: " << name << endl;
+        glfwSetWindowShouldClose(WINDOW, GL_TRUE);
+        return;
+    }
+    string line;
         while(getline(file, line))
         {
             code += "\n" + line;
         }
         file.close();
-    }
     GLchar const *codePtr = code.c_str();
 
     /**< Handle the code to OpenGL and compile it */

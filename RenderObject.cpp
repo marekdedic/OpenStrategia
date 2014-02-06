@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position(mat4(1)), orientation(mat4(1)), VBO(0), VBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), VBO(0), VBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -84,24 +84,44 @@ void RenderObject::update() {}
 
 void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
 {
-    glUseProgram(prg->programID);
+    // Compute Model matrix, send it to GLSL
+    mat4 modelMatrix = *position * *orientation;
+    GLuint loc = glGetUniformLocation(prg->programID, "modelMatrix");
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
 
-    /**< Compute ModelViewProjection matrix, get it to GLSL */
-    mat4 MVP = *projectionMatrix * *viewMatrix * position * orientation;
-    GLuint MVPLoc = glGetUniformLocation(prg->programID, "MVP");
-    glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, &MVP[0][0]);
+    // Compute ModelViewProjection matrix, send it to GLSL
+    mat4 MVP = *projectionMatrix * *viewMatrix * modelMatrix;
+    loc = glGetUniformLocation(prg->programID, "MVP");
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
 
-    /**< Get the information about the vertices to GLSL */
-    glEnableVertexAttribArray(0);
+    // Send light position to GLSL
+    vec3 LightPosition = vec3(-3, 1, 5);
+    loc = glGetUniformLocation(prg->programID, "lPosition_w");
+    glUniform3fv(loc, 1, value_ptr(LightPosition));
+
+    // Send light falloff distances to GLSL
+    float LightFalloffMin = 1;
+    loc = glGetUniformLocation(prg->programID, "lFalloffMin");
+    glUniform1fv(loc, 1, &LightFalloffMin);
+    float LightFalloffMax = 6;
+    loc = glGetUniformLocation(prg->programID, "lFalloffMax");
+    glUniform1fv(loc, 1, &LightFalloffMax);
+
+    // Send camera position to GLSL
+    loc = glGetUniformLocation(prg->programID, "cPosition_w");
+    glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
+
+    // Get the information about the vertices to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-    /**< Get the render information to graphics */
+    // Get the render information to graphics
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBindBuffer(GL_DRAW_INDIRECT_BUFFER, IBO);
 	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(*indirectData), indirectData, GL_STATIC_DRAW);
 
-    /**< Draw from Draw Indirect Buffer Object */
+    // Draw from Draw Indirect Buffer Object
 	glBindBuffer(GL_DRAW_INDIRECT_BUFFER,  IBO);
 	glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, nullptr);
 	glDisableVertexAttribArray(0);
@@ -112,5 +132,7 @@ RenderObject::~RenderObject()
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     glDeleteBuffers(1, &IBO);
+    delete position;
+    delete orientation;
     delete indirectData;
 }

@@ -15,7 +15,7 @@ int HEIGHT;
 
 int main()
 {
-    /**< GLFW, GLEW and OpenGL Initialization */
+    // GLFW, GLEW and OpenGL Initialization
     if(glfwInit() != GL_TRUE)
     {
         ERROR << "Failed to Initialize GLFW." << endl;
@@ -52,18 +52,21 @@ int main()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-    /**< Loading shaders */
+    // Loading shaders
     Program* shaders = new Program;
-    shaders->AddShader("Vertex.glsl", GL_VERTEX_SHADER);
-    shaders->AddShader("Fragment.glsl", GL_FRAGMENT_SHADER);
+    shaders->AddShader("phong.vertex.glsl", GL_VERTEX_SHADER);
+    shaders->AddShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
+    if(glfwWindowShouldClose(WINDOW)) {return -1;}
     shaders->Link();
+                                                                        glUseProgram(shaders->programID);
 
-    /**< Setting up some important variables */
+    // Setting up some important variables
 
-    /**< Reset timer and swap buffers, so that the main loop can start immediatelly */
+    // Reset timer and swap buffers, so that the main loop can start immediatelly
     glfwSetTime(0);
     glfwSwapBuffers(WINDOW);
     glfwPollEvents();
+
                                                                         vector<GLfloat> vData = {
 		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
@@ -84,16 +87,15 @@ int main()
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
-
-    while(glfwWindowShouldClose(WINDOW) == GL_FALSE) /**< Main loop */
+    while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
-        /**< Rendering */
+        // Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         //objekt->render(shaders, MAINCAM);
                                                                         //objekt2->render(shaders);
                                                                         objekt3->render(shaders, MAINCAM);
 
-        /**< Input handling */
+        // Input handling
         glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
         if(glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
@@ -105,9 +107,9 @@ int main()
             t.detach();
         }
 
-        /**< Updating */
+        // Updating
 
-        /**< Timer refresh */
+        // Timer restart
         DELTA = glfwGetTime();
         glfwSetTime(0);
         glfwSwapBuffers(WINDOW);
