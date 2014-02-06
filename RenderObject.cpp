@@ -99,6 +99,14 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     loc = glGetUniformLocation(prg->programID, "lPosition_w");
     glUniform3fv(loc, 1, value_ptr(LightPosition));
 
+    // Send light falloff distances to GLSL
+    float LightFalloffMin = 1;
+    loc = glGetUniformLocation(prg->programID, "lFalloffMin");
+    glUniform1fv(loc, 1, &LightFalloffMin);
+    float LightFalloffMax = 6;
+    loc = glGetUniformLocation(prg->programID, "lFalloffMax");
+    glUniform1fv(loc, 1, &LightFalloffMax);
+
     // Send camera position to GLSL
     loc = glGetUniformLocation(prg->programID, "cPosition_w");
     glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
