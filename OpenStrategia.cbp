@@ -81,6 +81,8 @@
 		<Unit filename="Shader.hpp" />
 		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/basic.vertex.glsl" />
+		<Unit filename="bin/Release/shaders/blinn.fragment.glsl" />
+		<Unit filename="bin/Release/shaders/blinn.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/phong.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/phong.vertex.glsl" />
 		<Extensions>
