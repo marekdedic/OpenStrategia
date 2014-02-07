@@ -13,7 +13,7 @@ install:
  - git clone https://github.com/glfw/glfw.git
  - cd glfw
  - sudo cmake .
- - make && sudo make install
+ - sudo make && sudo make install
  - cd ..
 script: make
 notifications:
