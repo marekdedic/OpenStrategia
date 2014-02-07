@@ -15,7 +15,7 @@ INC =
 CFLAGS = -Winit-self -Wredundant-decls -Wcast-align -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Wzero-as-null-pointer-constant -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
 RESINC =
 LIBDIR =
-LIB = -lglfw -lGLEW -lGLU -lGL
+LIB = -lglfw3 -lGLEW -lGLU -lGL
 LDFLAGS =
 
 INC_DEBUG = $(INC)
