@@ -36,6 +36,9 @@ public:
      * \param cam A Camera to render the object with.
      */
     virtual void render(const Program* const prg, const Camera* const cam) const;
+protected:
+    GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals. */
+    GLsizei NBOsize; /**< Size of the GL_ARRAY_BUFFER containing normals. */
 };
 
  #endif // RENDEROBJECT3D_HPP
