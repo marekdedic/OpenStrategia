@@ -12,8 +12,9 @@ install:
  - sudo apt-get install xorg-dev
  - git clone https://github.com/glfw/glfw.git
  - cd glfw
- - cmake .
- - make && make install
+ - sudo cmake .
+ - make && sudo make install
+ - cd ..
 script: make
 notifications:
   email: false
