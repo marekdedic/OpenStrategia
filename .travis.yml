@@ -1,14 +1,20 @@
 language: cpp
 compiler: gcc
-before-install: sudo apt-get update
+before-install: 
+ - sudo apt-get update
 install:
  - sudo apt-get install libglew-dev
- - sudo apt-get install libglfw3-dev
  - sudo apt-get install libglm-dev
  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
  - sudo apt-get update -qq
  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+ - sudo apt-get install xorg-dev
+ - git clone https://github.com/glfw/glfw.git
+ - cd glfw
+ - sudo cmake .
+ - sudo make && sudo make install
+ - cd ..
 script: make
 notifications:
   email: false
