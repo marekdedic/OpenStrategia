@@ -65,7 +65,7 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
             {
                 file >> word;
                 index = stoul(word.substr(0, word.find("//")));
-                vertexIndices.push_back(index);
+                vertexIndices.push_back(index - 1);
                 word.erase(0, word.find("//") + 2);
                 index = stoul(word);
                 normalIndices.push_back(index);
