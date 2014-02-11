@@ -4,8 +4,6 @@ in vec4 vNormal_w;
 in vec4 vToCamera_w;
 in vec4 vToLight_w;
 
-out vec4 fColor;
-
 uniform float lFalloffMin;
 uniform float lFalloffMax;
 
@@ -47,5 +45,5 @@ void main()
         lFalloffMultiplier = (lFalloffMax - lDistance) / (lFalloffMax - lFalloffMin);
     }
 
-	fColor = lFalloffMultiplier * (fDiffuseColor + fSpecularColor) + fAmbientColor;
+	gl_FragColor = lFalloffMultiplier * (fDiffuseColor + fSpecularColor) + fAmbientColor;
 }
