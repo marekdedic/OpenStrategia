@@ -33,6 +33,8 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
     glGenBuffers(1, &NBO);
     name = "models/" + name;
     vector<GLuint> vertexIndices, normalIndices;
+    vector<vec3> rawVertices;
+    vector<vec3> rawNormals;
     vector<vec3> vertices;
     vector<vec3> normals;
     ifstream file(name);
@@ -50,13 +52,13 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
         if(word == "vn")
         {
             file >> vertex.x >> vertex.y >> vertex.z;
-            normals.push_back(vertex);
+            rawNormals.push_back(vertex);
             continue;
         }
         if(word == "v")
         {
             file >> vertex.x >> vertex.y >> vertex.z;
-            vertices.push_back(vertex);
+            rawVertices.push_back(vertex);
             continue;
         }
         if(word == "f")
@@ -74,6 +76,16 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
         }
         file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+
+    for(unsigned int i = 0; i < vertexIndices.size(); i++)
+    {
+        vertex = rawVertices[vertexIndices[i] - 1];
+        vertices.push_back(vertex);
+        vertex = rawNormals[normalIndices[i] - 1];
+        normals.push_back(vertex);
+        vertexIndices[i] = i;
+    }
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);

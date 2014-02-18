@@ -15,9 +15,9 @@ uniform vec4 lPosition_w;
 void main()
 {
     vec4 vPosition_w = modelMatrix * vPosition_m;
-    vNormal_w = modelMatrix * vNormal_m;
+    vNormal_w = normalize(modelMatrix * vNormal_m);
     vec4 vToCamera_w = cPosition_w - vPosition_w;
-    vToLight_w = lPosition_w - vPosition_w;
-    vHalfway_w = (vToCamera_w + vToLight_w) / length(vToCamera_w + vToLight_w);
+    vToLight_w = normalize(lPosition_w - vPosition_w);
+    vHalfway_w = normalize((vToCamera_w + vToLight_w) / length(vToCamera_w + vToLight_w));
     gl_Position = MVP * vPosition_m;
 }
