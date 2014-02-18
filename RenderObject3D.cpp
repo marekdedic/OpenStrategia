@@ -2,8 +2,9 @@
 using namespace std;
 using namespace glm;
 
-RenderObject3D::RenderObject3D()        //DEBUG ONLY
+RenderObject3D::RenderObject3D() : NBO(0), NBOsize(0)        //DEBUG ONLY
 {
+    glGenBuffers(1, &NBO);
     const GLfloat vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
@@ -22,40 +23,42 @@ RenderObject3D::RenderObject3D()        //DEBUG ONLY
 	indirectData->elementCount = 36;
 }
 
-RenderObject3D::RenderObject3D(vector<GLfloat>* vertexData, vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
-
-RenderObject3D::RenderObject3D(string path) : RenderObject()
+RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO(0), NBOsize(0)
 {
+    glGenBuffers(1, &NBO);
+}
+
+RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsize(0)
+{
+    glGenBuffers(1, &NBO);
+    name = "models/" + name;
     vector<GLuint> vertexIndices, normalIndices;
+    vector<vec3> rawVertices;
+    vector<vec3> rawNormals;
     vector<vec3> vertices;
     vector<vec3> normals;
-    ifstream file(path);
+    ifstream file(name);
     string word;
     vec3 vertex;
     GLuint index;
     if(!file.is_open())
     {
-        ERROR << "Failed to open file:" << path << endl;
+        ERROR << "Failed to open file: " << name << endl;
         return;
     }
     while(!file.eof())
     {
         file >> word;
-        if((word == "#") or (word == "o") or (word == "s"))
-        {
-            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            continue;
-        }
         if(word == "vn")
         {
             file >> vertex.x >> vertex.y >> vertex.z;
-            normals.push_back(vertex);
+            rawNormals.push_back(vertex);
             continue;
         }
         if(word == "v")
         {
             file >> vertex.x >> vertex.y >> vertex.z;
-            vertices.push_back(vertex);
+            rawVertices.push_back(vertex);
             continue;
         }
         if(word == "f")
@@ -71,15 +74,32 @@ RenderObject3D::RenderObject3D(string path) : RenderObject()
             }
             continue;
         }
+        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
+
+    for(unsigned int i = 0; i < vertexIndices.size(); i++)
+    {
+        vertex = rawVertices[vertexIndices[i] - 1];
+        vertices.push_back(vertex);
+        vertex = rawNormals[normalIndices[i] - 1];
+        normals.push_back(vertex);
+        vertexIndices[i] = i;
+    }
+
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, NBO);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), normals.data(), GL_STATIC_DRAW);
     indirectData->elementCount = vertexIndices.size();
 }
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
 {
+    glBindBuffer(GL_ARRAY_BUFFER, NBO);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     RenderObject::render(shaders, cam->view, cam->projection);
+    glDisableVertexAttribArray(1);
 }

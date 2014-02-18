@@ -79,8 +79,12 @@
 		<Unit filename="RenderObject3D.hpp" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.hpp" />
-		<Unit filename="bin/Release/shaders/Fragment.glsl" />
-		<Unit filename="bin/Release/shaders/Vertex.glsl" />
+		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
+		<Unit filename="bin/Release/shaders/basic.vertex.glsl" />
+		<Unit filename="bin/Release/shaders/blinn.fragment.glsl" />
+		<Unit filename="bin/Release/shaders/blinn.vertex.glsl" />
+		<Unit filename="bin/Release/shaders/phong.fragment.glsl" />
+		<Unit filename="bin/Release/shaders/phong.vertex.glsl" />
 		<Extensions>
 			<code_completion />
 			<envvars />
