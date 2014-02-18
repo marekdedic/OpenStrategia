@@ -84,7 +84,6 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
         vertex = rawNormals[normalIndices[i] - 1];
         normals.push_back(vertex);
         vertexIndices[i] = i;
-        ERROR << vertex.x << " X " << vertex.y << " X " << vertex.z << endl;
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
