@@ -25,7 +25,15 @@ public:
      * \param shaderType Type of the shader passed to glCreateShader() - see OpenGL documentation
      */
     void AddShader(const std::string name, const GLenum shaderType);
+    /** \brief Links shader program
+     *
+     * After changing anything to the shader program, Link() must be called again.
+     */
     void Link() const;
+    /** \brief Program class destructor
+     *
+     * Deletes all dynamically allocated variables.
+     */
     ~Program();
 private:
     std::vector<Shader*> shaders; /**< Vector with pointers to all shaders in the shader program. */

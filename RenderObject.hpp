@@ -17,6 +17,10 @@ class RenderObject
 public:
     glm::mat4* position; /**< Position of the RenderObject represented by a matrix */
     glm::mat4* orientation; /**< Orientation of the RenderObject represented by a matrix */
+    /** \brief RenderObject class default constructor
+     *
+     * Initializes all buffers and dynamic variables.
+     */
     RenderObject();
     /** \brief RenderObject class copy constructor
      *
@@ -47,7 +51,6 @@ public:
      *
      * Must be called on every iteration of the main loop if the RenderObject is to do somethink.
      */
-
     virtual void update();
     /** \brief Renders the object
      *
@@ -57,6 +60,10 @@ public:
      * \param projectionMatrix A projection matrix to use
      */
     virtual void render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
+    /** \brief RenderObject class destructor
+     *
+     * Deletes all dynamically allocated variables.
+     */
     virtual ~RenderObject();
 protected:
     /**

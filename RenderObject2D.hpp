@@ -15,6 +15,10 @@
 class RenderObject2D : public RenderObject
 {
 public:
+    /** \brief RenderObject2D class default constructor
+     *
+     * Initializes all buffers and dynamic variables, draws a funky triangle across half the screen.
+     */
     RenderObject2D();
     /** \brief RenderObject2D constructor
      *

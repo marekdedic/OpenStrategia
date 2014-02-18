@@ -15,6 +15,10 @@
 class RenderObject3D : public RenderObject
 {
 public:
+    /** \brief RenderObject3D class default constructor
+     *
+     * Initializes all buffers and dynamic variables, draws a funky cube.
+     */
     RenderObject3D();
     /** \brief RenderObject3D constructor
      *

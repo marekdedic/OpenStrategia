@@ -21,6 +21,10 @@ public:
      * \param shaderType Type of the shader passed to glCreateShader() - see OpenGL documentation
      */
     Shader(std::string name, const GLenum shaderType);
+    /** \brief Shader class destructor
+     *
+     * Deletes shader.
+     */
     ~Shader();
 };
 

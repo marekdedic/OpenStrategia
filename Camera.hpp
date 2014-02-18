@@ -37,7 +37,6 @@ public:
      *
      * Deletes all dynamically allocated variables.
      */
-
     ~Camera();
 private:
     std::atomic<glm::quat*> orientation; /**< Orientation of the camera represented by a quaternion */
