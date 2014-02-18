@@ -9,8 +9,8 @@ uniform float lFalloffMax;
 
 void main()
 {
-    float phongExp = 5;
-    vec4 lDiffuseColor = vec4(0.6, 0.6, 0.6, 1);
+    float phongExp = 1;
+    vec4 lDiffuseColor = vec4(0.3, 0.3, 0.3, 1);
     vec4 lSpecularColor = lDiffuseColor;
     vec4 mDiffuseColor = vec4(0.3, 0.5, 0.5, 1);
     vec4 mSpecularColor = mDiffuseColor;
@@ -18,7 +18,7 @@ void main()
     vec4 gAmbientColor = vec4 (0.2, 0.2, 0.2, 1);
 
     // Diffuse component
-    float cosDiff = clamp(dot(vNormal_w, vToLight_w), 0, 1);
+    float cosDiff = clamp(dot(vNormal_w, -vToLight_w), 0, 1);
     vec4 fDiffuseColor = cosDiff * mDiffuseColor * lDiffuseColor;
 
     // Specular component
