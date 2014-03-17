@@ -126,6 +126,11 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
+    // Get the information about the UVs to GLSL
+    glBindBuffer(GL_ARRAY_BUFFER, UVBO);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+
     // Get the render information to graphics
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBindBuffer(GL_DRAW_INDIRECT_BUFFER, IBO);

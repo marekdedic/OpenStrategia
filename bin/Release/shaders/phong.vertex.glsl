@@ -1,7 +1,7 @@
 #version 400 core
 
 layout(location = 0) in vec4 vPosition_m;
-layout(location = 1) in vec4 vNormal_m;
+layout(location = 2) in vec4 vNormal_m;
 
 out vec4 vNormal_w;
 out vec4 vToCamera_w;
