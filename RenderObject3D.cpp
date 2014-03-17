@@ -32,10 +32,12 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
 {
     glGenBuffers(1, &NBO);
     name = "models/" + name;
-    vector<GLuint> vertexIndices, normalIndices;
+    vector<GLuint> vertexIndices, UVIndices, normalIndices;
     vector<vec3> rawVertices;
+    vector<vec2> rawUVs;
     vector<vec3> rawNormals;
     vector<vec3> vertices;
+    vector<vec2> UVs;
     vector<vec3> normals;
     ifstream file(name);
     string word;
@@ -49,6 +51,12 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
     while(!file.eof())
     {
         file >> word;
+        if(word == "vt")
+        {
+            file >> vertex.x >> vertex.y;
+            rawUVs.push_back(vec2(vertex.x, vertex.y));
+            continue;
+        }
         if(word == "vn")
         {
             file >> vertex.x >> vertex.y >> vertex.z;
@@ -66,9 +74,12 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
             for(unsigned int i = 0; i < 3; i++)
             {
                 file >> word;
-                index = stoul(word.substr(0, word.find("//")));
+                index = stoul(word.substr(0, word.find("/")));
                 vertexIndices.push_back(index);
-                word.erase(0, word.find("//") + 2);
+                word.erase(0, word.find("/") + 1);
+                index = stoul(word.substr(0, word.find("/")));
+                UVIndices.push_back(index);
+                word.erase(0, word.find("/") + 1);
                 index = stoul(word);
                 normalIndices.push_back(index);
             }

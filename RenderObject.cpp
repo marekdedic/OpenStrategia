@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), VBO(0), VBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), VBO(0), VBOsize(0), UVBO(0), UVBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -13,12 +13,16 @@ RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), 
     indirectData->baseInstance = 0;
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position(other.position), orientation(other.orientation), VBO(0), VBOsize(other.VBOsize), EBO(0), EBOsize(other.EBOsize), IBO(0), IBOsize(other.IBOsize), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject(const RenderObject& other) : position(other.position), orientation(other.orientation), VBO(0), VBOsize(other.VBOsize), UVBO(0), UVBOsize(other.UVBOsize), EBO(0), EBOsize(other.EBOsize), IBO(0), IBOsize(other.IBOsize), indirectData(new DrawElementsIndirectCommand)
 {
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_COPY_READ_BUFFER, VBO);
     glBindBuffer(GL_COPY_WRITE_BUFFER, other.VBO);
     glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, VBOsize);
+    glGenBuffers(1, &UVBO);
+    glBindBuffer(GL_COPY_READ_BUFFER, UVBO);
+    glBindBuffer(GL_COPY_WRITE_BUFFER, other.UVBO);
+    glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, UVBOsize);
     glGenBuffers(1, &EBO);
     glBindBuffer(GL_COPY_READ_BUFFER, EBO);
     glBindBuffer(GL_COPY_WRITE_BUFFER, other.EBO);
@@ -38,6 +42,8 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
         orientation = other.orientation;
         VBO = 0;
         VBOsize = other.VBOsize;
+        UVBO = 0;
+        UVBOsize = other.VBOsize;
         EBO = 0;
         EBOsize = other.EBOsize;
         IBO = 0;
@@ -46,6 +52,10 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
         glBindBuffer(GL_COPY_READ_BUFFER, VBO);
         glBindBuffer(GL_COPY_WRITE_BUFFER, other.VBO);
         glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, VBOsize);
+        glGenBuffers(1, &UVBO);
+        glBindBuffer(GL_COPY_READ_BUFFER, UVBO);
+        glBindBuffer(GL_COPY_WRITE_BUFFER, other.UVBO);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, UVBOsize);
         glGenBuffers(1, &EBO);
         glBindBuffer(GL_COPY_READ_BUFFER, EBO);
         glBindBuffer(GL_COPY_WRITE_BUFFER, other.EBO);

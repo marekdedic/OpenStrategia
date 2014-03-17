@@ -78,8 +78,10 @@ protected:
         GLuint  baseInstance;/**< Instance starting offset. Leave 0 unless you know what you are doing. */
     } DrawElementsIndirectCommand;
 
-    GLuint VBO; /**< Index of the GL_ARRAY_BUFFER. */
-    GLsizei VBOsize; /**< Size of the GL_ARRAY_BUFFER. */
+    GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
+    GLsizei VBOsize; /**< Size of the vertex GL_ARRAY_BUFFER. */
+    GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
+    GLsizei UVBOsize; /**< Size of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
     GLsizei EBOsize; /**< Size of the GL_ELEMENT_ARRAY_BUFFER. */
     GLuint IBO; /**< Index of the GL_DRAW_INDIRECT_BUFFER. */
