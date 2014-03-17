@@ -1,5 +1,4 @@
 obj/
-Data/
 *.layout
 *.depend
 bin/*/OpenStrategia*
