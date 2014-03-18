@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE =
 OUT_RELEASE = bin/Release/OpenStrategia
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Camera.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Texture.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Camera.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Texture.o
 
 all: debug release
 
@@ -80,6 +80,9 @@ $(OBJDIR_DEBUG)/Shader.o: Shader.cpp
 $(OBJDIR_DEBUG)/Camera.o: Camera.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Camera.cpp -o $(OBJDIR_DEBUG)/Camera.o
 
+$(OBJDIR_DEBUG)/Texture.o: Texture.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Texture.cpp -o $(OBJDIR_DEBUG)/Texture.o
+
 clean_debug:
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
 	rm -rf bin/Debug
@@ -116,6 +119,9 @@ $(OBJDIR_RELEASE)/Shader.o: Shader.cpp
 
 $(OBJDIR_RELEASE)/Camera.o: Camera.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Camera.cpp -o $(OBJDIR_RELEASE)/Camera.o
+
+$(OBJDIR_RELEASE)/Texture.o: Texture.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Texture.cpp -o $(OBJDIR_RELEASE)/Texture.o
 
 clean_release:
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)

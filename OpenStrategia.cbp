@@ -79,6 +79,8 @@
 		<Unit filename="RenderObject3D.hpp" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.hpp" />
+		<Unit filename="Texture.cpp" />
+		<Unit filename="Texture.hpp" />
 		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/basic.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/blinn.fragment.glsl" />
