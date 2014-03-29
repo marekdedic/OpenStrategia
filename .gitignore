@@ -6,3 +6,4 @@ bin/*/OpenStrategia*
 bin/*/ErrorLog.txt
 doxygen/doxygen.log
 CppCheckResults.xml
+bin/Debug/valgrind-output.txt
