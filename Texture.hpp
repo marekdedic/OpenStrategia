@@ -15,11 +15,12 @@
 class Texture
 {
 public:
-    const GLuint TextureID; /**< ID of the texture. */
+    GLuint textureID; /**< ID of the texture. */
     /** \brief Loads a texture
      * \param name Filename with extension, relative to the textures subdir.
      */
     Texture(std::string name);
+    ~Texture();
 };
 
  #endif // TEXTURE_HPP
