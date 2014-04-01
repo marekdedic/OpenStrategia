@@ -50,7 +50,7 @@ Texture::Texture(std::string name) : textureID(0)
         default:
             ERROR << "Not a DXT texture: " << name << endl;
             glfwSetWindowShouldClose(WINDOW, GL_TRUE);
-            delete buffer;
+            delete[] buffer;
             return;
     }
     GLuint blockSize = (format == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT) ? 8 : 16;
@@ -65,7 +65,7 @@ Texture::Texture(std::string name) : textureID(0)
         if(width < 1) {width = 1;}
         if(height < 1) {height = 1;}
     }
-    delete buffer;
+    delete[] buffer;
 }
 
 Texture::~Texture()

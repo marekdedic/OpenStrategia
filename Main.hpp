@@ -11,7 +11,6 @@
 
 #include "Libs.hpp"
 
-#include "Shader.hpp"
 #include "Program.hpp"
 #include "Camera.hpp"
 #include "RenderObject.hpp"
