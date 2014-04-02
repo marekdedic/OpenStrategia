@@ -54,8 +54,8 @@ int main()
 
     // Loading shaders
     Program* shaders = new Program;
-    shaders->AddShader("blinn.vertex.glsl", GL_VERTEX_SHADER);
-    shaders->AddShader("blinn.fragment.glsl", GL_FRAGMENT_SHADER);
+    shaders->AddShader("phong.vertex.glsl", GL_VERTEX_SHADER);
+    shaders->AddShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
     if(glfwWindowShouldClose(WINDOW)) {return -1;}
     shaders->Link();
                                                                         glUseProgram(shaders->programID);

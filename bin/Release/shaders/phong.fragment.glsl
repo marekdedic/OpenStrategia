@@ -3,6 +3,7 @@
 in vec4 vNormal_w;
 in vec4 vToCamera_w;
 in vec4 vToLight_w;
+in vec2 fUV;
 
 uniform float lFalloffMin;
 uniform float lFalloffMax;
