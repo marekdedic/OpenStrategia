@@ -121,6 +121,10 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     loc = glGetUniformLocation(prg->programID, "cPosition_w");
     glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
 
+    // Use texture unit 0
+    loc = glGetUniformLocation(prg->programID, "oSampler");
+    glUniform1i(loc, 0);
+
     // Get the information about the vertices to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glEnableVertexAttribArray(0);
