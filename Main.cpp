@@ -15,23 +15,18 @@ int HEIGHT;
 
 int main()
 {
-    ERROR << "a" << endl;
     // GLFW, GLEW and OpenGL Initialization
     if(glfwInit() != GL_TRUE)
     {
         ERROR << "Failed to Initialize GLFW." << endl;
         return -1;
     }
-    ERROR << "x" << endl;
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    ERROR << "ggg" << endl;
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    ERROR << "bž" << endl;
     WINDOW = glfwCreateWindow(1400, 1050, "OpenStrategia", monitor, nullptr);
-    ERROR << "gh" << endl;
     glfwMakeContextCurrent(WINDOW);
     if(!WINDOW)
     {
@@ -39,7 +34,6 @@ int main()
         glfwTerminate();
         return -1;
     }
-    ERROR << "z" << endl;
     glfwSwapInterval(1);
     glfwSetInputMode(WINDOW, GLFW_STICKY_KEYS, GL_TRUE);
     glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
@@ -92,11 +86,8 @@ int main()
                                                                         vector<GLuint> iData2 = {0,1,2};
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
-                                                                        ERROR << "b" << endl;
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
-                                                                        ERROR << "c" << endl;
                                                                         Texture* tex1 = new Texture("tank-tex.DDS");
-                                                                        ERROR << "d" << endl;
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
