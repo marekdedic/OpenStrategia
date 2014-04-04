@@ -4,6 +4,7 @@ using namespace glm;
 
 RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), VBO(0), VBOsize(0), UVBO(0), UVBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
 {
+    texture = new Texture("tank-tex.DDS");
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
     glGenBuffers(1, &IBO);
@@ -121,21 +122,25 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     loc = glGetUniformLocation(prg->programID, "cPosition_w");
     glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
 
+    // Send the texture to Graphics card
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture->textureID);
+
     // Use texture unit 0
     loc = glGetUniformLocation(prg->programID, "oSampler");
     glUniform1i(loc, 0);
 
-    // Get the information about the vertices to GLSL
+    // Send the vertices to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-    // Get the information about the UVs to GLSL
+    // Send the UVs to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, UVBO);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-    // Get the render information to graphics
+    // Send the render information to graphics
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBindBuffer(GL_DRAW_INDIRECT_BUFFER, IBO);
 	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(*indirectData), indirectData, GL_STATIC_DRAW);

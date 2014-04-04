@@ -7,6 +7,7 @@
 #ifndef RENDEROBJECT_HPP
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
+#include "Texture.hpp"
 
 /** \brief RenderObject class
  *
@@ -78,6 +79,7 @@ protected:
         GLuint  baseInstance;/**< Instance starting offset. Leave 0 unless you know what you are doing. */
     } DrawElementsIndirectCommand;
 
+    Texture* texture; /**< Surface texture of the object. */
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
     GLsizei VBOsize; /**< Size of the vertex GL_ARRAY_BUFFER. */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */

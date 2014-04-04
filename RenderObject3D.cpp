@@ -28,10 +28,10 @@ RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLu
     glGenBuffers(1, &NBO);
 }
 
-RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsize(0)
+RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO(0), NBOsize(0)
 {
     glGenBuffers(1, &NBO);
-    name = "models/" + name;
+    ObjectName = "models/" + ObjectName;
     vector<GLuint> vertexIndices, UVIndices, normalIndices;
     vector<vec3> rawVertices;
     vector<vec2> rawUVs;
@@ -39,14 +39,14 @@ RenderObject3D::RenderObject3D(std::string name) : RenderObject(), NBO(0), NBOsi
     vector<vec3> vertices;
     vector<vec2> UVs;
     vector<vec3> normals;
-    ifstream file(name);
+    ifstream file(ObjectName);
     string word;
     vec3 vertex;
     vec2 coord;
     GLuint index;
     if(!file.is_open())
     {
-        ERROR << "Failed to open file: " << name << endl;
+        ERROR << "Failed to open file: " << ObjectName << endl;
         return;
     }
     while(!file.eof())

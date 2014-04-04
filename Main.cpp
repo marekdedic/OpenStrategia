@@ -15,6 +15,7 @@ int HEIGHT;
 
 int main()
 {
+    ERROR << "a" << endl;
     // GLFW, GLEW and OpenGL Initialization
     if(glfwInit() != GL_TRUE)
     {
@@ -86,8 +87,11 @@ int main()
                                                                         vector<GLuint> iData2 = {0,1,2};
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
+                                                                        ERROR << "b" << endl;
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
+                                                                        ERROR << "c" << endl;
                                                                         Texture* tex1 = new Texture("tank-tex.DDS");
+                                                                        ERROR << "d" << endl;
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering

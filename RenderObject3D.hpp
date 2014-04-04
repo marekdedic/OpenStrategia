@@ -32,7 +32,7 @@ public:
      * Creates an object from a .OBJ file.
      * \param name Filename with extension, relative to the models subdir.
      */
-    RenderObject3D(std::string name);
+    RenderObject3D(std::string objectName);
     /** \brief Renders the 3D object
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
