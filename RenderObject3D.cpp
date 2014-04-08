@@ -116,8 +116,6 @@ void RenderObject3D::render(const Program* const shaders, const Camera* const ca
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    ERROR << "b" << endl;
     RenderObject::render(shaders, cam->view, cam->projection);
-    ERROR << "e" << endl;
     glDisableVertexAttribArray(2);
 }
