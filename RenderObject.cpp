@@ -155,6 +155,7 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 RenderObject::~RenderObject()
 {
     glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &UVBO);
     glDeleteBuffers(1, &EBO);
     glDeleteBuffers(1, &IBO);
     delete position;
