@@ -4,8 +4,9 @@ using namespace glm;
 
 RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), VBO(0), VBOsize(0), UVBO(0), UVBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
 {
-    texture = new Texture("tank-tex.DDS");
+    texture = new Texture("tank-tex.bmp");
     glGenBuffers(1, &VBO);
+    glGenBuffers(1, &UVBO);
     glGenBuffers(1, &EBO);
     glGenBuffers(1, &IBO);
     indirectData->primCount = 1;
@@ -146,9 +147,9 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(*indirectData), indirectData, GL_STATIC_DRAW);
 
     // Draw from Draw Indirect Buffer Object
-	ERROR << "b" << endl;
+	ERROR << "begin" << endl;
 	glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, nullptr);
-	ERROR << "e" << endl;
+	ERROR << "end" << endl;
 	glDisableVertexAttribArray(0);
 }
 

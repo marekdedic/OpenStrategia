@@ -87,7 +87,7 @@ int main()
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
-                                                                        Texture* tex1 = new Texture("tank-tex.DDS");
+                                                                        //Texture* tex1 = new Texture("tank-tex.bmp");
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
