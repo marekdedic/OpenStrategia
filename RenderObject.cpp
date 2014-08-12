@@ -139,7 +139,7 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     // Send the UVs to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, UVBO);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     // Send the render information to graphics
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -147,10 +147,12 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(*indirectData), indirectData, GL_STATIC_DRAW);
 
     // Draw from Draw Indirect Buffer Object
+    glBindBuffer(GL_DRAW_INDIRECT_BUFFER,  IBO);
 	ERROR << "begin" << endl;
 	glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, nullptr);
 	ERROR << "end" << endl;
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 }
 
 RenderObject::~RenderObject()
