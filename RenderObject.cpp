@@ -148,9 +148,7 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 
     // Draw from Draw Indirect Buffer Object
     glBindBuffer(GL_DRAW_INDIRECT_BUFFER,  IBO);
-	ERROR << "begin" << endl;
 	glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, nullptr);
-	ERROR << "end" << endl;
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 }

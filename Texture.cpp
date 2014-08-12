@@ -55,7 +55,6 @@ Texture::Texture(std::string name) : textureID(0)
         fclose (file);
 
         // Create one OpenGL texture
-        GLuint textureID;
         glGenTextures(1, &textureID);
 
         // "Bind" the newly created texture : all future texture functions will modify this texture
