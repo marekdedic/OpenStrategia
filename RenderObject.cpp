@@ -2,9 +2,8 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), VBO(0), VBOsize(0), UVBO(0), UVBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture("tank-tex.bmp")), VBO(0), VBOsize(0), UVBO(0), UVBOsize(0), EBO(0), EBOsize(0), IBO(0), IBOsize(0), indirectData(new DrawElementsIndirectCommand)
 {
-    texture = new Texture("tank-tex.bmp");
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &UVBO);
     glGenBuffers(1, &EBO);
