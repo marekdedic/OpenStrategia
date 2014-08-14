@@ -12,10 +12,15 @@ RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), 
     indirectData->firstIndex = 0;
     indirectData->baseVertex = 0;
     indirectData->baseInstance = 0;
+    IBOsize = sizeof(*indirectData);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position(other.position), orientation(other.orientation), VBO(0), VBOsize(other.VBOsize), UVBO(0), UVBOsize(other.UVBOsize), EBO(0), EBOsize(other.EBOsize), IBO(0), IBOsize(other.IBOsize), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture("tank-tex.bmp")), VBO(0), VBOsize(other.VBOsize), UVBO(0), UVBOsize(other.UVBOsize), EBO(0), EBOsize(other.EBOsize), IBO(0), IBOsize(other.IBOsize), indirectData(new DrawElementsIndirectCommand)
 {
+    *position = *other.position;
+    *orientation = *other.orientation;
+    *texture = *other.texture;
+    ERROR << "called2" << endl;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_COPY_READ_BUFFER, VBO);
     glBindBuffer(GL_COPY_WRITE_BUFFER, other.VBO);
@@ -39,8 +44,9 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
 {
     if(this != &other)
     {
-        position = other.position;
-        orientation = other.orientation;
+        position = new glm::mat4(*other.position);
+        orientation = new glm::mat4(*other.orientation);
+        texture = new Texture(*other.texture);
         VBO = 0;
         VBOsize = other.VBOsize;
         UVBO = 0;
@@ -66,7 +72,7 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
         glBindBuffer(GL_COPY_WRITE_BUFFER, other.IBO);
         glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, IBOsize);
         indirectData = new DrawElementsIndirectCommand;
-        *indirectData = *(other.indirectData);
+        *indirectData = *other.indirectData;
     }
     return *this;
 }
@@ -83,10 +89,12 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
         ERROR << "Invalid index data passed to RenderObject constructor" << endl;
         return;
     }
+    VBOsize = vertexData->size() * sizeof(GLfloat);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, VBOsize, vertexData->data(), GL_STATIC_DRAW);
+	EBOsize = indexData->size() * sizeof(GLuint);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOsize, indexData->data(), GL_STATIC_DRAW);
 	indirectData->elementCount = indexData->size();
 }
 
@@ -154,11 +162,12 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 
 RenderObject::~RenderObject()
 {
+    delete position;
+    delete orientation;
+    delete indirectData;
+    delete texture;
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &UVBO);
     glDeleteBuffers(1, &EBO);
     glDeleteBuffers(1, &IBO);
-    delete position;
-    delete orientation;
-    delete indirectData;
 }

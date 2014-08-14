@@ -26,6 +26,19 @@ public:
      * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
      * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
      */
+    /** \brief RenderObject3D class copy constructor
+     *
+     * Copies all the variables and all the buffers.
+     * \param other Address of the RenderObject3D to copy.
+     */
+    RenderObject3D(const RenderObject3D& other);
+    /** \brief RenderObject3D class assignment operator
+     *
+     * Copies all the variables and all the buffers.
+     * \param other Address of the RenderObject3D to copy.
+     * \return Address of the new RenderObject3D.
+     */
+    RenderObject3D& operator=(const RenderObject3D& other);
     RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
     /** \brief RenderObject3D constructor
      *
@@ -40,6 +53,7 @@ public:
      * \param cam A Camera to render the object with.
      */
     virtual void render(const Program* const prg, const Camera* const cam) const;
+    ~RenderObject3D();
 protected:
     GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals. */
     GLsizei NBOsize; /**< Size of the GL_ARRAY_BUFFER containing normals. */

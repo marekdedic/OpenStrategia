@@ -71,6 +71,26 @@ Texture::Texture(std::string name) : textureID(0)
     file.close();
 }
 
+Texture::Texture(const Texture& other) : textureID(0)
+{
+    GLuint framebufferID;
+    glGenTextures(1, &textureID);
+    glGenFramebuffers(1, &framebufferID);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
+}
+
+Texture& Texture::operator=(const Texture& other)
+{
+    if(this != &other)
+    {
+        textureID = 0;
+
+
+
+    }
+    return *this;
+}
+
 Texture::~Texture()
 {
     glDeleteTextures(1, &textureID);

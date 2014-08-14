@@ -63,7 +63,7 @@ public:
     virtual void render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
     /** \brief RenderObject class destructor
      *
-     * Deletes all dynamically allocated variables.
+     * Deletes all dynamically allocated variables and all buffer objects.
      */
     virtual ~RenderObject();
 protected:

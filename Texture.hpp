@@ -20,6 +20,23 @@ public:
      * \param name Filename with extension, relative to the textures subdir.
      */
     Texture(std::string name);
+    /** \brief Texture class copy constructor
+     *
+     * Copies the texture.
+     * \param other Address of the Texture to copy.
+     */
+    Texture(const Texture& other);
+    /** \brief Texture class assignment operator
+     *
+     * Copies the texture.
+     * \param other Address of the Texture to copy.
+     * \return Address of the new Texture.
+     */
+    Texture& operator=(const Texture& other);
+    /** \brief Texture class destructor
+     *
+     * Deletes the texture.
+     */
     ~Texture();
 };
 

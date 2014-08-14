@@ -16,12 +16,60 @@ RenderObject3D::RenderObject3D() : NBO(0), NBOsize(0)        //DEBUG ONLY
 		 1.0f, 1.0f, 1.0f,
 	};
 	const GLuint element_buffer_data[] = {0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
+	VBOsize = sizeof(vertex_buffer_data);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, VBOsize, vertex_buffer_data, GL_STATIC_DRAW);
+	EBOsize = sizeof(element_buffer_data);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOsize, element_buffer_data, GL_STATIC_DRAW);
 	indirectData->elementCount = 36;
 }
+
+RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other), NBO(0), NBOsize(other.NBOsize)
+{
+    ERROR << "called" << endl;
+    glGenBuffers(1, &NBO);
+    glBindBuffer(GL_COPY_READ_BUFFER, NBO);
+    glBindBuffer(GL_COPY_WRITE_BUFFER, other.NBO);
+    glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, NBOsize);
+}
+
+/*RenderObject& RenderObject::operator=(const RenderObject& other)
+{
+    if(this != &other)
+    {
+        position = other.position;
+        orientation = other.orientation;
+        texture = other.texture;
+        VBO = 0;
+        VBOsize = other.VBOsize;
+        UVBO = 0;
+        UVBOsize = other.UVBOsize;
+        EBO = 0;
+        EBOsize = other.EBOsize;
+        IBO = 0;
+        IBOsize = other.IBOsize;
+        glGenBuffers(1, &VBO);
+        glBindBuffer(GL_COPY_READ_BUFFER, VBO);
+        glBindBuffer(GL_COPY_WRITE_BUFFER, other.VBO);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, VBOsize);
+        glGenBuffers(1, &UVBO);
+        glBindBuffer(GL_COPY_READ_BUFFER, UVBO);
+        glBindBuffer(GL_COPY_WRITE_BUFFER, other.UVBO);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, UVBOsize);
+        glGenBuffers(1, &EBO);
+        glBindBuffer(GL_COPY_READ_BUFFER, EBO);
+        glBindBuffer(GL_COPY_WRITE_BUFFER, other.EBO);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, EBOsize);
+        glGenBuffers(1, &IBO);
+        glBindBuffer(GL_COPY_READ_BUFFER, IBO);
+        glBindBuffer(GL_COPY_WRITE_BUFFER, other.IBO);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, IBOsize);
+        indirectData = new DrawElementsIndirectCommand;
+        *indirectData = *(other.indirectData);
+    }
+    return *this;
+}*/
 
 RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO(0), NBOsize(0)
 {
@@ -99,15 +147,18 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO(0),
         normals.push_back(vertex);
         vertexIndices[i] = i;
     }
-
+    VBOsize = vertices.size() * sizeof(vec3);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, VBOsize, vertices.data(), GL_STATIC_DRAW);
+    UVBOsize = UVs.size() * sizeof(vec2);
     glBindBuffer(GL_ARRAY_BUFFER, UVBO);
-    glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(vec2), UVs.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, UVBOsize, UVs.data(), GL_STATIC_DRAW);
+    EBOsize = vertexIndices.size() * sizeof(GLuint);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOsize, vertexIndices.data(), GL_STATIC_DRAW);
+    NBOsize = normals.size() * sizeof(vec3);
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
-    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), normals.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, NBOsize, normals.data(), GL_STATIC_DRAW);
     indirectData->elementCount = vertexIndices.size();
 }
 
@@ -118,4 +169,9 @@ void RenderObject3D::render(const Program* const shaders, const Camera* const ca
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     RenderObject::render(shaders, cam->view, cam->projection);
     glDisableVertexAttribArray(2);
+}
+
+RenderObject3D::~RenderObject3D()
+{
+    glDeleteBuffers(1, &NBO);
 }

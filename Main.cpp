@@ -87,6 +87,7 @@ int main()
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
+                                                                        RenderObject3D* objekt4 = new RenderObject3D(*objekt3);
                                                                         //Texture* tex1 = new Texture("tank-tex.bmp");
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
@@ -94,7 +95,8 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         //objekt->render(shaders, MAINCAM);
                                                                         //objekt2->render(shaders);
-                                                                        objekt3->render(shaders, MAINCAM);
+                                                                        //objekt3->render(shaders, MAINCAM);
+                                                                        objekt4->render(shaders, MAINCAM);
 
         // Input handling
         glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
@@ -119,7 +121,7 @@ int main()
     //delete objekt;
     //delete objekt2;
     delete objekt3;
+    delete objekt4;
     delete shaders;
     delete MAINCAM;
-    glfwTerminate();
 }
