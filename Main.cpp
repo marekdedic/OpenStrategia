@@ -47,7 +47,7 @@ int main()
         glfwTerminate();
         return -1;
     }
-
+    glGetError();                           // Flush error - glewInit() may set errorflag even if everything is OK
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);

@@ -81,13 +81,9 @@ protected:
 
     Texture* texture; /**< Surface texture of the object. */
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
-    GLsizei VBOsize; /**< Size of the vertex GL_ARRAY_BUFFER. */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
-    GLsizei UVBOsize; /**< Size of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
-    GLsizei EBOsize; /**< Size of the GL_ELEMENT_ARRAY_BUFFER. */
     GLuint IBO; /**< Index of the GL_DRAW_INDIRECT_BUFFER. */
-    GLsizei IBOsize; /**< Size of the GL_DRAW_INDIRECT_BUFFER. */
     DrawElementsIndirectCommand* indirectData;  /**< Command structure used to draw the RenderObject indirectly. */
 };
 

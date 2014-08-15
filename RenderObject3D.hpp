@@ -56,7 +56,6 @@ public:
     ~RenderObject3D();
 protected:
     GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals. */
-    GLsizei NBOsize; /**< Size of the GL_ARRAY_BUFFER containing normals. */
 };
 
  #endif // RENDEROBJECT3D_HPP
