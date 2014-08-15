@@ -73,10 +73,21 @@ Texture::Texture(std::string name) : textureID(0)
 
 Texture::Texture(const Texture& other) : textureID(0)
 {
+    GLint textureWidth = 0, textureHeight = 0;
     GLuint framebufferID;
     glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, other.textureID);
     glGenFramebuffers(1, &framebufferID);
     glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
+    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, other.textureID, 0);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &textureWidth);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &textureHeight);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glFramebufferTexture2D(GL_READ_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0);
+    ERROR << "zacatek" << glGetError() << endl;
+    glBlitFramebuffer(0, 0, textureWidth, textureHeight, 0, 0, textureWidth, textureHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+    ERROR << "konec" << glGetError() << endl;
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 Texture& Texture::operator=(const Texture& other)

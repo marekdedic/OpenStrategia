@@ -14,7 +14,7 @@ RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), 
     indirectData->baseInstance = 0;
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture("tank-tex.bmp")), VBO(0), UVBO(0), EBO(0), IBO(0), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture(*other.texture)), VBO(0), UVBO(0), EBO(0), IBO(0), indirectData(new DrawElementsIndirectCommand)
 {
     GLint bufferSize = 0;
     *position = *other.position;
