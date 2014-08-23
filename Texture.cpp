@@ -74,7 +74,6 @@ Texture::Texture(std::string name) : textureID(0)
 Texture::Texture(const Texture& other) : textureID(0)
 {
     glGenTextures(1, &textureID);
-
     GLint textureWidth = 0, textureHeight = 0;
     glBindTexture(GL_TEXTURE_2D, other.textureID);
     glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &textureWidth);
@@ -93,14 +92,6 @@ Texture::Texture(const Texture& other) : textureID(0)
 
 Texture& Texture::operator=(const Texture& other)
 {
-    if(this != &other)
-    {
-        ERROR << "error" << endl;
-        textureID = other.textureID;
-
-
-
-    }
     return *this;
 }
 
