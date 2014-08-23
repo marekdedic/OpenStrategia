@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject3D::RenderObject3D() : NBO(0), NBOsize(0)        //DEBUG ONLY
+RenderObject3D::RenderObject3D() : NBO(0)                   //DEBUG ONLY
 {
     glGenBuffers(1, &NBO);
     const GLfloat vertex_buffer_data[] = {
@@ -23,12 +23,41 @@ RenderObject3D::RenderObject3D() : NBO(0), NBOsize(0)        //DEBUG ONLY
 	indirectData->elementCount = 36;
 }
 
-RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO(0), NBOsize(0)
+RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other), NBO(0)
+{
+    GLint bufferSize = 0;
+    glGenBuffers(1, &NBO);
+    glBindBuffer(GL_COPY_READ_BUFFER, other.NBO);
+    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if(bufferSize > 0)
+    {
+        glBindBuffer(GL_COPY_WRITE_BUFFER, NBO);
+        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
+    }
+}
+
+RenderObject3D& RenderObject3D::operator=(const RenderObject3D& other)
+{
+    RenderObject::operator=(other);
+    GLint bufferSize = 0;
+    glBindBuffer(GL_COPY_READ_BUFFER, other.NBO);
+    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if(bufferSize > 0)
+    {
+        glBindBuffer(GL_COPY_WRITE_BUFFER, NBO);
+        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
+    }
+    return *this;
+}
+
+RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO(0)
 {
     glGenBuffers(1, &NBO);
 }
 
-RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO(0), NBOsize(0)
+RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO(0)
 {
     glGenBuffers(1, &NBO);
     ObjectName = "models/" + ObjectName;
@@ -99,7 +128,6 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO(0),
         normals.push_back(vertex);
         vertexIndices[i] = i;
     }
-
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, UVBO);
@@ -118,4 +146,9 @@ void RenderObject3D::render(const Program* const shaders, const Camera* const ca
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
     RenderObject::render(shaders, cam->view, cam->projection);
     glDisableVertexAttribArray(2);
+}
+
+RenderObject3D::~RenderObject3D()
+{
+    glDeleteBuffers(1, &NBO);
 }

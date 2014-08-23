@@ -5,96 +5,108 @@ using namespace glm;
 Texture::Texture(std::string name) : textureID(0)
 {
     name = "textures/" + name;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    char* header = new char[54];
+    GLuint dataPos, imageSize, width, height;
+    ifstream file(name, ifstream::binary);
+    if(!file.is_open())
+    {
+        ERROR << "File " << name <<" could not be opened." << endl;
+        delete[] header;
+        glfwSetWindowShouldClose(WINDOW, GL_TRUE);
+        return;
+    }
+    file.read(header, 54);
+    if(!file.good())
+    {
+        ERROR << "File " << name << " is not a correct BMP file. No BMP header found." << endl;
+        delete[] header;
+        glfwSetWindowShouldClose(WINDOW, GL_TRUE);
+        return;
+    }
+    if(header[0x00] != 'B' || header[0x01] != 'M')
+    {
+        ERROR << "File " << name << " is not a correct BMP file. Wrong BMP header." << endl;
+        delete[] header;
+        glfwSetWindowShouldClose(WINDOW, GL_TRUE);
+        return;
+    }
+    if(header[0x1E] != 0)
+    {
+        ERROR << "File " << name << " is not a correct BMP file. File is compressed." << endl;
+        delete[] header;
+        glfwSetWindowShouldClose(WINDOW, GL_TRUE);
+        return;
+    }
+    if(header[0x1C] != 24)
+    {
+        ERROR << "File " << name << " is not a correct BMP file. Wrong BitCount. Use 24bpp." << endl;
+        delete[] header;
+        glfwSetWindowShouldClose(WINDOW, GL_TRUE);
+        return;
+    }
+    dataPos = *reinterpret_cast<int*>(&header[0x0A]);
+    imageSize = *reinterpret_cast<int*>(&header[0x22]);
+    width = *reinterpret_cast<int*>(&header[0x12]);
+    height = *reinterpret_cast<int*>(&header[0x16]);
+    if(imageSize == 0)
+    {
+        imageSize = 3 * width * height;
+    }
+    if(dataPos == 0)
+    {
+        dataPos = 54;
+    }
+    char* data = new char[imageSize];
+    file.read(data, imageSize);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    delete[] header;
+    delete[] data;
+    file.close();
+}
 
-    unsigned char header[124];
+Texture::Texture(const Texture& other) : textureID(0)
+{
+    glGenTextures(1, &textureID);
+    GLint textureWidth = 0, textureHeight = 0;
+    glBindTexture(GL_TEXTURE_2D, other.textureID);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &textureWidth);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &textureHeight);
+    GLubyte* data = new GLubyte[3 * textureWidth * textureHeight];
+    glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    delete[] data;
+}
 
-        FILE *fp;
-
-        // try to open the file
-        fp = fopen(name.c_str(), "rb");
-        if (fp == NULL){
-                ERROR << "File could not be opened." << endl;
-                glfwSetWindowShouldClose(WINDOW, GL_TRUE);
-                return;
-        }
-
-        // verify the type of file
-        char filecode[4];
-        fread(filecode, 1, 4, fp);
-        if (strncmp(filecode, "DDS ", 4) != 0) {
-                fclose(fp);
-                ERROR << "File could not be opened. Not a DDS file." << endl;
-                glfwSetWindowShouldClose(WINDOW, GL_TRUE);
-                return;
-        }
-
-        // get the surface desc
-        fread(&header, 124, 1, fp);
-
-        unsigned int height      = *(unsigned int*)&(header[8 ]);
-        unsigned int width           = *(unsigned int*)&(header[12]);
-        unsigned int linearSize  = *(unsigned int*)&(header[16]);
-        unsigned int mipMapCount = *(unsigned int*)&(header[24]);
-        unsigned int fourCC      = *(unsigned int*)&(header[80]);
-
-
-        unsigned char * buffer;
-        unsigned int bufsize;
-        // how big is it going to be including all mipmaps?
-        bufsize = mipMapCount > 1 ? linearSize * 2 : linearSize;
-        buffer = (unsigned char*)malloc(bufsize * sizeof(unsigned char));
-        fread(buffer, 1, bufsize, fp);
-        // close the file pointer
-        fclose(fp);
-
-        unsigned int components  = (fourCC == 0x31545844) ? 3 : 4;
-        unsigned int format;
-        switch(fourCC)
-        {
-        case 0x31545844:
-                format = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
-                break;
-        case 0x33545844:
-                format = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-                break;
-        case 0x35545844:
-                format = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-                break;
-        default:
-                free(buffer);
-                ERROR << "File could not be opened. Not a valid DXT compressed file." << endl;
-                glfwSetWindowShouldClose(WINDOW, GL_TRUE);
-                return;
-        }
-
-        // Create one OpenGL texture
-        glGenTextures(1, &textureID);
-
-        // "Bind" the newly created texture : all future texture functions will modify this texture
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-
-        unsigned int blockSize = (format == GL_COMPRESSED_RGBA_S3TC_DXT1_EXT) ? 8 : 16;
-        unsigned int offset = 0;
-
-        // load the mipmaps
-        for (unsigned int level = 0; level < mipMapCount && (width || height); ++level)
-        {
-                unsigned int size = ((width+3)/4)*((height+3)/4)*blockSize;
-                glCompressedTexImage2D(GL_TEXTURE_2D, level, format, width, height,
-                        0, size, buffer + offset);
-
-                offset += size;
-                width  /= 2;
-                height /= 2;
-
-                // Deal with Non-Power-Of-Two textures. This code is not included in the webpage to reduce clutter.
-                if(width < 1) width = 1;
-                if(height < 1) height = 1;
-
-        }
-
-        free(buffer);
+Texture& Texture::operator=(const Texture& other)
+{
+    GLint textureWidth = 0, textureHeight = 0;
+    glBindTexture(GL_TEXTURE_2D, other.textureID);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &textureWidth);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &textureHeight);
+    GLubyte* data = new GLubyte[3 * textureWidth * textureHeight];
+    glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    delete[] data;
+    return *this;
 }
 
 Texture::~Texture()
