@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateShader(shaderType))
+Program::Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateShader(shaderType))
 {
     /**< Load the shader code from the file */
     name = "shaders/" + name;
@@ -41,7 +41,7 @@ Shader::Shader(std::string name, const GLenum shaderType) : shaderID(glCreateSha
     }
 }
 
-Shader::~Shader()
+Program::Shader::~Shader()
 {
     glDeleteShader(shaderID);
 }

@@ -15,6 +15,7 @@
 
 class Program
 {
+    #include "Shader.hpp"
 public:
     const GLuint programID; /**< ID of the shader program. */
     Program();

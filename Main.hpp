@@ -11,12 +11,12 @@
 
 #include "Libs.hpp"
 
-#include "Shader.hpp"
 #include "Program.hpp"
 #include "Camera.hpp"
 #include "RenderObject.hpp"
 #include "RenderObject2D.hpp"
 #include "RenderObject3D.hpp"
+#include "Texture.hpp"
 
 extern std::ofstream ERROR; /**< Stream pointing to Errorlog.txt. Used to log errors. */
 extern GLFWwindow* WINDOW; /**< Pointer to the main/current/only window. */

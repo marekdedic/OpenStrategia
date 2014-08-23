@@ -47,15 +47,15 @@ int main()
         glfwTerminate();
         return -1;
     }
-
+    glGetError();                           // Flush error - glewInit() may set errorflag even if everything is OK
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
     // Loading shaders
     Program* shaders = new Program;
-    shaders->AddShader("blinn.vertex.glsl", GL_VERTEX_SHADER);
-    shaders->AddShader("blinn.fragment.glsl", GL_FRAGMENT_SHADER);
+    shaders->AddShader("phong.vertex.glsl", GL_VERTEX_SHADER);
+    shaders->AddShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
     if(glfwWindowShouldClose(WINDOW)) {return -1;}
     shaders->Link();
                                                                         glUseProgram(shaders->programID);
@@ -87,6 +87,7 @@ int main()
                                                                         //RenderObject3D* objekt = new RenderObject3D(&vData, &iData);
                                                                         //RenderObject2D* objekt2 = new RenderObject2D(&vData2, &iData2);
                                                                         RenderObject3D* objekt3 = new RenderObject3D("tank.obj");
+                                                                        //Texture* tex1 = new Texture("tank-tex.bmp");
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
@@ -120,5 +121,4 @@ int main()
     delete objekt3;
     delete shaders;
     delete MAINCAM;
-    glfwTerminate();
 }
