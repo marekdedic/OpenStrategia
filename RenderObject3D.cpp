@@ -20,7 +20,7 @@ RenderObject3D::RenderObject3D() : NBO(0)                   //DEBUG ONLY
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
-	indirectData->elementCount = 36;
+	elementCount = 36;
 }
 
 RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other), NBO(0)
@@ -136,7 +136,7 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO(0)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), normals.data(), GL_STATIC_DRAW);
-    indirectData->elementCount = vertexIndices.size();
+    elementCount = vertexIndices.size();
 }
 
 void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const

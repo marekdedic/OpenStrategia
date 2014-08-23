@@ -2,19 +2,14 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture("tank-tex.bmp")), VBO(0), UVBO(0), EBO(0), IBO(0), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture("tank-tex.bmp")), VBO(0), UVBO(0), EBO(0), elementCount(0)
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &UVBO);
     glGenBuffers(1, &EBO);
-    glGenBuffers(1, &IBO);
-    indirectData->primCount = 1;
-    indirectData->firstIndex = 0;
-    indirectData->baseVertex = 0;
-    indirectData->baseInstance = 0;
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture(*other.texture)), VBO(0), UVBO(0), EBO(0), IBO(0), indirectData(new DrawElementsIndirectCommand)
+RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture(*other.texture)), VBO(0), UVBO(0), EBO(0), elementCount(0)
 {
     GLint bufferSize = 0;
     *position = *other.position;
@@ -46,16 +41,6 @@ RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), o
         glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
         glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
     }
-    glGenBuffers(1, &IBO);
-    glBindBuffer(GL_COPY_READ_BUFFER, other.IBO);
-    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-    if(bufferSize > 0)
-    {
-        glBindBuffer(GL_COPY_WRITE_BUFFER, IBO);
-        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
-    }
-    *indirectData = *(other.indirectData);
 }
 
 RenderObject& RenderObject::operator=(const RenderObject& other)
@@ -88,15 +73,6 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
         glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
         glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
     }
-    glBindBuffer(GL_COPY_READ_BUFFER, other.IBO);
-    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-    if(bufferSize > 0)
-    {
-        glBindBuffer(GL_COPY_WRITE_BUFFER, IBO);
-        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
-    }
-    *indirectData = *(other.indirectData);
     return *this;
 }
 
@@ -116,7 +92,7 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
 	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
-	indirectData->elementCount = indexData->size();
+	elementCount = indexData->size();
 }
 
 void RenderObject::handle() {}
@@ -169,14 +145,9 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-    // Send the render information to graphics
+    // Draw from Element Buffer Object
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBindBuffer(GL_DRAW_INDIRECT_BUFFER, IBO);
-	glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(*indirectData), indirectData, GL_STATIC_DRAW);
-
-    // Draw from Draw Indirect Buffer Object
-    glBindBuffer(GL_DRAW_INDIRECT_BUFFER,  IBO);
-	glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, nullptr);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 }
@@ -185,10 +156,8 @@ RenderObject::~RenderObject()
 {
     delete position;
     delete orientation;
-    delete indirectData;
     delete texture;
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &UVBO);
     glDeleteBuffers(1, &EBO);
-    glDeleteBuffers(1, &IBO);
 }
