@@ -67,24 +67,11 @@ public:
      */
     virtual ~RenderObject();
 protected:
-    /**
-     * \brief Structure used to draw the RenderObject indirectly.
-     */
-    typedef struct DrawElementsIndirectCommand_t
-    {
-        GLuint  elementCount; /**< Number of vertices single object has. */
-        GLuint  primCount; /**< Number of instances of the object to draw. Leave 1 unless you know what you are doing. */
-        GLuint  firstIndex; /**< Index starting offset. Leave 0 unless you know what you are doing. */
-        GLuint  baseVertex; /**< Vertex starting offset. Leave 0 unless you know what you are doing. */
-        GLuint  baseInstance;/**< Instance starting offset. Leave 0 unless you know what you are doing. */
-    } DrawElementsIndirectCommand;
-
     Texture* texture; /**< Surface texture of the object. */
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
-    GLuint IBO; /**< Index of the GL_DRAW_INDIRECT_BUFFER. */
-    DrawElementsIndirectCommand* indirectData;  /**< Command structure used to draw the RenderObject indirectly. */
+    GLuint elementCount; /**< Number of elements single object has. */
 };
 
  #endif // RENDEROBJECT_HPP

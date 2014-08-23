@@ -22,8 +22,8 @@ int main()
         return -1;
     }
     glfwWindowHint(GLFW_SAMPLES, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     WINDOW = glfwCreateWindow(1400, 1050, "OpenStrategia", monitor, nullptr);
