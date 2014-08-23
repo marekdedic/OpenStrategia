@@ -19,7 +19,6 @@ RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), o
     GLint bufferSize = 0;
     *position = *other.position;
     *orientation = *other.orientation;
-    *texture = *other.texture;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_COPY_READ_BUFFER, other.VBO);
     glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
@@ -61,43 +60,43 @@ RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), o
 
 RenderObject& RenderObject::operator=(const RenderObject& other)
 {
-    if(this != &other)
+    GLint bufferSize = 0;
+    *position = *other.position;
+    *orientation = *other.orientation;
+    *texture = *other.texture;
+    glBindBuffer(GL_COPY_READ_BUFFER, other.VBO);
+    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if(bufferSize > 0)
     {
-        GLint bufferSize = 0;
-        position = new glm::mat4(*other.position);
-        orientation = new glm::mat4(*other.orientation);
-        texture = new Texture(*other.texture);
-        VBO = 0;
-        UVBO = 0;
-        EBO = 0;
-        IBO = 0;
-        glGenBuffers(1, &VBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, other.VBO);
         glBindBuffer(GL_COPY_WRITE_BUFFER, VBO);
-        glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
         glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
         glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
-        glGenBuffers(1, &UVBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, other.UVBO);
-        glBindBuffer(GL_COPY_WRITE_BUFFER, UVBO);
-        glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
-        glGenBuffers(1, &EBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, other.EBO);
-        glBindBuffer(GL_COPY_WRITE_BUFFER, EBO);
-        glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
-        glGenBuffers(1, &IBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, other.IBO);
-        glBindBuffer(GL_COPY_WRITE_BUFFER, IBO);
-        glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
-        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
-        indirectData = new DrawElementsIndirectCommand;
-        *indirectData = *other.indirectData;
     }
+    glBindBuffer(GL_COPY_READ_BUFFER, other.UVBO);
+    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if(bufferSize > 0)
+    {
+        glBindBuffer(GL_COPY_WRITE_BUFFER, UVBO);
+        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
+    }
+    glBindBuffer(GL_COPY_READ_BUFFER, other.EBO);
+    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if(bufferSize > 0)
+    {
+        glBindBuffer(GL_COPY_WRITE_BUFFER, EBO);
+        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
+    }
+    glBindBuffer(GL_COPY_READ_BUFFER, other.IBO);
+    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if(bufferSize > 0)
+    {
+        glBindBuffer(GL_COPY_WRITE_BUFFER, IBO);
+        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
+    }
+    *indirectData = *(other.indirectData);
     return *this;
 }
 

@@ -37,42 +37,20 @@ RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other
     }
 }
 
-/*RenderObject& RenderObject::operator=(const RenderObject& other)
+RenderObject3D& RenderObject3D::operator=(const RenderObject3D& other)
 {
-    if(this != &other)
+    RenderObject::operator=(other);
+    GLint bufferSize = 0;
+    glBindBuffer(GL_COPY_READ_BUFFER, other.NBO);
+    glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
+    if(bufferSize > 0)
     {
-        position = other.position;
-        orientation = other.orientation;
-        texture = other.texture;
-        VBO = 0;
-        VBOsize = other.VBOsize;
-        UVBO = 0;
-        UVBOsize = other.UVBOsize;
-        EBO = 0;
-        EBOsize = other.EBOsize;
-        IBO = 0;
-        IBOsize = other.IBOsize;
-        glGenBuffers(1, &VBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, VBO);
-        glBindBuffer(GL_COPY_WRITE_BUFFER, other.VBO);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, VBOsize);
-        glGenBuffers(1, &UVBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, UVBO);
-        glBindBuffer(GL_COPY_WRITE_BUFFER, other.UVBO);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, UVBOsize);
-        glGenBuffers(1, &EBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, EBO);
-        glBindBuffer(GL_COPY_WRITE_BUFFER, other.EBO);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, EBOsize);
-        glGenBuffers(1, &IBO);
-        glBindBuffer(GL_COPY_READ_BUFFER, IBO);
-        glBindBuffer(GL_COPY_WRITE_BUFFER, other.IBO);
-        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, IBOsize);
-        indirectData = new DrawElementsIndirectCommand;
-        *indirectData = *(other.indirectData);
+        glBindBuffer(GL_COPY_WRITE_BUFFER, NBO);
+        glBufferData(GL_COPY_WRITE_BUFFER, bufferSize, nullptr, GL_STATIC_DRAW);
+        glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, bufferSize);
     }
     return *this;
-}*/
+}
 
 RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO(0)
 {
