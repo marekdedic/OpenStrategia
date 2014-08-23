@@ -71,9 +71,9 @@ Texture::Texture(std::string name) : textureID(0)
     file.close();
 }
 
-Texture::Texture(const Texture& other) : textureID(other.textureID)
+Texture::Texture(const Texture& other) : textureID(0)
 {
-    /*glGenTextures(1, &textureID);
+    glGenTextures(1, &textureID);
 
     GLint textureWidth = 0, textureHeight = 0;
     glBindTexture(GL_TEXTURE_2D, other.textureID);
@@ -87,17 +87,16 @@ Texture::Texture(const Texture& other) : textureID(other.textureID)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    ERROR << "end" << glGetError() << endl;
     glGenerateMipmap(GL_TEXTURE_2D);
     delete[] data;
-    textureID = other.textureID;*/
 }
 
 Texture& Texture::operator=(const Texture& other)
 {
     if(this != &other)
     {
-        textureID = 0;
+        ERROR << "error" << endl;
+        textureID = other.textureID;
 
 
 
