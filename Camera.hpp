@@ -18,6 +18,7 @@ public:
     std::atomic<glm::vec3*> position; /**< Position of the camera represented by a matrix. */
     std::atomic<glm::mat4*> view; /**< View matrix */
     std::atomic<glm::mat4*> projection; /**< Projection matrix */
+    Camera() = delete;
     /** \brief Camera class constructor
      *
      * Sets the initial values of the camera as well.
