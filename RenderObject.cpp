@@ -102,7 +102,7 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 {
     // Compute Model matrix, send it to GLSL
     mat4 modelMatrix{*position * *orientation};
-    GLuint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
+    GLint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
 
     // Compute ModelViewProjection matrix, send it to GLSL
@@ -154,9 +154,9 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 
 RenderObject::~RenderObject()
 {
-    delete position;
-    delete orientation;
-    delete texture;
+    position.reset();
+    orientation.reset();
+    texture.reset();
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &UVBO);
     glDeleteBuffers(1, &EBO);

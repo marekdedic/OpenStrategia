@@ -37,7 +37,7 @@ public:
      */
     ~Program();
 private:
-    std::vector<Shader*> shaders; /**< Vector with pointers to all shaders in the shader program. */
+    std::vector<std::unique_ptr<Shader>> shaders; /**< Vector with pointers to all shaders in the shader program. */
 };
 
  #endif // PROGRAM_HPP

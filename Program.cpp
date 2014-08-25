@@ -6,7 +6,7 @@ Program::Program() : programID{glCreateProgram()}, shaders{} {}
 
 void Program::AddShader(const std::string name, const GLenum shaderType)
 {
-    shaders.push_back(new Shader(name, shaderType));
+    shaders.emplace_back(new Shader(name, shaderType));
     glAttachShader(programID, shaders.back()->shaderID);
 }
 
@@ -31,9 +31,9 @@ void Program::Link() const
 
 Program::~Program()
 {
-    for (auto i : shaders)
+    for (auto& i : shaders)
     {
-        delete i;
+        i.reset();
     }
     shaders.clear();
     glDeleteProgram(programID);
