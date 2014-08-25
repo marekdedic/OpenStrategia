@@ -4,7 +4,7 @@ using namespace glm;
 
 std::ofstream ERROR{"ErrorLog.txt", fstream::trunc};
 GLFWwindow* WINDOW{};
-Camera* MAINCAM{new Camera{45, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}}};
+shared_ptr<Camera> MAINCAM{new Camera{45, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}}};
 double DELTA{};
 float SPEED{1};
 int PAUSE{0};
@@ -119,5 +119,5 @@ int main()
     //delete objekt2;
     delete objekt3;
     delete shaders;
-    delete MAINCAM;
+    MAINCAM.reset();
 }

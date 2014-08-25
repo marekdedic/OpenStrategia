@@ -115,7 +115,7 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
             }
             continue;
         }
-        file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        file.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
     for(unsigned int i = 0; i < vertexIndices.size(); i++)
@@ -139,7 +139,7 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
     elementCount = vertexIndices.size();
 }
 
-void RenderObject3D::render(const Program* const shaders, const Camera* const cam) const
+void RenderObject3D::render(const Program* const shaders, const std::shared_ptr<const Camera> cam) const
 {
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glEnableVertexAttribArray(2);
