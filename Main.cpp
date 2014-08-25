@@ -3,15 +3,15 @@ using namespace std;
 using namespace glm;
 
 std::ofstream ERROR{"ErrorLog.txt", fstream::trunc};
-GLFWwindow* WINDOW;
+GLFWwindow* WINDOW{};
 Camera* MAINCAM = new Camera{45, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}};
-double DELTA;
+double DELTA{};
 float SPEED {1.0};
 int PAUSE {0};
-double XCURSOR;
-double YCURSOR;
-int WIDTH;
-int HEIGHT;
+double XCURSOR{};
+double YCURSOR{};
+int WIDTH{};
+int HEIGHT{};
 
 int main()
 {
