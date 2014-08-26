@@ -7,9 +7,9 @@ before-install:
 install:
  - sudo apt-get install libglew-dev
  - sudo apt-get install libglm-dev
- - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+ - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
  - if [ "$CXX" = "clang++" ]; then sudo add-apt-repository --yes ppa:h-rayflood/llvm; fi
- - if [ "$CXX" = "g++" ]; then sudo apt-get update -qq; fi
+ - sudo apt-get update -qq
  - if [ "$CXX" = "clang++" ]; then sudo apt-get -qq install libstdc++-4.8-dev; fi
  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8" LD="g++-4.8"; fi
