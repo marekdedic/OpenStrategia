@@ -11,7 +11,7 @@
 #include <fstream>
 #include <vector>
 #include <thread>
-#include <atomic>
+#include <memory>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

@@ -2,14 +2,14 @@
 using namespace std;
 using namespace glm;
 
-Texture::Texture(std::string name) : textureID(0)
+Texture::Texture(std::string name) : textureID{}
 {
     name = "textures/" + name;
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    char* header = new char[54];
-    GLuint dataPos, imageSize, width, height;
-    ifstream file(name, ifstream::binary);
+    char* header{new char[54]};
+    GLuint dataPos{}, imageSize{}, width{}, height{};
+    ifstream file{name, ifstream::binary};
     if(!file.is_open())
     {
         ERROR << "File " << name <<" could not be opened." << endl;
@@ -58,7 +58,7 @@ Texture::Texture(std::string name) : textureID(0)
     {
         dataPos = 54;
     }
-    char* data = new char[imageSize];
+    char* data{new char[imageSize]};
     file.read(data, imageSize);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -71,14 +71,14 @@ Texture::Texture(std::string name) : textureID(0)
     file.close();
 }
 
-Texture::Texture(const Texture& other) : textureID(0)
+Texture::Texture(const Texture& other) : textureID{}
 {
     glGenTextures(1, &textureID);
-    GLint textureWidth = 0, textureHeight = 0;
+    GLint textureWidth{}, textureHeight{};
     glBindTexture(GL_TEXTURE_2D, other.textureID);
     glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &textureWidth);
     glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &textureHeight);
-    GLubyte* data = new GLubyte[3 * textureWidth * textureHeight];
+    GLubyte* data{new GLubyte[3 * textureWidth * textureHeight]};
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -92,11 +92,11 @@ Texture::Texture(const Texture& other) : textureID(0)
 
 Texture& Texture::operator=(const Texture& other)
 {
-    GLint textureWidth = 0, textureHeight = 0;
+    GLint textureWidth{}, textureHeight{};
     glBindTexture(GL_TEXTURE_2D, other.textureID);
     glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &textureWidth);
     glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &textureHeight);
-    GLubyte* data = new GLubyte[3 * textureWidth * textureHeight];
+    GLubyte* data{new GLubyte[3 * textureWidth * textureHeight]};
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);

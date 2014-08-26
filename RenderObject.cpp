@@ -2,18 +2,16 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture("tank-tex.bmp")), VBO(0), UVBO(0), EBO(0), elementCount(0)
+RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{"tank-tex.bmp"}}, VBO{}, UVBO{}, EBO{}, elementCount{}
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &UVBO);
     glGenBuffers(1, &EBO);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), orientation(new mat4(1)), texture(new Texture(*other.texture)), VBO(0), UVBO(0), EBO(0), elementCount(0)
+RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}, elementCount{}
 {
-    GLint bufferSize = 0;
-    *position = *other.position;
-    *orientation = *other.orientation;
+    GLint bufferSize{};
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_COPY_READ_BUFFER, other.VBO);
     glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
@@ -45,7 +43,7 @@ RenderObject::RenderObject(const RenderObject& other) : position(new mat4(1)), o
 
 RenderObject& RenderObject::operator=(const RenderObject& other)
 {
-    GLint bufferSize = 0;
+    GLint bufferSize{};
     *position = *other.position;
     *orientation = *other.orientation;
     *texture = *other.texture;
@@ -98,28 +96,28 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
+void RenderObject::render(const Program* const prg, const std::shared_ptr<const glm::mat4> viewMatrix, const std::shared_ptr<const glm::mat4> projectionMatrix) const
 {
     // Compute Model matrix, send it to GLSL
-    mat4 modelMatrix = *position * *orientation;
-    GLuint loc = glGetUniformLocation(prg->programID, "modelMatrix");
+    mat4 modelMatrix{*position * *orientation};
+    GLint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
 
     // Compute ModelViewProjection matrix, send it to GLSL
-    mat4 MVP = *projectionMatrix * *viewMatrix * modelMatrix;
+    mat4 MVP{*projectionMatrix * *viewMatrix * modelMatrix};
     loc = glGetUniformLocation(prg->programID, "MVP");
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
 
     // Send light position to GLSL
-    vec3 LightPosition = vec3(-3, 1, 5);
+    vec3 LightPosition{-3, 1, 5};
     loc = glGetUniformLocation(prg->programID, "lPosition_w");
     glUniform3fv(loc, 1, value_ptr(LightPosition));
 
     // Send light falloff distances to GLSL
-    float LightFalloffMin = 1;
+    float LightFalloffMin{1};
     loc = glGetUniformLocation(prg->programID, "lFalloffMin");
     glUniform1fv(loc, 1, &LightFalloffMin);
-    float LightFalloffMax = 6;
+    float LightFalloffMax{6};
     loc = glGetUniformLocation(prg->programID, "lFalloffMax");
     glUniform1fv(loc, 1, &LightFalloffMax);
 
@@ -154,9 +152,9 @@ void RenderObject::render(const Program* const prg, const glm::mat4* const viewM
 
 RenderObject::~RenderObject()
 {
-    delete position;
-    delete orientation;
-    delete texture;
+    position.reset();
+    orientation.reset();
+    texture.reset();
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &UVBO);
     glDeleteBuffers(1, &EBO);

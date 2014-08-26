@@ -20,7 +20,7 @@
 
 extern std::ofstream ERROR; /**< Stream pointing to Errorlog.txt. Used to log errors. */
 extern GLFWwindow* WINDOW; /**< Pointer to the main/current/only window. */
-extern Camera* MAINCAM; /**< Pointer to the main/current/only camera used to render 3D objects. */
+extern std::shared_ptr<Camera> MAINCAM; /**< Pointer to the main/current/only camera used to render 3D objects. */
 extern double DELTA; /**< Time (in milliseconds) elapsed during the previous iteration of the main cycle. */
 extern float SPEED; /**< Game speed multiplier. */
 extern int PAUSE; /**< If 0, the game runs. If greater than 0, it works like a pause counter in milliseconds. If -1, the game is paused until "manualy" unpaused (e.g. by pressing the pause key). */

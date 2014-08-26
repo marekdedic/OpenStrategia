@@ -52,7 +52,7 @@ public:
      * \param prg A shader program to use.
      * \param cam A Camera to render the object with.
      */
-    virtual void render(const Program* const prg, const Camera* const cam) const;
+    virtual void render(const Program* const prg, const std::shared_ptr<const Camera> cam) const;
     ~RenderObject3D();
 protected:
     GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals. */

@@ -16,6 +16,7 @@ class Texture
 {
 public:
     GLuint textureID; /**< ID of the texture. */
+    Texture() = delete;
     /** \brief Loads a texture
      * \param name Filename with extension, relative to the textures subdir.
      */
