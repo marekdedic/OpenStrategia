@@ -15,10 +15,23 @@
 class Camera
 {
 public:
-    std::atomic<glm::vec3*> position; /**< Position of the camera represented by a matrix. */
-    std::atomic<glm::mat4*> view; /**< View matrix */
-    std::atomic<glm::mat4*> projection; /**< Projection matrix */
+    std::shared_ptr<glm::vec3> position; /**< Position of the camera represented by a matrix. */
+    std::shared_ptr<glm::mat4> view; /**< View matrix */
+    std::shared_ptr<glm::mat4> projection; /**< Projection matrix */
     Camera() = delete;
+    /** \brief Camera class copy constructor
+     *
+     * Copies the texture.
+     * \param other Address of the Camera to copy.
+     */
+    Camera(const Camera& other);
+    /** \brief Camera class assignment operator
+     *
+     * Copies the texture.
+     * \param other Address of the Camera to copy.
+     * \return Address of the new Camera.
+     */
+    Camera& operator=(const Camera& other);
     /** \brief Camera class constructor
      *
      * Sets the initial values of the camera as well.
@@ -40,7 +53,7 @@ public:
      */
     ~Camera();
 private:
-    std::atomic<glm::quat*> orientation; /**< Orientation of the camera represented by a quaternion */
+    std::unique_ptr<glm::quat> orientation; /**< Orientation of the camera represented by a quaternion */
     float speed; /**< Movement speed. */
 };
 

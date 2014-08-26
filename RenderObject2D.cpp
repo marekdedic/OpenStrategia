@@ -22,7 +22,8 @@ RenderObject2D::RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLu
 void RenderObject2D::render(const Program* const prg) const
 {
     glDisable(GL_DEPTH_TEST);
-    mat4 identity{};
-    RenderObject::render(prg, &identity, &identity);
+    shared_ptr<mat4> identity{new mat4{}};
+    RenderObject::render(prg, identity, identity);
+    identity.reset();
     glEnable(GL_DEPTH_TEST);
 }

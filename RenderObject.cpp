@@ -9,11 +9,9 @@ RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, te
     glGenBuffers(1, &EBO);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}, elementCount{}
+RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}, elementCount{}
 {
     GLint bufferSize{};
-    *position = *other.position;
-    *orientation = *other.orientation;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_COPY_READ_BUFFER, other.VBO);
     glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
@@ -98,7 +96,7 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const
+void RenderObject::render(const Program* const prg, const std::shared_ptr<const glm::mat4> viewMatrix, const std::shared_ptr<const glm::mat4> projectionMatrix) const
 {
     // Compute Model matrix, send it to GLSL
     mat4 modelMatrix{*position * *orientation};
