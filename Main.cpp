@@ -40,7 +40,7 @@ int main()
     glfwGetWindowSize(WINDOW, &WIDTH, &HEIGHT);
 
     glewExperimental = GL_TRUE;
-    GLenum GLEWerror {glewInit()};
+    GLenum GLEWerror{glewInit()};
     if(GLEWerror != GLEW_OK)
     {
         ERROR << "Failed to initialize GLEW: " << glewGetErrorString(GLEWerror) << endl;
@@ -53,7 +53,7 @@ int main()
     glDepthFunc(GL_LESS);
 
     // Loading shaders
-    Program* shaders {new Program};
+    Program* shaders{new Program};
     shaders->AddShader("phong.vertex.glsl", GL_VERTEX_SHADER);
     shaders->AddShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
     if(glfwWindowShouldClose(WINDOW)) {return -1;}
@@ -84,8 +84,8 @@ int main()
 	};
                                                                         vector<GLuint> iData{0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
                                                                         vector<GLuint> iData2{0,1,2};
-                                                                        //RenderObject3D* objekt {new RenderObject3D(&vData, &iData)};
-                                                                        //RenderObject2D* objekt2 {new RenderObject2D(&vData2, &iData2)};
+                                                                        //RenderObject3D* objekt{new RenderObject3D(&vData, &iData)};
+                                                                        //RenderObject2D* objekt2{new RenderObject2D(&vData2, &iData2)};
                                                                         RenderObject3D* objekt3{new RenderObject3D("tank.obj")};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
