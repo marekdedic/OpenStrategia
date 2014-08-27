@@ -20,12 +20,6 @@ public:
      * Initializes all buffers and dynamic variables, draws a funky cube.
      */
     RenderObject3D();
-    /** \brief RenderObject3D constructor
-     *
-     * Creates an object from 2 vectors.
-     * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
-     * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
-     */
     /** \brief RenderObject3D class copy constructor
      *
      * Copies all the variables and all the buffers.
@@ -39,11 +33,17 @@ public:
      * \return Address of the new RenderObject3D.
      */
     RenderObject3D& operator=(const RenderObject3D& other);
+    /** \brief RenderObject3D constructor
+     *
+     * Creates an object from 2 vectors.
+     * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
+     * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
+     */
     RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
     /** \brief RenderObject3D constructor
      *
      * Creates an object from a .OBJ file.
-     * \param name Filename with extension, relative to the models subdir.
+     * \param objectName Filename with extension, relative to the models subdir.
      */
     RenderObject3D(std::string objectName);
     /** \brief Renders the 3D object
