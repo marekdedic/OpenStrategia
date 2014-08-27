@@ -13,7 +13,6 @@ install:
  - if [ "$CXX" = "clang++" ]; then sudo apt-get -qq install libstdc++-4.8-dev; fi
  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8" LD="g++-4.8"; fi
- - if [ "$CXX" = "clang++" ]; then export CXX="clang++ -stdlib=libc++"; fi
  - sudo apt-get install xorg-dev
  - git clone https://github.com/glfw/glfw.git
  - cd glfw
