@@ -7,6 +7,7 @@
 #ifndef RENDEROBJECT_HPP
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
+#include "Texture.hpp"
 
 /** \brief RenderObject class
  *
@@ -15,13 +16,8 @@
 class RenderObject
 {
 public:
-    glm::mat4* position; /**< Position of the RenderObject represented by a matrix */
-    glm::mat4* orientation; /**< Orientation of the RenderObject represented by a matrix */
-    /** \brief RenderObject class default constructor
-     *
-     * Initializes all buffers and dynamic variables.
-     */
-    RenderObject();
+    std::unique_ptr<glm::mat4> position; /**< Position of the RenderObject represented by a matrix */
+    std::unique_ptr<glm::mat4> orientation; /**< Orientation of the RenderObject represented by a matrix */
     /** \brief RenderObject class copy constructor
      *
      * Copies all the variables and all the buffers.
@@ -59,32 +55,23 @@ public:
      * \param viewMatrix A view matrix to use.
      * \param projectionMatrix A projection matrix to use
      */
-    virtual void render(const Program* const prg, const glm::mat4* const viewMatrix, const glm::mat4* const projectionMatrix) const;
+    virtual void render(const Program* const prg, const std::shared_ptr<const glm::mat4> viewMatrix, const std::shared_ptr<const glm::mat4> projectionMatrix) const;
     /** \brief RenderObject class destructor
      *
-     * Deletes all dynamically allocated variables.
+     * Deletes all dynamically allocated variables and all buffer objects.
      */
     virtual ~RenderObject();
 protected:
-    /**
-     * \brief Structure used to draw the RenderObject indirectly.
-     */
-    typedef struct DrawElementsIndirectCommand_t
-    {
-        GLuint  elementCount; /**< Number of vertices single object has. */
-        GLuint  primCount; /**< Number of instances of the object to draw. Leave 1 unless you know what you are doing. */
-        GLuint  firstIndex; /**< Index starting offset. Leave 0 unless you know what you are doing. */
-        GLuint  baseVertex; /**< Vertex starting offset. Leave 0 unless you know what you are doing. */
-        GLuint  baseInstance;/**< Instance starting offset. Leave 0 unless you know what you are doing. */
-    } DrawElementsIndirectCommand;
-
-    GLuint VBO; /**< Index of the GL_ARRAY_BUFFER. */
-    GLsizei VBOsize; /**< Size of the GL_ARRAY_BUFFER. */
+    std::unique_ptr<Texture> texture; /**< Surface texture of the object. */
+    GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
+    GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
-    GLsizei EBOsize; /**< Size of the GL_ELEMENT_ARRAY_BUFFER. */
-    GLuint IBO; /**< Index of the GL_DRAW_INDIRECT_BUFFER. */
-    GLsizei IBOsize; /**< Size of the GL_DRAW_INDIRECT_BUFFER. */
-    DrawElementsIndirectCommand* indirectData;  /**< Command structure used to draw the RenderObject indirectly. */
+    GLuint elementCount; /**< Number of elements single object has. */
+    /** \brief RenderObject class default constructor
+     *
+     * Initializes all buffers and dynamic variables.
+     */
+    RenderObject();
 };
 
  #endif // RENDEROBJECT_HPP

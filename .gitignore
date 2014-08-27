@@ -1,8 +1,9 @@
 obj/
-Data/
 *.layout
 *.depend
 bin/*/OpenStrategia*
 bin/*/ErrorLog.txt
+bin/*/core
 doxygen/doxygen.log
 CppCheckResults.xml
+bin/Debug/valgrind-output.txt

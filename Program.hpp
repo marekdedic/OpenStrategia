@@ -15,6 +15,7 @@
 
 class Program
 {
+    #include "Shader.hpp"
 public:
     const GLuint programID; /**< ID of the shader program. */
     Program();
@@ -36,7 +37,7 @@ public:
      */
     ~Program();
 private:
-    std::vector<Shader*> shaders; /**< Vector with pointers to all shaders in the shader program. */
+    std::vector<std::unique_ptr<Shader>> shaders; /**< Vector with pointers to all shaders in the shader program. */
 };
 
  #endif // PROGRAM_HPP
