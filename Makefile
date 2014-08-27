@@ -5,14 +5,11 @@
 
 WORKDIR = `pwd`
 
-CC = gcc-4.8
-CXX = g++-4.8
 AR = ar
-LD = g++-4.8
 WINDRES = windres
 
 INC =
-CFLAGS = -Winit-self -Wredundant-decls -Wcast-align -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Wzero-as-null-pointer-constant -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
+CFLAGS = -Wnon-virtual-dtor -Winit-self -Wredundant-decls -Wcast-align -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall -O2
 RESINC =
 LIBDIR =
 LIB = -lglfw3 -lGLEW -lGLU -lGL -lXrandr -lXi -lXcursor
