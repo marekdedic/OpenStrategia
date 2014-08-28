@@ -7,6 +7,7 @@
 #ifndef RENDEROBJECT_HPP
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
+#include "Program.hpp"
 #include "Texture.hpp"
 
 /** \brief RenderObject class

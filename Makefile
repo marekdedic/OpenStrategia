@@ -37,9 +37,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE =
 OUT_RELEASE = bin/Release/OpenStrategia
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Texture.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/Button.o $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Texture.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Texture.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/Button.o $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Image.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Texture.o
 
 all: debug release
 
@@ -55,6 +55,15 @@ debug: before_debug out_debug after_debug
 
 out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
 	$(LD) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG)  $(LDFLAGS_DEBUG) $(LIB_DEBUG)
+
+$(OBJDIR_DEBUG)/Button.o: Button.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Button.cpp -o $(OBJDIR_DEBUG)/Button.o
+
+$(OBJDIR_DEBUG)/Camera.o: Camera.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Camera.cpp -o $(OBJDIR_DEBUG)/Camera.o
+
+$(OBJDIR_DEBUG)/Image.o: Image.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Image.cpp -o $(OBJDIR_DEBUG)/Image.o
 
 $(OBJDIR_DEBUG)/Main.o: Main.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Main.cpp -o $(OBJDIR_DEBUG)/Main.o
@@ -73,9 +82,6 @@ $(OBJDIR_DEBUG)/RenderObject3D.o: RenderObject3D.cpp
 
 $(OBJDIR_DEBUG)/Shader.o: Shader.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Shader.cpp -o $(OBJDIR_DEBUG)/Shader.o
-
-$(OBJDIR_DEBUG)/Camera.o: Camera.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Camera.cpp -o $(OBJDIR_DEBUG)/Camera.o
 
 $(OBJDIR_DEBUG)/Texture.o: Texture.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Texture.cpp -o $(OBJDIR_DEBUG)/Texture.o
@@ -96,6 +102,15 @@ release: before_release out_release after_release
 out_release: before_release $(OBJ_RELEASE) $(DEP_RELEASE)
 	$(LD) $(LIBDIR_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE)  $(LDFLAGS_RELEASE) $(LIB_RELEASE)
 
+$(OBJDIR_RELEASE)/Button.o: Button.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Button.cpp -o $(OBJDIR_RELEASE)/Button.o
+
+$(OBJDIR_RELEASE)/Camera.o: Camera.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Camera.cpp -o $(OBJDIR_RELEASE)/Camera.o
+
+$(OBJDIR_RELEASE)/Image.o: Image.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Image.cpp -o $(OBJDIR_RELEASE)/Image.o
+
 $(OBJDIR_RELEASE)/Main.o: Main.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Main.cpp -o $(OBJDIR_RELEASE)/Main.o
 
@@ -113,9 +128,6 @@ $(OBJDIR_RELEASE)/RenderObject3D.o: RenderObject3D.cpp
 
 $(OBJDIR_RELEASE)/Shader.o: Shader.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Shader.cpp -o $(OBJDIR_RELEASE)/Shader.o
-
-$(OBJDIR_RELEASE)/Camera.o: Camera.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Camera.cpp -o $(OBJDIR_RELEASE)/Camera.o
 
 $(OBJDIR_RELEASE)/Texture.o: Texture.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Texture.cpp -o $(OBJDIR_RELEASE)/Texture.o
