@@ -2,10 +2,12 @@
 
 layout(location = 0) in vec4 vPosition_m;
 layout(location = 2) in vec4 vNormal_m;
+layout(location = 2) in vec4 vNormal_m;
 
 out vec4 vNormal_w;
 out vec4 vToLight_w;
 out vec4 vHalfway_w;
+out vec2 fUV;
 
 uniform mat4 MVP;
 uniform mat4 modelMatrix;
@@ -14,6 +16,7 @@ uniform vec4 lPosition_w;
 
 void main()
 {
+    fUV = vUV;
     vec4 vPosition_w = modelMatrix * vPosition_m;
     vNormal_w = normalize(modelMatrix * vNormal_m);
     vec4 vToCamera_w = cPosition_w - vPosition_w;
