@@ -2,6 +2,11 @@
 using namespace std;
 using namespace glm;
 
+Texture::Texture() : textureID{}
+{
+    glGenTextures(1, &textureID);
+}
+
 Texture::Texture(std::string name) : textureID{}
 {
     name = "textures/" + name;

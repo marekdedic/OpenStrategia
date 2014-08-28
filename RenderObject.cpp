@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{"tank-tex.bmp"}}, VBO{}, UVBO{}, EBO{}, elementCount{}
+RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{}}, VBO{}, UVBO{}, EBO{}, elementCount{}
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &UVBO);
