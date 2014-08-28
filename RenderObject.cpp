@@ -96,41 +96,14 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const prg, const std::shared_ptr<const glm::mat4> viewMatrix, const std::shared_ptr<const glm::mat4> projectionMatrix) const
+void RenderObject::render(const Program* const prg) const
 {
-    // Compute Model matrix, send it to GLSL
-    mat4 modelMatrix{*position * *orientation};
-    GLint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
-    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
-
-    // Compute ModelViewProjection matrix, send it to GLSL
-    mat4 MVP{*projectionMatrix * *viewMatrix * modelMatrix};
-    loc = glGetUniformLocation(prg->programID, "MVP");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
-
-    // Send light position to GLSL
-    vec3 LightPosition{-3, 1, 5};
-    loc = glGetUniformLocation(prg->programID, "lPosition_w");
-    glUniform3fv(loc, 1, value_ptr(LightPosition));
-
-    // Send light falloff distances to GLSL
-    float LightFalloffMin{1};
-    loc = glGetUniformLocation(prg->programID, "lFalloffMin");
-    glUniform1fv(loc, 1, &LightFalloffMin);
-    float LightFalloffMax{6};
-    loc = glGetUniformLocation(prg->programID, "lFalloffMax");
-    glUniform1fv(loc, 1, &LightFalloffMax);
-
-    // Send camera position to GLSL
-    loc = glGetUniformLocation(prg->programID, "cPosition_w");
-    glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
-
     // Send the texture to Graphics card
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture->textureID);
 
     // Use texture unit 0
-    loc = glGetUniformLocation(prg->programID, "oSampler");
+    GLint loc{glGetUniformLocation(prg->programID, "oSampler")};
     glUniform1i(loc, 0);
 
     // Send the vertices to GLSL

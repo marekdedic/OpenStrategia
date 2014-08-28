@@ -140,12 +140,45 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
     elementCount = vertexIndices.size();
 }
 
-void RenderObject3D::render(const Program* const shaders, const std::shared_ptr<const Camera> cam) const
+void RenderObject3D::render(const Program* const prg, const std::shared_ptr<const Camera> cam) const
 {
+    // Select shader program
+    glUseProgram(prg->programID);
+
+    // Compute Model matrix, send it to GLSL
+    mat4 modelMatrix{*position * *orientation};
+    GLint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
+
+    // Compute ModelViewProjection matrix, send it to GLSL
+    mat4 MVP{*cam->projection * *cam->view * modelMatrix};
+    loc = glGetUniformLocation(prg->programID, "MVP");
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
+
+    // Send light position to GLSL
+    vec3 LightPosition{-3, 1, 5};
+    loc = glGetUniformLocation(prg->programID, "lPosition_w");
+    glUniform3fv(loc, 1, value_ptr(LightPosition));
+
+    // Send light falloff distances to GLSL
+    float LightFalloffMin{1};
+    loc = glGetUniformLocation(prg->programID, "lFalloffMin");
+    glUniform1fv(loc, 1, &LightFalloffMin);
+    float LightFalloffMax{6};
+    loc = glGetUniformLocation(prg->programID, "lFalloffMax");
+    glUniform1fv(loc, 1, &LightFalloffMax);
+
+    // Send camera position to GLSL
+    loc = glGetUniformLocation(prg->programID, "cPosition_w");
+    glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
+
+    // Send normals to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    RenderObject::render(shaders, cam->view, cam->projection);
+
+    // Render
+    RenderObject::render(prg);
     glDisableVertexAttribArray(2);
 }
 

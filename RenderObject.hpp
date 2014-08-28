@@ -56,7 +56,7 @@ public:
      * \param viewMatrix A view matrix to use.
      * \param projectionMatrix A projection matrix to use
      */
-    virtual void render(const Program* const prg, const std::shared_ptr<const glm::mat4> viewMatrix, const std::shared_ptr<const glm::mat4> projectionMatrix) const;
+    virtual void render(const Program* const prg) const;
     /** \brief RenderObject class destructor
      *
      * Deletes all dynamically allocated variables and all buffer objects.

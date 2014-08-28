@@ -4,13 +4,13 @@ using namespace glm;
 
 Program::Program() : programID{glCreateProgram()}, shaders{} {}
 
-void Program::AddShader(const std::string name, const GLenum shaderType)
+void Program::addShader(const std::string name, const GLenum shaderType)
 {
     shaders.emplace_back(new Shader(name, shaderType));
     glAttachShader(programID, shaders.back()->shaderID);
 }
 
-void Program::Link() const
+void Program::link() const
 {
     glLinkProgram(programID);
 

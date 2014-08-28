@@ -53,14 +53,15 @@ int main()
     glDepthFunc(GL_LESS);
 
     // Loading shaders
-    Program* shaders{new Program};
-    shaders->AddShader("phong.vertex.glsl", GL_VERTEX_SHADER);
-    shaders->AddShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
+    Program* shaders3D{new Program};
+    shaders3D->addShader("phong.vertex.glsl", GL_VERTEX_SHADER);
+    shaders3D->addShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
+    Program* shaders2D{new Program};
+    shaders2D->addShader("phong.vertex.glsl", GL_VERTEX_SHADER);
+    shaders2D->addShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
     if(glfwWindowShouldClose(WINDOW)) {return -1;}
-    shaders->Link();
-                                                                        glUseProgram(shaders->programID);
-
-    // Setting up some important variables
+    shaders3D->link();
+    shaders2D->link();
 
     // Reset timer and swap buffers, so that the main loop can start immediatelly
     glfwSetTime(0);
@@ -84,16 +85,16 @@ int main()
 	};
                                                                         vector<GLuint> iData{0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
                                                                         vector<GLuint> iData2{0,1,2};
-                                                                        //RenderObject3D* objekt{new RenderObject3D(&vData, &iData)};
-                                                                        //RenderObject2D* objekt2{new RenderObject2D(&vData2, &iData2)};
-                                                                        RenderObject3D* objekt3{new RenderObject3D("tank.obj")};
+                                                                        //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
+                                                                        RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
+                                                                        RenderObject2D* objekt3{new RenderObject2D{}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         //objekt->render(shaders, MAINCAM);
-                                                                        //objekt2->render(shaders);
-                                                                        objekt3->render(shaders, MAINCAM);
+                                                                        objekt2->render(shaders3D, MAINCAM);
+                                                                        objekt3->render(shaders3D);
 
         // Input handling
         glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
@@ -116,8 +117,9 @@ int main()
         glfwPollEvents();
     }
     //delete objekt;
-    //delete objekt2;
+    delete objekt2;
     delete objekt3;
-    delete shaders;
+    delete shaders3D;
+    delete shaders2D;
     MAINCAM.reset();
 }
