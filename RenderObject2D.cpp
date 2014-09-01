@@ -6,9 +6,9 @@ RenderObject2D::RenderObject2D() :RenderObject()       //DEBUG ONLY
 {
     texture.reset(new Texture{"tex2D.bmp"});
     const GLfloat vertex_buffer_data[]{
-		-0.5f,-1.0f, 0.0f,
-		 1.0f,-1.0f, 0.0f,
-		 1.0f, 1.0f, 0.0f,
+		-0.5f,-1.0f,
+		 1.0f,-1.0f,
+		 1.0f, 1.0f,
 	};
 	const GLfloat UV_buffer_data[]{
 		 0.0f, 0.0f,
@@ -34,6 +34,6 @@ void RenderObject2D::render(const Program* const prg) const
     // Select shader program
     glUseProgram(prg->programID);
 
-    RenderObject::render(prg);
+    RenderObject::render(prg, 2);
     glEnable(GL_DEPTH_TEST);
 }

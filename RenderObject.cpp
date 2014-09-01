@@ -96,7 +96,7 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const prg) const
+void RenderObject::render(const Program* const prg, const GLint vecSize) const
 {
     // Send the texture to Graphics card
     glActiveTexture(GL_TEXTURE0);
@@ -109,7 +109,7 @@ void RenderObject::render(const Program* const prg) const
     // Send the vertices to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer(0, vecSize, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     // Send the UVs to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, UVBO);

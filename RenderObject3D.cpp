@@ -178,7 +178,7 @@ void RenderObject3D::render(const Program* const prg, const std::shared_ptr<cons
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     // Render
-    RenderObject::render(prg);
+    RenderObject::render(prg, 3);
     glDisableVertexAttribArray(2);
 }
 
