@@ -85,6 +85,8 @@
 		<Unit filename="Shader.hpp" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.hpp" />
+		<Unit filename="bin/Release/shaders/2D.fragment.glsl" />
+		<Unit filename="bin/Release/shaders/2D.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/basic.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/blinn.fragment.glsl" />

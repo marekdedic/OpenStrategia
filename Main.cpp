@@ -57,8 +57,8 @@ int main()
     shaders3D->addShader("phong.vertex.glsl", GL_VERTEX_SHADER);
     shaders3D->addShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
     Program* shaders2D{new Program};
-    shaders2D->addShader("phong.vertex.glsl", GL_VERTEX_SHADER);
-    shaders2D->addShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
+    shaders2D->addShader("2D.vertex.glsl", GL_VERTEX_SHADER);
+    shaders2D->addShader("2D.fragment.glsl", GL_FRAGMENT_SHADER);
     if(glfwWindowShouldClose(WINDOW)) {return -1;}
     shaders3D->link();
     shaders2D->link();
@@ -94,7 +94,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         //objekt->render(shaders, MAINCAM);
                                                                         objekt2->render(shaders3D, MAINCAM);
-                                                                        objekt3->render(shaders3D);
+                                                                        objekt3->render(shaders2D);
 
         // Input handling
         glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
