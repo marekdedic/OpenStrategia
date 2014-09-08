@@ -35,7 +35,7 @@ public:
     /** \brief Camera class constructor
      *
      * Sets the initial values of the camera as well.
-     * \param FOV Field of view used for the camera.
+     * \param FOV Field of view used for the camera (in radians).
      * \param aspect Aspect ratio of the screen. Usually width / height.
      * \param speed Movement speed.
      * \param position Position represented by a vector.
