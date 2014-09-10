@@ -34,6 +34,7 @@ void RenderObject2D::render(const Program* const prg) const
     // Select shader program
     glUseProgram(prg->programID);
 
+    // Change coordinate system
     mat4 matrix = mat4{ 1, 0, 0, 0,
                         0, 1, 0, 0,
                         0, 0, 1, 0,
