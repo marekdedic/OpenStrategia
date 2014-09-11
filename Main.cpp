@@ -87,7 +87,7 @@ int main()
                                                                         vector<GLuint> iData2{0,1,2};
                                                                         //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
-                                                                        RenderObject2D* objekt3{new RenderObject2D{}};
+                                                                        Image* objekt3{new Image{}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering

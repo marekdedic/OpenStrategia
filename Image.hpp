@@ -15,6 +15,7 @@
  */
 class Image : public RenderObject2D
 {
+public:
     /** \brief Image class default constructor
      *
      * Initializes all buffers and dynamic variables, draws a funky triangle across half the screen.
