@@ -2,14 +2,14 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{}}, VBO{}, UVBO{}, EBO{}, elementCount{}
+RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{}}, VBO{}, UVBO{}, EBO{}
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &UVBO);
     glGenBuffers(1, &EBO);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}, elementCount{}
+RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}
 {
     GLint bufferSize{};
     glGenBuffers(1, &VBO);
@@ -90,7 +90,6 @@ RenderObject::RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std
 	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
-	elementCount = indexData->size();
 }
 
 void RenderObject::handle() {}
@@ -118,7 +117,9 @@ void RenderObject::render(std::shared_ptr<Program> prg, const GLint vecSize) con
 
     // Draw from Element Buffer Object
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, nullptr);
+    int elementCount{0};
+    glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &elementCount);
+	glDrawElements(GL_TRIANGLES, elementCount/sizeof(GLuint), GL_UNSIGNED_INT, nullptr);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 }

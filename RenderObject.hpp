@@ -23,7 +23,6 @@ protected:
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
-    GLuint elementCount; /**< Number of elements single object has. */
     /** \brief RenderObject class default constructor
      *
      * Initializes all buffers and dynamic variables.
