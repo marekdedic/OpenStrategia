@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject2D::RenderObject2D() :RenderObject() {}
+RenderObject2D::RenderObject2D() : RenderObject() {}
 
 RenderObject2D::RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData) {}
 
@@ -21,7 +21,7 @@ void RenderObject2D::render(const Program* const prg) const
                  * mat4{2.0/WIDTH, 0, 0, 0,
                         0, 2.0/HEIGHT, 0, 0,
                         0, 0, 1, 0,
-                        0, 0, 0, 1};
+                        0, 0, 0, 1} * *position * *orientation;
     GLint loc {glGetUniformLocation(prg->programID, "matrix")};
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(matrix));
 

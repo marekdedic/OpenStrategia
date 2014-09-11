@@ -16,11 +16,13 @@
 class Image : public RenderObject2D
 {
 public:
+    Image() = delete;
     /** \brief Image class default constructor
      *
      * Initializes all buffers and dynamic variables.
+     * \param Texture file name.
      */
-    Image();
+    Image(glm::vec2 inPosition, glm::vec2 inSize, float angle, std::string name);
     /** \brief Image constructor
      *
      * Creates an 2D object from 2 vectors. Calls RenderObject2D::RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
