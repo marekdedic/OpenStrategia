@@ -74,9 +74,9 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
     return *this;
 }
 
-RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject()
+RenderObject::RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject()
 {
-    if((vertexData->size() % 3) != 0)
+    if(((vertexData->size() % 3) != 0) or ((vertexData->size() % 2) != 0))
     {
         ERROR << "Invalid vertex data passed to RenderObject constructor" << endl;
         return;
@@ -96,7 +96,7 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const prg, const GLint vecSize) const
+void RenderObject::render(std::shared_ptr<Program> prg, const GLint vecSize) const
 {
     // Send the texture to Graphics card
     glActiveTexture(GL_TEXTURE0);

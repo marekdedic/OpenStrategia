@@ -29,9 +29,9 @@ Image::Image(glm::vec2 inPosition, glm::vec2 inSize, float angle, std::string na
 	elementCount = 6;
 }
 
-Image::Image(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject2D(vertexData, indexData) {}
+Image::Image(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject2D(vertexData, indexData) {}
 
-void Image::render(const Program* const prg) const
+void Image::render(std::shared_ptr<Program> prg) const
 {
     RenderObject2D::render(prg);
 }

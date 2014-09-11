@@ -52,7 +52,7 @@ RenderObject3D& RenderObject3D::operator=(const RenderObject3D& other)
     return *this;
 }
 
-RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO{}
+RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject(vertexData, indexData), NBO{}
 {
     glGenBuffers(1, &NBO);
 }
@@ -140,7 +140,7 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
     elementCount = vertexIndices.size();
 }
 
-void RenderObject3D::render(const Program* const prg, const std::shared_ptr<const Camera> cam) const
+void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam) const
 {
     // Select shader program
     glUseProgram(prg->programID);

@@ -53,10 +53,10 @@ int main()
     glDepthFunc(GL_LESS);
 
     // Loading shaders
-    Program* shaders3D{new Program};
+    std::shared_ptr<Program> shaders3D{new Program};
     shaders3D->addShader("phong.vertex.glsl", GL_VERTEX_SHADER);
     shaders3D->addShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
-    Program* shaders2D{new Program};
+    std::shared_ptr<Program> shaders2D{new Program};
     shaders2D->addShader("2D.vertex.glsl", GL_VERTEX_SHADER);
     shaders2D->addShader("2D.fragment.glsl", GL_FRAGMENT_SHADER);
     if(glfwWindowShouldClose(WINDOW)) {return -1;}
@@ -87,7 +87,7 @@ int main()
                                                                         vector<GLuint> iData2{0,1,2};
                                                                         //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
-                                                                        Image* objekt3{new Image{vec2(50, 50), vec2{1300, 950}, 0, "tex2D.bmp"}};
+                                                                        Image* objekt3{new Image{vec2(50, 50), vec2{100, 100}, 0, "tex2D.bmp"}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
@@ -119,7 +119,7 @@ int main()
     //delete objekt;
     delete objekt2;
     delete objekt3;
-    delete shaders3D;
-    delete shaders2D;
+    shaders3D.reset();
+    shaders2D.reset();
     MAINCAM.reset();
 }

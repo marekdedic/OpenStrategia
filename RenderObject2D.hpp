@@ -27,13 +27,14 @@ protected:
      * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
      * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
      */
-    RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
+     public:
+    RenderObject2D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
     /** \brief Renders the 2D object
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
      */
-    virtual void render(const Program* const prg) const;
+    virtual void render(std::shared_ptr<Program> const prg) const;
 };
 
  #endif // RENDEROBJECT2D_HPP

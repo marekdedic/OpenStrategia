@@ -48,7 +48,7 @@ protected:
      * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
      * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
      */
-    RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
+    RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
     /** \brief RenderObject event handle
      *
      * Handles user input.
@@ -66,7 +66,7 @@ protected:
      * \param viewMatrix A view matrix to use.
      * \param projectionMatrix A projection matrix to use
      */
-    virtual void render(const Program* const prg, const GLint vecSize) const;
+    virtual void render(std::shared_ptr<Program> prg, const GLint vecSize) const;
     /** \brief RenderObject class destructor
      *
      * Deletes all dynamically allocated variables and all buffer objects.
