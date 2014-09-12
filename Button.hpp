@@ -33,7 +33,8 @@ public:
      */
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
-    std::unique_ptr<Texture> texture2; /**< Surface texture of the object. */
+    std::unique_ptr<Texture> texture1; /**< Surface texture of the object. */
+    GLint pressed; /**< State of the button. 0 for unpressed, 1 for pressed. */
 };
 
  #endif // BUTTON_HPP
