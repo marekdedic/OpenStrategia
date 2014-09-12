@@ -65,7 +65,7 @@ protected:
      * \param viewMatrix A view matrix to use.
      * \param projectionMatrix A projection matrix to use
      */
-    virtual void render(std::shared_ptr<Program> prg, const GLint vecSize) const;
+    virtual void render(std::shared_ptr<Program> prg, const GLint vecSize = 4, const GLint texUnit = 0) const;
     /** \brief RenderObject class destructor
      *
      * Deletes all dynamically allocated variables and all buffer objects.

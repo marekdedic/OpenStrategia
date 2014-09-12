@@ -17,25 +17,20 @@ class Image : public RenderObject2D
 {
 public:
     Image() = delete;
-    /** \brief Image class default constructor
+    /** \brief Image class constructor
      *
-     * Initializes all buffers and dynamic variables.
+     * \param Position of the Image.
+     * \param Size of the image represented as vec2(width, height).
      * \param Texture file name.
+     * \param Tilting angle.
      */
-    Image(glm::vec2 inPosition, glm::vec2 inSize, float angle, std::string name);
-    /** \brief Image constructor
-     *
-     * Creates an 2D object from 2 vectors. Calls RenderObject2D::RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
-     * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
-     * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
-     */
-    Image(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
+    Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float angle = 0);
     /** \brief Renders the Image
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
      */
-    virtual void render(std::shared_ptr<Program> prg) const;
+    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const;
 };
 
  #endif // IMAGE_HPP

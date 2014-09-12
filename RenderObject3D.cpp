@@ -138,7 +138,7 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), normals.data(), GL_STATIC_DRAW);
 }
 
-void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam) const
+void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit) const
 {
     // Select shader program
     glUseProgram(prg->programID);
@@ -176,7 +176,7 @@ void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     // Render
-    RenderObject::render(prg, 3);
+    RenderObject::render(prg, 3, texUnit);
     glDisableVertexAttribArray(2);
 }
 

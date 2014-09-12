@@ -95,15 +95,15 @@ RenderObject::RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(std::shared_ptr<Program> prg, const GLint vecSize) const
+void RenderObject::render(std::shared_ptr<Program> prg, const GLint vecSize, const GLint texUnit) const
 {
-    // Send the texture to Graphics card
+    // Send the 0th texture to Graphics card
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture->textureID);
 
     // Use texture unit 0
     GLint loc{glGetUniformLocation(prg->programID, "oSampler")};
-    glUniform1i(loc, 0);
+    glUniform1i(loc, texUnit);
 
     // Send the vertices to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, VBO);

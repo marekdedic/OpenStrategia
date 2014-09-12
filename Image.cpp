@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Image::Image(glm::vec2 inPosition, glm::vec2 inSize, float angle, std::string name) : RenderObject2D()
+Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string name, float angle) : RenderObject2D()
 {
     *position = translate(mat4{}, vec3{inPosition, 0});
     *orientation = rotate(mat4{}, angle, vec3{0, 0, 1});
@@ -18,9 +18,7 @@ Image::Image(glm::vec2 inPosition, glm::vec2 inSize, float angle, std::string na
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, element_buffer_data.size() * sizeof(GLuint), element_buffer_data.data(), GL_STATIC_DRAW);
 }
 
-Image::Image(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject2D(vertexData, indexData) {}
-
-void Image::render(std::shared_ptr<Program> prg) const
+void Image::render(std::shared_ptr<Program> prg, const GLint texUnit) const
 {
-    RenderObject2D::render(prg);
+    RenderObject2D::render(prg, texUnit);
 }
