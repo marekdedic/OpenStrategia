@@ -14,7 +14,6 @@ void Button::handle()
     }
     else if(state > 0)
     {
-        ERROR << state << endl;
         if (DELTA > state) {state = -1;}
         else {state -= DELTA;}
     }
