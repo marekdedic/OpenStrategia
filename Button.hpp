@@ -16,6 +16,7 @@
 class Button : public Image
 {
 public:
+    static double pressedTime;
     Button() = delete;
     /** \brief Button class constructor
      *
@@ -26,6 +27,7 @@ public:
      * \param Tilting angle.
      */
     Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, float angle = 0);
+    virtual void handle();
     /** \brief Renders the Button
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
@@ -34,7 +36,8 @@ public:
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
     std::unique_ptr<Texture> texture1; /**< Surface texture of the object. */
-    GLint pressed; /**< State of the button. 0 for unpressed, 1 for pressed. */
+    double state; /**< State of the button. 0 for unpressed, -1 for pressed but image already changed back, otherwise countdown. */
+    void (*callback)(void);
 };
 
  #endif // BUTTON_HPP

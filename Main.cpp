@@ -98,6 +98,7 @@ int main()
 
         // Input handling
         glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
+        YCURSOR = HEIGHT - YCURSOR;
         if(glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
             glfwSetWindowShouldClose(WINDOW, GL_TRUE);
@@ -107,6 +108,7 @@ int main()
             thread t(&Camera::handle, MAINCAM);
             t.detach();
         }
+                                                                        objekt3->handle();
 
         // Updating
 

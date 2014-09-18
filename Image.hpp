@@ -31,6 +31,9 @@ public:
      * \param prg A shader program to use.
      */
     virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const;
+protected:
+    glm::vec2 imagePosition;
+    glm::vec2 imageSize;
 };
 
  #endif // IMAGE_HPP

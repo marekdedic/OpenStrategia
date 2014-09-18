@@ -2,12 +2,12 @@
 using namespace std;
 using namespace glm;
 
-Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string name, float angle) : RenderObject2D()
+Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string name, float angle) : RenderObject2D(), imagePosition{inPosition}, imageSize{inSize}
 {
-    *position = translate(mat4{}, vec3{inPosition, 0});
+    *position = translate(mat4{}, vec3{imagePosition, 0});
     *orientation = rotate(mat4{}, angle, vec3{0, 0, 1});
     texture.reset(new Texture{name});
-    vector<GLfloat> vertex_buffer_data{0, 0, inSize.x, 0, inSize.x, inSize.y, 0, inSize.y};
+    vector<GLfloat> vertex_buffer_data{0, 0, imageSize.x, 0, imageSize.x, imageSize.y, 0, imageSize.y};
 	vector<GLfloat> UV_buffer_data{0, 0, 1, 0, 1, 1, 0, 1};
 	vector<GLuint> element_buffer_data{0, 1, 2, 0, 2, 3};
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
