@@ -2,14 +2,14 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{"tank-tex.bmp"}}, VBO{}, UVBO{}, EBO{}, elementCount{}
+RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{}}, VBO{}, UVBO{}, EBO{}
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &UVBO);
     glGenBuffers(1, &EBO);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}, elementCount{}
+RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}
 {
     GLint bufferSize{};
     glGenBuffers(1, &VBO);
@@ -74,9 +74,9 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
     return *this;
 }
 
-RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject()
+RenderObject::RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject()
 {
-    if((vertexData->size() % 3) != 0)
+    if(((vertexData->size() % 3) != 0) or ((vertexData->size() % 2) != 0))
     {
         ERROR << "Invalid vertex data passed to RenderObject constructor" << endl;
         return;
@@ -90,53 +90,25 @@ RenderObject::RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>
 	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
-	elementCount = indexData->size();
 }
 
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(const Program* const prg, const std::shared_ptr<const glm::mat4> viewMatrix, const std::shared_ptr<const glm::mat4> projectionMatrix) const
+void RenderObject::render(std::shared_ptr<Program> prg, const GLint vecSize, const GLint texUnit) const
 {
-    // Compute Model matrix, send it to GLSL
-    mat4 modelMatrix{*position * *orientation};
-    GLint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
-    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
-
-    // Compute ModelViewProjection matrix, send it to GLSL
-    mat4 MVP{*projectionMatrix * *viewMatrix * modelMatrix};
-    loc = glGetUniformLocation(prg->programID, "MVP");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
-
-    // Send light position to GLSL
-    vec3 LightPosition{-3, 1, 5};
-    loc = glGetUniformLocation(prg->programID, "lPosition_w");
-    glUniform3fv(loc, 1, value_ptr(LightPosition));
-
-    // Send light falloff distances to GLSL
-    float LightFalloffMin{1};
-    loc = glGetUniformLocation(prg->programID, "lFalloffMin");
-    glUniform1fv(loc, 1, &LightFalloffMin);
-    float LightFalloffMax{6};
-    loc = glGetUniformLocation(prg->programID, "lFalloffMax");
-    glUniform1fv(loc, 1, &LightFalloffMax);
-
-    // Send camera position to GLSL
-    loc = glGetUniformLocation(prg->programID, "cPosition_w");
-    glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
-
-    // Send the texture to Graphics card
+    // Send the 0th texture to Graphics card
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture->textureID);
 
     // Use texture unit 0
-    loc = glGetUniformLocation(prg->programID, "oSampler");
-    glUniform1i(loc, 0);
+    GLint loc{glGetUniformLocation(prg->programID, "oSampler")};
+    glUniform1i(loc, texUnit);
 
     // Send the vertices to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+    glVertexAttribPointer(0, vecSize, GL_FLOAT, GL_FALSE, 0, nullptr);
 
     // Send the UVs to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, UVBO);
@@ -145,7 +117,9 @@ void RenderObject::render(const Program* const prg, const std::shared_ptr<const 
 
     // Draw from Element Buffer Object
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, nullptr);
+    int elementCount{0};
+    glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &elementCount);
+	glDrawElements(GL_TRIANGLES, elementCount/sizeof(GLuint), GL_UNSIGNED_INT, nullptr);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 }

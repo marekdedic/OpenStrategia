@@ -2,6 +2,11 @@
 using namespace std;
 using namespace glm;
 
+Texture::Texture() : textureID{}
+{
+    glGenTextures(1, &textureID);
+}
+
 Texture::Texture(std::string name) : textureID{}
 {
     name = "textures/" + name;
@@ -59,6 +64,7 @@ Texture::Texture(std::string name) : textureID{}
         dataPos = 54;
     }
     char* data{new char[imageSize]};
+    file.seekg(dataPos);
     file.read(data, imageSize);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

@@ -64,8 +64,12 @@
 		<Linker>
 			<Add library="glfw3" />
 		</Linker>
+		<Unit filename="Button.cpp" />
+		<Unit filename="Button.hpp" />
 		<Unit filename="Camera.cpp" />
 		<Unit filename="Camera.hpp" />
+		<Unit filename="Image.cpp" />
+		<Unit filename="Image.hpp" />
 		<Unit filename="Libs.hpp" />
 		<Unit filename="Main.cpp" />
 		<Unit filename="Main.hpp" />
@@ -81,6 +85,8 @@
 		<Unit filename="Shader.hpp" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.hpp" />
+		<Unit filename="bin/Release/shaders/2D.fragment.glsl" />
+		<Unit filename="bin/Release/shaders/2D.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/basic.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/blinn.fragment.glsl" />

@@ -16,8 +16,14 @@ class Texture
 {
 public:
     GLuint textureID; /**< ID of the texture. */
-    Texture() = delete;
-    /** \brief Loads a texture
+    /** \brief Texture class default constructor
+     *
+     * Allocates memory for the texture
+     */
+    Texture();
+    /** \brief Texture class constructor
+     *
+     * Loads a texture
      * \param name Filename with extension, relative to the textures subdir.
      */
     Texture(std::string name);

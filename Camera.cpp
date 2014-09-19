@@ -32,11 +32,11 @@ void Camera::handle()
     }
     if((glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (YCURSOR < 2))
     {
-        *position += vec3{0, -speed, 0};
+        *position += vec3{0, speed, 0};
     }
     if((glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (YCURSOR > (HEIGHT - 2)))
     {
-        *position += vec3{0, speed, 0};
+        *position += vec3{0, -speed, 0};
     }
     *view = translate(mat4{}, *position) * mat4_cast(*orientation);
 }

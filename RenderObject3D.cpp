@@ -20,7 +20,6 @@ RenderObject3D::RenderObject3D() : NBO{}                   //DEBUG ONLY
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
-	elementCount = 36;
 }
 
 RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other), NBO{}
@@ -52,13 +51,14 @@ RenderObject3D& RenderObject3D::operator=(const RenderObject3D& other)
     return *this;
 }
 
-RenderObject3D::RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData) : RenderObject(vertexData, indexData), NBO{}
+RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject(vertexData, indexData), NBO{}
 {
     glGenBuffers(1, &NBO);
 }
 
 RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
 {
+    texture.reset(new Texture{"tank-tex.bmp"});
     glGenBuffers(1, &NBO);
     ObjectName = "models/" + ObjectName;
     vector<GLuint> vertexIndices{}, UVIndices{}, normalIndices{};
@@ -136,15 +136,47 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), normals.data(), GL_STATIC_DRAW);
-    elementCount = vertexIndices.size();
 }
 
-void RenderObject3D::render(const Program* const shaders, const std::shared_ptr<const Camera> cam) const
+void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit) const
 {
+    // Select shader program
+    glUseProgram(prg->programID);
+
+    // Compute Model matrix, send it to GLSL
+    mat4 modelMatrix{*position * *orientation};
+    GLint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
+
+    // Compute ModelViewProjection matrix, send it to GLSL
+    mat4 MVP{*cam->projection * *cam->view * modelMatrix};
+    loc = glGetUniformLocation(prg->programID, "MVP");
+    glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
+
+    // Send light position to GLSL
+    vec3 LightPosition{-3, 1, 5};
+    loc = glGetUniformLocation(prg->programID, "lPosition_w");
+    glUniform3fv(loc, 1, value_ptr(LightPosition));
+
+    // Send light falloff distances to GLSL
+    float LightFalloffMin{1};
+    loc = glGetUniformLocation(prg->programID, "lFalloffMin");
+    glUniform1fv(loc, 1, &LightFalloffMin);
+    float LightFalloffMax{6};
+    loc = glGetUniformLocation(prg->programID, "lFalloffMax");
+    glUniform1fv(loc, 1, &LightFalloffMax);
+
+    // Send camera position to GLSL
+    loc = glGetUniformLocation(prg->programID, "cPosition_w");
+    glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
+
+    // Send normals to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    RenderObject::render(shaders, cam->view, cam->projection);
+
+    // Render
+    RenderObject::render(prg, 3, texUnit);
     glDisableVertexAttribArray(2);
 }
 

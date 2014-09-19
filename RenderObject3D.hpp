@@ -39,7 +39,7 @@ public:
      * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
      * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
      */
-    RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
+    RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
     /** \brief RenderObject3D constructor
      *
      * Creates an object from a .OBJ file.
@@ -51,8 +51,9 @@ public:
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
      * \param cam A Camera to render the object with.
+     * \param texUnit A texture unit to use.
      */
-    virtual void render(const Program* const prg, const std::shared_ptr<const Camera> cam) const;
+    virtual void render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit = 0) const;
     ~RenderObject3D();
 protected:
     GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals. */

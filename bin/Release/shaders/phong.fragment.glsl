@@ -48,5 +48,4 @@ void main()
     }
 
 	gl_FragColor = lFalloffMultiplier * (fDiffuseColor + fSpecularColor) + fAmbientColor;
-	//gl_FragColor = mDiffuseColor;
 }

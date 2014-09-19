@@ -7,6 +7,7 @@
 #ifndef RENDEROBJECT2D_HPP
 #define RENDEROBJECT2D_HPP
 #include "Libs.hpp"
+#include "RenderObject.hpp"
 
 /** \brief RenderObject2D class
  *
@@ -14,10 +15,10 @@
  */
 class RenderObject2D : public RenderObject
 {
-public:
+protected:
     /** \brief RenderObject2D class default constructor
      *
-     * Initializes all buffers and dynamic variables, draws a funky triangle across half the screen.
+     * Initializes all buffers and dynamic variables.
      */
     RenderObject2D();
     /** \brief RenderObject2D constructor
@@ -26,13 +27,14 @@ public:
      * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
      * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
      */
-    RenderObject2D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
+    RenderObject2D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
     /** \brief Renders the 2D object
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
+     * \param texUnit A texture unit to use.
      */
-    virtual void render(const Program* const prg) const;
+    virtual void render(std::shared_ptr<Program> const prg, const GLint texUnit = 0) const;
 };
 
  #endif // RENDEROBJECT2D_HPP

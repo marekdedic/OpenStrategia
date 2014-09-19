@@ -11,8 +11,10 @@
 
 #include "Libs.hpp"
 
-#include "Program.hpp"
+#include "Button.hpp"
 #include "Camera.hpp"
+#include "Image.hpp"
+#include "Program.hpp"
 #include "RenderObject.hpp"
 #include "RenderObject2D.hpp"
 #include "RenderObject3D.hpp"

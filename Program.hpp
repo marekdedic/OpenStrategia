@@ -25,12 +25,12 @@ public:
      * \param name Filename with extension, relative to the shaders subdir.
      * \param shaderType Type of the shader passed to glCreateShader() - see OpenGL documentation
      */
-    void AddShader(const std::string name, const GLenum shaderType);
+    void addShader(const std::string name, const GLenum shaderType);
     /** \brief Links shader program
      *
      * After changing anything to the shader program, Link() must be called again.
      */
-    void Link() const;
+    void link() const;
     /** \brief Program class destructor
      *
      * Deletes all dynamically allocated variables.
