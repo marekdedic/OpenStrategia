@@ -68,6 +68,8 @@
 		<Unit filename="Button.hpp" />
 		<Unit filename="Camera.cpp" />
 		<Unit filename="Camera.hpp" />
+		<Unit filename="Checkbox.cpp" />
+		<Unit filename="Checkbox.hpp" />
 		<Unit filename="Image.cpp" />
 		<Unit filename="Image.hpp" />
 		<Unit filename="Libs.hpp" />

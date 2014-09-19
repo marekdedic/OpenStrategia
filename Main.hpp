@@ -13,6 +13,7 @@
 
 #include "Button.hpp"
 #include "Camera.hpp"
+#include "Checkbox.hpp"
 #include "Image.hpp"
 #include "Program.hpp"
 #include "RenderObject.hpp"

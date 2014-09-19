@@ -37,9 +37,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE =
 OUT_RELEASE = bin/Release/OpenStrategia
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/Button.o $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Texture.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/Button.o $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Checkbox.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Texture.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/Button.o $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Image.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Texture.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/Button.o $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Checkbox.o $(OBJDIR_RELEASE)/Image.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Texture.o
 
 all: debug release
 
@@ -61,6 +61,9 @@ $(OBJDIR_DEBUG)/Button.o: Button.cpp
 
 $(OBJDIR_DEBUG)/Camera.o: Camera.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Camera.cpp -o $(OBJDIR_DEBUG)/Camera.o
+
+$(OBJDIR_DEBUG)/Checkbox.o: Checkbox.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Checkbox.cpp -o $(OBJDIR_DEBUG)/Checkbox.o
 
 $(OBJDIR_DEBUG)/Image.o: Image.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Image.cpp -o $(OBJDIR_DEBUG)/Image.o
@@ -107,6 +110,9 @@ $(OBJDIR_RELEASE)/Button.o: Button.cpp
 
 $(OBJDIR_RELEASE)/Camera.o: Camera.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Camera.cpp -o $(OBJDIR_RELEASE)/Camera.o
+
+$(OBJDIR_RELEASE)/Checkbox.o: Checkbox.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Checkbox.cpp -o $(OBJDIR_RELEASE)/Checkbox.o
 
 $(OBJDIR_RELEASE)/Image.o: Image.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Image.cpp -o $(OBJDIR_RELEASE)/Image.o
