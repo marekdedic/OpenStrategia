@@ -13,11 +13,6 @@ double YCURSOR{};
 int WIDTH{};
 int HEIGHT{};
 
-void test1()
-{
-    ERROR << "Ahoj!" << endl;
-}
-
 int main()
 {
     // GLFW, GLEW and OpenGL Initialization
@@ -92,7 +87,7 @@ int main()
                                                                         vector<GLuint> iData2{0,1,2};
                                                                         //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
-                                                                        Button* objekt3{new Button{vec2(50, 50), vec2{100, 100}, "unpressed.bmp", "pressed.bmp", test1}};
+                                                                        Checkbox* objekt3{new Checkbox{vec2(50, 50), vec2{100, 100}, "unpressed.bmp", "pressed.bmp"}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering

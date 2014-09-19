@@ -27,7 +27,7 @@ public:
      * \param func Callback function
      * \param angle Tilting angle.
      */
-    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void),  float angle = 0);
+    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void), float angle = 0);
     virtual void handle();
     /** \brief Renders the Button
      *
