@@ -51,6 +51,7 @@ public:
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
      * \param cam A Camera to render the object with.
+     * \param texUnit A texture unit to use.
      */
     virtual void render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit = 0) const;
     ~RenderObject3D();

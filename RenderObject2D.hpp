@@ -32,6 +32,7 @@ protected:
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
+     * \param texUnit A texture unit to use.
      */
     virtual void render(std::shared_ptr<Program> const prg, const GLint texUnit = 0) const;
 };

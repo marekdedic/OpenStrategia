@@ -4,13 +4,14 @@ using namespace glm;
 
 double Button::pressedTime{0.12};
 
-Button::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, float angle) : Image(inPosition, inSize, texUnpressed, angle), texture1{new Texture{texPressed}}, state{0} {}
+Button::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void), float angle) : Image(inPosition, inSize, texUnpressed, angle), texture1{new Texture{texPressed}}, state{0}, callback(func) {}
 
 void Button::handle()
 {
     if((state == 0) and (XCURSOR > imagePosition.x) and (XCURSOR < (imagePosition.x + imageSize.x)) and (YCURSOR > imagePosition.y) and (YCURSOR < (imagePosition.y + imageSize.y)) and (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS))
     {
         state = pressedTime;
+        callback();
     }
     else if(state > 0)
     {

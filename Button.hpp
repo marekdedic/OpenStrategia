@@ -16,17 +16,18 @@
 class Button : public Image
 {
 public:
-    static double pressedTime;
+    static double pressedTime; /**< Static variable determining for how long should the Button stay visualy pressed. */
     Button() = delete;
     /** \brief Button class constructor
      *
-     * \param Position of the Button.
-     * \param Size of the image represented as vec2(width, height).
-     * \param Texture file name for unpressed state.
-     * \param Texture file name for pressed state.
-     * \param Tilting angle.
+     * \param inPosition Position of the Button.
+     * \param inSize Size of the image represented as vec2(width, height).
+     * \param texUnpressed Texture file name for unpressed state.
+     * \param texPressed Texture file name for pressed state.
+     * \param func Callback function
+     * \param angle Tilting angle.
      */
-    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, float angle = 0);
+    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void),  float angle = 0);
     virtual void handle();
     /** \brief Renders the Button
      *
@@ -37,7 +38,7 @@ public:
 protected:
     std::unique_ptr<Texture> texture1; /**< Surface texture of the object. */
     double state; /**< State of the button. 0 for unpressed, -1 for pressed but image already changed back, otherwise countdown. */
-    void (*callback)(void);
+    void (*callback)(void); /**< Button callback function. */
 };
 
  #endif // BUTTON_HPP

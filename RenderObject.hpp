@@ -62,8 +62,8 @@ protected:
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
-     * \param viewMatrix A view matrix to use.
-     * \param projectionMatrix A projection matrix to use
+     * \param vecSize How many components do the vectors have.
+     * \param texUnit A texture unit to use
      */
     virtual void render(std::shared_ptr<Program> prg, const GLint vecSize = 4, const GLint texUnit = 0) const;
     /** \brief RenderObject class destructor
