@@ -13,6 +13,7 @@
 
 #include "Button.hpp"
 #include "Camera.hpp"
+#include "Checkbox.hpp"
 #include "Image.hpp"
 #include "Program.hpp"
 #include "RenderObject.hpp"
@@ -25,7 +26,7 @@ extern GLFWwindow* WINDOW; /**< Pointer to the main/current/only window. */
 extern std::shared_ptr<Camera> MAINCAM; /**< Pointer to the main/current/only camera used to render 3D objects. */
 extern double DELTA; /**< Time (in milliseconds) elapsed during the previous iteration of the main cycle. */
 extern float SPEED; /**< Game speed multiplier. */
-extern int PAUSE; /**< If 0, the game runs. If greater than 0, it works like a pause counter in milliseconds. If -1, the game is paused until "manualy" unpaused (e.g. by pressing the pause key). */
+extern int PAUSE; /**< If 0, the game runs. If greater than 0, it works like a pause counter in seconds. If -1, the game is paused until "manualy" unpaused (e.g. by pressing the pause key). */
 extern double XCURSOR; /**< The X position of the cursor. Ranges from 0 to WIDTH. */
 extern double YCURSOR; /**< The Y position of the cursor. Ranges from 0 to HEIGHT. */
 extern int WIDTH; /**< Screen width. */
