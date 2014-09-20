@@ -7,11 +7,9 @@ GLFWwindow* WINDOW{};
 shared_ptr<Camera> MAINCAM{new Camera{3.1415926535 / 4, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}}};
 double DELTA{};
 float SPEED{1};
-int PAUSE{0};
-double XCURSOR{};
-double YCURSOR{};
-int WIDTH{};
-int HEIGHT{};
+double PAUSE{0};
+glm::dvec2 CURSOR{};
+glm::ivec2 SCREENSIZE{};
 
 int main()
 {
@@ -37,7 +35,7 @@ int main()
     glfwSwapInterval(1);
     glfwSetInputMode(WINDOW, GLFW_STICKY_KEYS, GL_TRUE);
     glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
-    glfwGetWindowSize(WINDOW, &WIDTH, &HEIGHT);
+    glfwGetWindowSize(WINDOW, &SCREENSIZE.x, &SCREENSIZE.y);
 
     glewExperimental = GL_TRUE;
     GLenum GLEWerror{glewInit()};
@@ -97,13 +95,13 @@ int main()
                                                                         objekt3->render(shaders2D);
 
         // Input handling
-        glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
-        YCURSOR = HEIGHT - YCURSOR;
+        glfwGetCursorPos(WINDOW, &CURSOR.x, &CURSOR.y);
+        CURSOR.y = SCREENSIZE.y - CURSOR.y;
         if(glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
             glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         }
-        if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (XCURSOR < 2) or (YCURSOR < 2) or (XCURSOR > (WIDTH - 2)) or (YCURSOR > (HEIGHT - 2)))
+        if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (CURSOR.x < 2) or (CURSOR.y < 2) or (CURSOR.x > (SCREENSIZE.x - 2)) or (CURSOR.y > (SCREENSIZE.y - 2)))
         {
             thread t(&Camera::handle, MAINCAM);
             t.detach();

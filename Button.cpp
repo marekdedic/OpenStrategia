@@ -4,11 +4,11 @@ using namespace glm;
 
 double Button::pressedTime{0.12};
 
-Button::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void), float angle) : Image(inPosition, inSize, texUnpressed, angle), texture1{new Texture{texPressed}}, state{0}, callback(func) {}
+Button::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void)) : Image(inPosition, inSize, texUnpressed), texture1{new Texture{texPressed}}, state{0}, callback(func) {}
 
 void Button::handle()
 {
-    if((state == 0) and (XCURSOR > imagePosition.x) and (XCURSOR < (imagePosition.x + imageSize.x)) and (YCURSOR > imagePosition.y) and (YCURSOR < (imagePosition.y + imageSize.y)) and (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS))
+    if((state == 0) and (CURSOR.x > imagePosition.x) and (CURSOR.x < (imagePosition.x + imageSize.x)) and (CURSOR.y > imagePosition.y) and (CURSOR.y < (imagePosition.y + imageSize.y)) and (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS))
     {
         state = pressedTime;
         callback();
@@ -18,7 +18,7 @@ void Button::handle()
         if (DELTA > state) {state = -1;}
         else {state -= DELTA;}
     }
-    else if((XCURSOR < imagePosition.x) or (XCURSOR > (imagePosition.x + imageSize.x)) or (YCURSOR < imagePosition.y) or (YCURSOR > (imagePosition.y + imageSize.y)) or (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) != GLFW_PRESS))
+    else if((CURSOR.x < imagePosition.x) or (CURSOR.y > (imagePosition.x + imageSize.x)) or (CURSOR.y < imagePosition.y) or (CURSOR.y > (imagePosition.y + imageSize.y)) or (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) != GLFW_PRESS))
     {
         state = 0;
     }
