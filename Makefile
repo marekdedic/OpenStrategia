@@ -79,7 +79,7 @@ clean_debug:
 	rm -rf $(OBJDIR_DEBUG)
 
 before_release:
-	test -d $(BINDIR_RELEASE) || mkdir -p $(BINDIR_RELESE)
+	test -d $(BINDIR_RELEASE) || mkdir -p $(BINDIR_RELEASE)
 	test -d $(OBJDIR_RELEASE) || mkdir -p $(OBJDIR_RELEASE)
 
 release: before_release out_release
