@@ -25,9 +25,8 @@ public:
      * \param texUnpressed Texture file name for unpressed state.
      * \param texPressed Texture file name for pressed state.
      * \param func Callback function
-     * \param angle Tilting angle.
      */
-    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void), float angle = 0);
+    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (*func)(void));
     virtual void handle();
     /** \brief Renders the Button
      *

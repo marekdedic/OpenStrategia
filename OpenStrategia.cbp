@@ -14,6 +14,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -27,6 +28,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Profile">
@@ -37,6 +39,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-pg" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
@@ -64,29 +67,8 @@
 		<Linker>
 			<Add library="glfw3" />
 		</Linker>
-		<Unit filename="Button.cpp" />
-		<Unit filename="Button.hpp" />
-		<Unit filename="Camera.cpp" />
-		<Unit filename="Camera.hpp" />
-		<Unit filename="Checkbox.cpp" />
-		<Unit filename="Checkbox.hpp" />
-		<Unit filename="Image.cpp" />
-		<Unit filename="Image.hpp" />
-		<Unit filename="Libs.hpp" />
 		<Unit filename="Main.cpp" />
 		<Unit filename="Main.hpp" />
-		<Unit filename="Program.cpp" />
-		<Unit filename="Program.hpp" />
-		<Unit filename="RenderObject.cpp" />
-		<Unit filename="RenderObject.hpp" />
-		<Unit filename="RenderObject2D.cpp" />
-		<Unit filename="RenderObject2D.hpp" />
-		<Unit filename="RenderObject3D.cpp" />
-		<Unit filename="RenderObject3D.hpp" />
-		<Unit filename="Shader.cpp" />
-		<Unit filename="Shader.hpp" />
-		<Unit filename="Texture.cpp" />
-		<Unit filename="Texture.hpp" />
 		<Unit filename="bin/Release/shaders/2D.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/2D.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
@@ -95,6 +77,27 @@
 		<Unit filename="bin/Release/shaders/blinn.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/phong.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/phong.vertex.glsl" />
+		<Unit filename="include/Button.hpp" />
+		<Unit filename="include/Camera.hpp" />
+		<Unit filename="include/Checkbox.hpp" />
+		<Unit filename="include/Image.hpp" />
+		<Unit filename="include/Libs.hpp" />
+		<Unit filename="include/Program.hpp" />
+		<Unit filename="include/RenderObject.hpp" />
+		<Unit filename="include/RenderObject2D.hpp" />
+		<Unit filename="include/RenderObject3D.hpp" />
+		<Unit filename="include/Shader.hpp" />
+		<Unit filename="include/Texture.hpp" />
+		<Unit filename="src/Button.cpp" />
+		<Unit filename="src/Camera.cpp" />
+		<Unit filename="src/Checkbox.cpp" />
+		<Unit filename="src/Image.cpp" />
+		<Unit filename="src/Program.cpp" />
+		<Unit filename="src/RenderObject.cpp" />
+		<Unit filename="src/RenderObject2D.cpp" />
+		<Unit filename="src/RenderObject3D.cpp" />
+		<Unit filename="src/Shader.cpp" />
+		<Unit filename="src/Texture.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
@@ -102,7 +105,7 @@
 			<lib_finder disable_auto="1" />
 			<DoxyBlocks>
 				<comment_style block="0" line="0" />
-				<doxyfile_project project_number="0.5" />
+				<doxyfile_project />
 				<doxyfile_build />
 				<doxyfile_warnings warn_if_undocumented="1" />
 				<doxyfile_output />

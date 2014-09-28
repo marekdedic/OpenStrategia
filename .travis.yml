@@ -17,6 +17,7 @@ install:
  - sudo apt-get install xorg-dev
  - git clone https://github.com/glfw/glfw.git
  - cd glfw
+ - git checkout latest
  - sudo cmake .
  - sudo make && sudo make install
  - cd ..

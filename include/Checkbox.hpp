@@ -24,9 +24,8 @@ public:
      * \param inSize Size of the image represented as vec2(width, height).
      * \param texUnpressed Texture file name for unpressed state.
      * \param texPressed Texture file name for pressed state.
-     * \param angle Tilting angle.
      */
-    Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, float angle = 0);
+    Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed);
     virtual void handle();
     /** \brief Renders the Checkbox
      *

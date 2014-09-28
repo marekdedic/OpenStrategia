@@ -1,4 +1,4 @@
-#include "Main.hpp"
+#include "../Main.hpp"
 using namespace std;
 using namespace glm;
 
@@ -18,8 +18,8 @@ void RenderObject2D::render(std::shared_ptr<Program> const prg, const GLint texU
                         0, 1, 0, 0,
                         0, 0, 1, 0,
                         -1, -1, 0, 1}
-                 * mat4{2.0/WIDTH, 0, 0, 0,
-                        0, 2.0/HEIGHT, 0, 0,
+                 * mat4{2.0/SCREENSIZE.x, 0, 0, 0,
+                        0, 2.0/SCREENSIZE.y, 0, 0,
                         0, 0, 1, 0,
                         0, 0, 0, 1} * *position * *orientation;
     GLint loc {glGetUniformLocation(prg->programID, "matrix")};

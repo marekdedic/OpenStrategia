@@ -1,12 +1,12 @@
-#include "Main.hpp"
+#include "../Main.hpp"
 using namespace std;
 using namespace glm;
 
-Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, float angle) : Image(inPosition, inSize, texUnpressed, angle), state{false}, cooldown(false), texture1{new Texture{texPressed}} {}
+Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed) : Image(inPosition, inSize, texUnpressed), state{false}, cooldown(false), texture1{new Texture{texPressed}} {}
 
 void Checkbox::handle()
 {
-    if((XCURSOR > imagePosition.x) and (XCURSOR < (imagePosition.x + imageSize.x)) and (YCURSOR > imagePosition.y) and (YCURSOR < (imagePosition.y + imageSize.y)) and (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS))
+    if((CURSOR.x > imagePosition.x) and (CURSOR.x < (imagePosition.x + imageSize.x)) and (CURSOR.y > imagePosition.y) and (CURSOR.y < (imagePosition.y + imageSize.y)) and (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS))
     {
         if(!cooldown) {state = !state;}
         cooldown = true;
