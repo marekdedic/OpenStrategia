@@ -1,3 +1,5 @@
+LD = $(CXX)
+
 CFLAGS = -Wnon-virtual-dtor -Winit-self -Wredundant-decls -Wcast-align -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
 LIB = -lglfw3 -lGLEW -lGL -lX11 -lXxf86vm -lpthread -lXrandr -lXi
 OBJDIR = obj
@@ -36,6 +38,8 @@ before_debug:
 	test -d $(OBJDIR_DEBUG) || mkdir -p $(OBJDIR_DEBUG)
 
 debug: before_debug out_debug
+
+Debug: debug
 
 out_debug: $(OBJ_DEBUG)
 	$(LD) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
@@ -84,6 +88,8 @@ before_release:
 
 release: before_release out_release
 
+Release: release
+
 out_release: before_release $(OBJ_RELEASE)
 	$(LD) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
 
@@ -130,6 +136,8 @@ before_profile:
 	test -d $(OBJDIR_PROFILE) || mkdir -p $(OBJDIR_PROFILE)
 
 profile: before_profile out_profile
+
+Profile: profile
 
 out_profile: $(OBJ_PROFILE)
 	$(LD) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
