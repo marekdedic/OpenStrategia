@@ -83,7 +83,6 @@ $(OBJDIR_DEBUG)/Texture.o: $(SRCDIR_DEBUG)/Texture.cpp
 
 clean_debug:
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
-	rm -rf $(BINDIR_DEBUG)
 	rm -rf $(OBJDIR_DEBUG)
 
 before_release:
@@ -132,7 +131,6 @@ $(OBJDIR_RELEASE)/Texture.o: $(SRCDIR_RELEASE)/Texture.cpp
 
 clean_release:
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)
-	rm -rf $(BINDIR_RELEASE)
 	rm -rf $(OBJDIR_RELEASE)
 
 before_profile:
@@ -181,7 +179,6 @@ $(OBJDIR_PROFILE)/Texture.o: $(SRCDIR_PROFILE)/Texture.cpp
 
 clean_profile:
 	rm -f $(OBJ_PROFILE) $(OUT_PROFILE)
-	rm -rf $(BINDIR_PROFILE)
 	rm -rf $(OBJDIR_PROFILE)
 
 
