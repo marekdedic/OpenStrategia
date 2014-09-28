@@ -4,7 +4,7 @@ using namespace glm;
 
 std::ofstream ERROR{"ErrorLog.txt", fstream::trunc};
 GLFWwindow* WINDOW{};
-shared_ptr<Camera> MAINCAM{new Camera{3.1415926535 / 4, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}}};
+std::shared_ptr<Camera> MAINCAM{new Camera{3.1415926535 / 4, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}}};
 double DELTA{};
 float SPEED{1};
 double PAUSE{0};
