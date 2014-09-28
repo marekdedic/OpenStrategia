@@ -12,7 +12,7 @@ OUT_DEBUG = $(BINDIR_DEBUG)/OpenStrategia
 CFLAGS_RELEASE = $(CFLAGS) -s -O3
 LIB_RELEASE = $(LIB)
 OBJDIR_RELEASE = $(OBJDIR)/Release
-BINDIR_RELEAsE = $(BINDIR)/Release
+BINDIR_RELEASE = $(BINDIR)/Release
 OUT_RELEASE = $(BINDIR_RELEASE)/OpenStrategia
 
 CFLAGS_PROFILE = $(CFLAGS) -pg
@@ -129,7 +129,7 @@ before_profile:
 	test -d $(BINDIR_PROFILE) || mkdir -p $(BINDIR_PROFILE)
 	test -d $(OBJDIR_PROFILE) || mkdir -p $(OBJDIR_PROFILE)
 
-debug: before_profile out_profile
+profile: before_profile out_profile
 
 out_profile: $(OBJ_PROFILE)
 	$(LD) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
