@@ -2,23 +2,27 @@ LD = $(CXX)
 
 CFLAGS = -Wnon-virtual-dtor -Winit-self -Wredundant-decls -Wcast-align -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
 LIB = -lglfw3 -lGLEW -lGL -lX11 -lXxf86vm -lpthread -lXrandr -lXi
+SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
 
 CFLAGS_DEBUG = $(CFLAGS) -g
 LIB_DEBUG = $(LIB)
+SRCDIR_DEBUG = $(SRCDIR)
 OBJDIR_DEBUG = $(OBJDIR)/Debug
 BINDIR_DEBUG = $(BINDIR)/Debug
 OUT_DEBUG = $(BINDIR_DEBUG)/OpenStrategia
 
 CFLAGS_RELEASE = $(CFLAGS) -s -O3
 LIB_RELEASE = $(LIB)
+SRCDIR_RELEASE = $(SRCDIR)
 OBJDIR_RELEASE = $(OBJDIR)/Release
 BINDIR_RELEASE = $(BINDIR)/Release
 OUT_RELEASE = $(BINDIR_RELEASE)/OpenStrategia
 
 CFLAGS_PROFILE = $(CFLAGS) -pg
 LIB_PROFILE = $(LIB)
+SRCDIR_PROFILE = $(SRCDIR)
 OBJDIR_PROFILE = $(OBJDIR)/Profile
 BINDIR_PROFILE = $(BINDIR)/Profile
 OUT_PROFILE = $(BINDIR_PROFILE)/OpenStrategia
@@ -44,38 +48,38 @@ Debug: debug
 out_debug: $(OBJ_DEBUG)
 	$(LD) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
 
-$(OBJDIR_DEBUG)/Button.o: Button.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Button.cpp -o $(OBJDIR_DEBUG)/Button.o
-
-$(OBJDIR_DEBUG)/Camera.o: Camera.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Camera.cpp -o $(OBJDIR_DEBUG)/Camera.o
-
-$(OBJDIR_DEBUG)/Checkbox.o: Checkbox.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Checkbox.cpp -o $(OBJDIR_DEBUG)/Checkbox.o
-
-$(OBJDIR_DEBUG)/Image.o: Image.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Image.cpp -o $(OBJDIR_DEBUG)/Image.o
-
 $(OBJDIR_DEBUG)/Main.o: Main.cpp
 	$(CXX) $(CFLAGS_DEBUG) -c Main.cpp -o $(OBJDIR_DEBUG)/Main.o
 
-$(OBJDIR_DEBUG)/Program.o: Program.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Program.cpp -o $(OBJDIR_DEBUG)/Program.o
+$(OBJDIR_DEBUG)/Button.o: $(SRCDIR_DEBUG)/Button.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/Button.cpp -o $(OBJDIR_DEBUG)/Button.o
 
-$(OBJDIR_DEBUG)/RenderObject.o: RenderObject.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c RenderObject.cpp -o $(OBJDIR_DEBUG)/RenderObject.o
+$(OBJDIR_DEBUG)/Camera.o: $(SRCDIR_DEBUG)/Camera.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/Camera.cpp -o $(OBJDIR_DEBUG)/Camera.o
 
-$(OBJDIR_DEBUG)/RenderObject2D.o: RenderObject2D.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c RenderObject2D.cpp -o $(OBJDIR_DEBUG)/RenderObject2D.o
+$(OBJDIR_DEBUG)/Checkbox.o: $(SRCDIR_DEBUG)/Checkbox.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/Checkbox.cpp -o $(OBJDIR_DEBUG)/Checkbox.o
 
-$(OBJDIR_DEBUG)/RenderObject3D.o: RenderObject3D.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c RenderObject3D.cpp -o $(OBJDIR_DEBUG)/RenderObject3D.o
+$(OBJDIR_DEBUG)/Image.o: $(SRCDIR_DEBUG)/Image.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/Image.cpp -o $(OBJDIR_DEBUG)/Image.o
 
-$(OBJDIR_DEBUG)/Shader.o: Shader.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Shader.cpp -o $(OBJDIR_DEBUG)/Shader.o
+$(OBJDIR_DEBUG)/Program.o: $(SRCDIR_DEBUG)/Program.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/Program.cpp -o $(OBJDIR_DEBUG)/Program.o
 
-$(OBJDIR_DEBUG)/Texture.o: Texture.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Texture.cpp -o $(OBJDIR_DEBUG)/Texture.o
+$(OBJDIR_DEBUG)/RenderObject.o: $(SRCDIR_DEBUG)/RenderObject.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/RenderObject.cpp -o $(OBJDIR_DEBUG)/RenderObject.o
+
+$(OBJDIR_DEBUG)/RenderObject2D.o: $(SRCDIR_DEBUG)/RenderObject2D.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/RenderObject2D.cpp -o $(OBJDIR_DEBUG)/RenderObject2D.o
+
+$(OBJDIR_DEBUG)/RenderObject3D.o: $(SRCDIR_DEBUG)/RenderObject3D.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/RenderObject3D.cpp -o $(OBJDIR_DEBUG)/RenderObject3D.o
+
+$(OBJDIR_DEBUG)/Shader.o: $(SRCDIR_DEBUG)/Shader.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/Shader.cpp -o $(OBJDIR_DEBUG)/Shader.o
+
+$(OBJDIR_DEBUG)/Texture.o: $(SRCDIR_DEBUG)/Texture.cpp
+	$(CXX) $(CFLAGS_DEBUG) -c $(SRCDIR_DEBUG)/Texture.cpp -o $(OBJDIR_DEBUG)/Texture.o
 
 clean_debug:
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
@@ -93,38 +97,38 @@ Release: release
 out_release: before_release $(OBJ_RELEASE)
 	$(LD) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
 
-$(OBJDIR_RELEASE)/Button.o: Button.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Button.cpp -o $(OBJDIR_RELEASE)/Button.o
-
-$(OBJDIR_RELEASE)/Camera.o: Camera.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Camera.cpp -o $(OBJDIR_RELEASE)/Camera.o
-
-$(OBJDIR_RELEASE)/Checkbox.o: Checkbox.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Checkbox.cpp -o $(OBJDIR_RELEASE)/Checkbox.o
-
-$(OBJDIR_RELEASE)/Image.o: Image.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Image.cpp -o $(OBJDIR_RELEASE)/Image.o
-
 $(OBJDIR_RELEASE)/Main.o: Main.cpp
 	$(CXX) $(CFLAGS_RELEASE) -c Main.cpp -o $(OBJDIR_RELEASE)/Main.o
 
-$(OBJDIR_RELEASE)/Program.o: Program.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Program.cpp -o $(OBJDIR_RELEASE)/Program.o
+$(OBJDIR_RELEASE)/Button.o: $(SRCDIR_RELEASE)/Button.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/Button.cpp -o $(OBJDIR_RELEASE)/Button.o
 
-$(OBJDIR_RELEASE)/RenderObject.o: RenderObject.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c RenderObject.cpp -o $(OBJDIR_RELEASE)/RenderObject.o
+$(OBJDIR_RELEASE)/Camera.o: $(SRCDIR_RELEASE)/Camera.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/Camera.cpp -o $(OBJDIR_RELEASE)/Camera.o
 
-$(OBJDIR_RELEASE)/RenderObject2D.o: RenderObject2D.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c RenderObject2D.cpp -o $(OBJDIR_RELEASE)/RenderObject2D.o
+$(OBJDIR_RELEASE)/Checkbox.o: $(SRCDIR_RELEASE)/Checkbox.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/Checkbox.cpp -o $(OBJDIR_RELEASE)/Checkbox.o
 
-$(OBJDIR_RELEASE)/RenderObject3D.o: RenderObject3D.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c RenderObject3D.cpp -o $(OBJDIR_RELEASE)/RenderObject3D.o
+$(OBJDIR_RELEASE)/Image.o: $(SRCDIR_RELEASE)/Image.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/Image.cpp -o $(OBJDIR_RELEASE)/Image.o
 
-$(OBJDIR_RELEASE)/Shader.o: Shader.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Shader.cpp -o $(OBJDIR_RELEASE)/Shader.o
+$(OBJDIR_RELEASE)/Program.o: $(SRCDIR_RELEASE)/Program.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/Program.cpp -o $(OBJDIR_RELEASE)/Program.o
 
-$(OBJDIR_RELEASE)/Texture.o: Texture.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Texture.cpp -o $(OBJDIR_RELEASE)/Texture.o
+$(OBJDIR_RELEASE)/RenderObject.o: $(SRCDIR_RELEASE)/RenderObject.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/RenderObject.cpp -o $(OBJDIR_RELEASE)/RenderObject.o
+
+$(OBJDIR_RELEASE)/RenderObject2D.o: $(SRCDIR_RELEASE)/RenderObject2D.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/RenderObject2D.cpp -o $(OBJDIR_RELEASE)/RenderObject2D.o
+
+$(OBJDIR_RELEASE)/RenderObject3D.o: $(SRCDIR_RELEASE)/RenderObject3D.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/RenderObject3D.cpp -o $(OBJDIR_RELEASE)/RenderObject3D.o
+
+$(OBJDIR_RELEASE)/Shader.o: $(SRCDIR_RELEASE)/Shader.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/Shader.cpp -o $(OBJDIR_RELEASE)/Shader.o
+
+$(OBJDIR_RELEASE)/Texture.o: $(SRCDIR_RELEASE)/Texture.cpp
+	$(CXX) $(CFLAGS_RELEASE) -c $(SRCDIR_RELEASE)/Texture.cpp -o $(OBJDIR_RELEASE)/Texture.o
 
 clean_release:
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)
@@ -142,38 +146,38 @@ Profile: profile
 out_profile: $(OBJ_PROFILE)
 	$(LD) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
 
-$(OBJDIR_PROFILE)/Button.o: Button.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Button.cpp -o $(OBJDIR_PROFILE)/Button.o
-
-$(OBJDIR_PROFILE)/Camera.o: Camera.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Camera.cpp -o $(OBJDIR_PROFILE)/Camera.o
-
-$(OBJDIR_PROFILE)/Checkbox.o: Checkbox.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Checkbox.cpp -o $(OBJDIR_PROFILE)/Checkbox.o
-
-$(OBJDIR_PROFILE)/Image.o: Image.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Image.cpp -o $(OBJDIR_PROFILE)/Image.o
-
 $(OBJDIR_PROFILE)/Main.o: Main.cpp
 	$(CXX) $(CFLAGS_PROFILE) -c Main.cpp -o $(OBJDIR_PROFILE)/Main.o
 
-$(OBJDIR_PROFILE)/Program.o: Program.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Program.cpp -o $(OBJDIR_PROFILE)/Program.o
+$(OBJDIR_PROFILE)/Button.o: $(SRCDIR_PROFILE)/Button.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/Button.cpp -o $(OBJDIR_PROFILE)/Button.o
 
-$(OBJDIR_PROFILE)/RenderObject.o: RenderObject.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c RenderObject.cpp -o $(OBJDIR_PROFILE)/RenderObject.o
+$(OBJDIR_PROFILE)/Camera.o: $(SRCDIR_PROFILE)/Camera.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/Camera.cpp -o $(OBJDIR_PROFILE)/Camera.o
 
-$(OBJDIR_PROFILE)/RenderObject2D.o: RenderObject2D.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c RenderObject2D.cpp -o $(OBJDIR_PROFILE)/RenderObject2D.o
+$(OBJDIR_PROFILE)/Checkbox.o: $(SRCDIR_PROFILE)/Checkbox.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/Checkbox.cpp -o $(OBJDIR_PROFILE)/Checkbox.o
 
-$(OBJDIR_PROFILE)/RenderObject3D.o: RenderObject3D.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c RenderObject3D.cpp -o $(OBJDIR_PROFILE)/RenderObject3D.o
+$(OBJDIR_PROFILE)/Image.o: $(SRCDIR_PROFILE)/Image.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/Image.cpp -o $(OBJDIR_PROFILE)/Image.o
 
-$(OBJDIR_PROFILE)/Shader.o: Shader.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Shader.cpp -o $(OBJDIR_PROFILE)/Shader.o
+$(OBJDIR_PROFILE)/Program.o: $(SRCDIR_PROFILE)/Program.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/Program.cpp -o $(OBJDIR_PROFILE)/Program.o
 
-$(OBJDIR_PROFILE)/Texture.o: Texture.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Texture.cpp -o $(OBJDIR_PROFILE)/Texture.o
+$(OBJDIR_PROFILE)/RenderObject.o: $(SRCDIR_PROFILE)/RenderObject.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/RenderObject.cpp -o $(OBJDIR_PROFILE)/RenderObject.o
+
+$(OBJDIR_PROFILE)/RenderObject2D.o: $(SRCDIR_PROFILE)/RenderObject2D.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/RenderObject2D.cpp -o $(OBJDIR_PROFILE)/RenderObject2D.o
+
+$(OBJDIR_PROFILE)/RenderObject3D.o: $(SRCDIR_PROFILE)/RenderObject3D.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/RenderObject3D.cpp -o $(OBJDIR_PROFILE)/RenderObject3D.o
+
+$(OBJDIR_PROFILE)/Shader.o: $(SRCDIR_PROFILE)/Shader.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/Shader.cpp -o $(OBJDIR_PROFILE)/Shader.o
+
+$(OBJDIR_PROFILE)/Texture.o: $(SRCDIR_PROFILE)/Texture.cpp
+	$(CXX) $(CFLAGS_PROFILE) -c $(SRCDIR_PROFILE)/Texture.cpp -o $(OBJDIR_PROFILE)/Texture.o
 
 clean_profile:
 	rm -f $(OBJ_PROFILE) $(OUT_PROFILE)
