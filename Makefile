@@ -100,6 +100,4 @@ clean_profile:
 	rm -f $(OBJ_PROFILE) $(OUT_PROFILE)
 	rm -rf $(OBJDIR_PROFILE)
 
-
 .PHONY: all clean before_debug debug Debug out_debug clean_debug before_release release Release out_release clean_release before_profile profile Profile out_profile clean_profile
-
