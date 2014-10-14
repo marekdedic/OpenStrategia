@@ -20,6 +20,15 @@ public:
     int state; /**< State of the Slider ranging from 0 to maxState. */
     const int maxState; /**< Maximal state of the Slider. */
     Slider() = delete;
+    /** \brief Slider class constructor
+     *
+     * \param inPosition Position of the slider.
+     * \param inSize Size of the image represented as vec2(width, height).
+     * \param texBG Background Texture file name.
+     * \param texLeft Texture file name for left-side button. Right-side button is rendered as a vertical flip of the left one.
+     * \param maxState Maximum slider state. Minimum state is 0.
+     */
+    Slider(glm::vec2 inPosition, glm::vec2 inSize, std::string texBG, int maxState, glm::vec2 buttonSize, std::string texLeftPressed, std::string texLeftUnpressed);
     virtual void handle();
     /** \brief Renders the Slider
      *
@@ -30,6 +39,8 @@ public:
 protected:
     std::unique_ptr<Button> leftButton;
     std::unique_ptr<Button> rightButton;
+    void decrease1();
+    void increase();
 };
 
  #endif // SLIDER_HPP
