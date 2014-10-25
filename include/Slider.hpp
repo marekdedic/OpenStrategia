@@ -37,9 +37,9 @@ public:
      */
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
-    std::unique_ptr<Button> leftButton;
-    std::unique_ptr<Button> rightButton;
-    void decrease1();
+    std::unique_ptr<Button<Slider>> leftButton;
+    std::unique_ptr<Button<Slider>> rightButton;
+    void decrease();
     void increase();
 };
 
