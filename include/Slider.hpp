@@ -28,7 +28,7 @@ public:
      * \param texLeft Texture file name for left-side button. Right-side button is rendered as a vertical flip of the left one.
      * \param maxState Maximum slider state. Minimum state is 0.
      */
-    Slider(glm::vec2 inPosition, glm::vec2 inSize, std::string texBG, int maxState, glm::vec2 buttonSize, std::string texLeftPressed, std::string texLeftUnpressed);
+    Slider(int maxState, glm::vec2 position, glm::vec2 wholeSize, glm::vec2 buttonSize, glm::vec2 sliderSize, std::string texBG, std::string texSlider, std::string texLeftPressed, std::string texLeftUnpressed);
     virtual void handle();
     /** \brief Renders the Slider
      *
@@ -39,6 +39,7 @@ public:
 protected:
     std::unique_ptr<Button<Slider>> leftButton;
     std::unique_ptr<Button<Slider>> rightButton;
+    std::unique_ptr<Image> slider;
     void decrease();
     void increase();
 };

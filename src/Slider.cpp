@@ -2,16 +2,16 @@
 using namespace std;
 using namespace glm;
 
-Slider::Slider(glm::vec2 inPosition, glm::vec2 inSize, std::string texBG, int maxState, glm::vec2 buttonSize, std::string texLeftPressed, std::string texLeftUnpressed) : Image(inPosition, inSize, texBG), state{}, maxState{maxState},
-leftButton{new Button<Slider>(inPosition, buttonSize, texLeftPressed, texLeftUnpressed, &Slider::decrease, this)},
-rightButton{new Button<Slider>(inPosition + inSize - buttonSize, buttonSize, texLeftPressed, texLeftUnpressed, &Slider::increase, this)}
-{
-}
+Slider::Slider(int maxState, glm::vec2 position, glm::vec2 wholeSize, glm::vec2 buttonSize, glm::vec2 sliderSize, std::string texBG, std::string texSlider, std::string texLeftPressed, std::string texLeftUnpressed) : Image(position, wholeSize, texBG), state{}, maxState{maxState},
+leftButton{new Button<Slider>(position, buttonSize, texLeftPressed, texLeftUnpressed, &Slider::decrease, this)},
+rightButton{new Button<Slider>(vec2{position.x + wholeSize.x - buttonSize.x, position.y}, buttonSize, texLeftPressed, texLeftUnpressed, &Slider::increase, this)},
+slider{new Image{position + 0.5f * wholeSize, sliderSize, texSlider}} {}
 
 void Slider::handle()
 {
     leftButton->handle();
     rightButton->handle();
+
 }
 
 void Slider::render(std::shared_ptr<Program> prg) const
@@ -19,6 +19,7 @@ void Slider::render(std::shared_ptr<Program> prg) const
     Image::render(prg, 0);
     leftButton->render(prg);
     rightButton->render(prg);
+    slider->render(prg, 0);
 }
 
 void Slider::decrease()
