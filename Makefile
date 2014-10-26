@@ -27,6 +27,7 @@ OBJDIR_PROFILE = $(OBJDIR)/Profile
 BINDIR_PROFILE = $(BINDIR)/Profile
 OUT_PROFILE = $(BINDIR_PROFILE)/OpenStrategia
 
+<<<<<<< HEAD
 OBJ_DEBUG = $(OBJDIR_DEBUG)/Button.o $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Checkbox.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Slider.o $(OBJDIR_DEBUG)/Texture.o $(OBJDIR_DEBUG)/TextureBMP.o $(OBJDIR_DEBUG)/TextureBridge.o
 
 OBJ_RELEASE = $(OBJDIR_RELEASE)/Button.o $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Checkbox.o $(OBJDIR_RELEASE)/Image.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Slider.o $(OBJDIR_RELEASE)/Texture.o $(OBJDIR_RELEASE)/TextureBMP.o $(OBJDIR_RELEASE)/TextureBridge.o
