@@ -117,7 +117,6 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
         }
         file.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-
     for(unsigned int i = 0; i < vertexIndices.size(); i++)
     {
         vertex = rawVertices[vertexIndices[i] - 1];

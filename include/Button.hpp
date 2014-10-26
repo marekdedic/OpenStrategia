@@ -32,6 +32,19 @@ public:
      * \param func Callback function
      */
     Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject);
+    /** \brief Button class copy constructor
+     *
+     * Copies all the pointers.
+     * \param other Address of the Button to copy.
+     */
+    Button(const Button& other);
+    /** \brief Button class assignment operator
+     *
+     * Copies all the pointers.
+     * \param other Address of the Pointer to copy.
+     * \return Address of the new Button.
+     */
+    Button& operator=(const Button& other);
     virtual void handle();
     /** \brief Renders the Button
      *
@@ -51,6 +64,19 @@ double Button<T>::pressedTime{0.12};
 
 template<class T>
 Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject) : Image(inPosition, inSize, texUnpressed), texture1{new Texture{texPressed}}, state{0}, callback{func}, callObject{callObject} {}
+
+template<class T>
+Button<T>::Button(const Button& other) : Image(other), texture1{new Texture{*other.texture1}}, state{0}, callback{other.callback}, callObject{other.callObject} {}
+
+template<class T>
+Button<T>& Button<T>::operator=(const Button& other)
+{
+    Image::operator=(other);
+    *texture1 = *other.texture1;
+    state = 0;
+    callback = other.callback;
+    callObject = other.callObject;
+}
 
 template<class T>
 void Button<T>::handle()
