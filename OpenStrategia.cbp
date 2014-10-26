@@ -92,7 +92,6 @@
 		<Unit filename="include/TextureBMP.hpp" />
 		<Unit filename="include/TextureBridge.hpp" />
 		<Unit filename="include/TextureHeader.hpp" />
-		<Unit filename="src/Button.cpp" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/Checkbox.cpp" />
 		<Unit filename="src/Image.cpp" />
