@@ -17,8 +17,8 @@
 class Slider : public Image
 {
 public:
-    int state; /**< State of the Slider ranging from 0 to maxState. */
-    const int maxState; /**< Maximal state of the Slider. */
+    unsigned int state; /**< State of the Slider ranging from 0 to maxState. */
+    const unsigned int maxState; /**< Maximal state of the Slider. */
     Slider() = delete;
     /** \brief Slider class constructor
      *
@@ -28,8 +28,13 @@ public:
      * \param texLeft Texture file name for left-side button. Right-side button is rendered as a vertical flip of the left one.
      * \param maxState Maximum slider state. Minimum state is 0.
      */
-    Slider(int maxState, glm::vec2 position, glm::vec2 wholeSize, glm::vec2 buttonSize, glm::vec2 sliderSize, std::string texBG, std::string texSlider, std::string texLeftUnpressed, std::string texLeftPressed);
+    Slider(unsigned int maxState, unsigned int initState, glm::vec2 position, glm::vec2 wholeSize, glm::vec2 buttonSize, glm::vec2 sliderSize, std::string texBG, std::string texSlider, std::string texLeftUnpressed, std::string texLeftPressed);
     virtual void handle();
+    /** \brief Update function
+     *
+     * Must be called on every iteration of the main loop if the Slider is to visualy move.
+     */
+    virtual void update();
     /** \brief Renders the Slider
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.

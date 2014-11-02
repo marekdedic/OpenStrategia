@@ -18,7 +18,13 @@ Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string name, float ang
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, element_buffer_data.size() * sizeof(GLuint), element_buffer_data.data(), GL_STATIC_DRAW);
 }
 
+void Image::update()
+{
+    *position = translate(mat4{}, vec3{imagePosition, 0});
+}
+
 void Image::render(std::shared_ptr<Program> prg, const GLint texUnit) const
 {
+    *position = translate(mat4{}, vec3{imagePosition, 0});
     RenderObject2D::render(prg, texUnit);
 }

@@ -16,6 +16,8 @@
 class Image : public RenderObject2D
 {
 public:
+    glm::vec2 imagePosition; /**< Position of the Image represented as a vec2. */
+    glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height). */
     Image() = delete;
     /** \brief Image class constructor
      *
@@ -25,6 +27,11 @@ public:
      * \param angle Tilting angle.
      */
     Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float angle = 0);
+    /** \brief Update function
+     *
+     * Must be called on every iteration of the main loop if the Image is to do somethink.
+     */
+    virtual void update();
     /** \brief Renders the Image
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
@@ -32,9 +39,6 @@ public:
      * \param texUnit The number of the texture unit to use
      */
     virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const;
-protected:
-    glm::vec2 imagePosition; /**< Position of the Image represented as a vec2. */
-    glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height). */
 };
 
  #endif // IMAGE_HPP
