@@ -2,10 +2,10 @@
 using namespace std;
 using namespace glm;
 
-Slider::Slider(int maxState, glm::vec2 position, glm::vec2 wholeSize, glm::vec2 buttonSize, glm::vec2 sliderSize, std::string texBG, std::string texSlider, std::string texLeftPressed, std::string texLeftUnpressed) : Image(position, wholeSize, texBG), state{}, maxState{maxState},
-leftButton{new Button<Slider>(position, buttonSize, texLeftPressed, texLeftUnpressed, &Slider::decrease, this)},
-rightButton{new Button<Slider>(vec2{position.x + wholeSize.x - buttonSize.x, position.y}, buttonSize, texLeftPressed, texLeftUnpressed, &Slider::increase, this)},
-slider{new Image{position + 0.5f * wholeSize, sliderSize, texSlider}} {}
+Slider::Slider(int maxState, glm::vec2 position, glm::vec2 wholeSize, glm::vec2 buttonSize, glm::vec2 sliderSize, std::string texBG, std::string texSlider, std::string texLeftUnpressed, std::string texLeftPressed) : Image(position, wholeSize, texBG), state{}, maxState{maxState},
+leftButton{new Button<Slider>(position, buttonSize, texLeftUnpressed, texLeftPressed, &Slider::decrease, this)},
+rightButton{new Button<Slider>(vec2{position.x + wholeSize.x - buttonSize.x, position.y}, buttonSize, texLeftUnpressed, texLeftPressed, &Slider::increase, this)},
+slider{new Image{vec2{position.x + 0.5f * wholeSize.x, position.y}, sliderSize, texSlider}} {}
 
 void Slider::handle()
 {
