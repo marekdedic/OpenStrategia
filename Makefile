@@ -5,6 +5,7 @@ LIB = -lglfw3 -lGLEW -lGL -lX11 -lXxf86vm -lpthread -lXrandr -lXi -lXcursor -lXi
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
+ERRFILE = /ErrorLog.txt
 
 CFLAGS_DEBUG = $(CFLAGS) -g
 LIB_DEBUG = $(LIB)
@@ -57,6 +58,9 @@ $(OBJDIR_DEBUG)/%.o: $(SRCDIR_DEBUG)/%.cpp
 
 clean_debug:
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
+	rm -f $(BINDIR_DEBUG)$(ERRFILE)
+	rm -f $(BINDIR_DEBUG)/core
+	rm -f $(BINDIR_DEBUG)/valgrind-output.txt
 	rm -rf $(OBJDIR_DEBUG)
 
 before_release:
@@ -78,6 +82,8 @@ $(OBJDIR_RELEASE)/%.o: $(SRCDIR_RELEASE)/%.cpp
 
 clean_release:
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)
+	rm -f $(BINDIR_RELEASE)$(ERRFILE)
+	rm -f $(BINDIR_RELEASE)/core
 	rm -rf $(OBJDIR_RELEASE)
 
 before_profile:
@@ -99,6 +105,8 @@ $(OBJDIR_PROFILE)/%.o: $(SRCDIR_PROFILE)/%.cpp
 
 clean_profile:
 	rm -f $(OBJ_PROFILE) $(OUT_PROFILE)
+	rm -f $(BINDIR_PROFILE)$(ERRFILE)
+	rm -f $(BINDIR_PROFILE)/core
 	rm -rf $(OBJDIR_PROFILE)
 
 .PHONY: all clean before_debug debug Debug out_debug clean_debug before_release release Release out_release clean_release before_profile profile Profile out_profile clean_profile
