@@ -36,7 +36,6 @@ void Slider::render(std::shared_ptr<Program> prg) const
 
 void Slider::decrease()
 {
-    ERROR << "decrease" << endl;
     if(state > 0)
     {
         state--;
