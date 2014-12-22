@@ -123,4 +123,6 @@ int main()
     shaders3D.reset();
     shaders2D.reset();
     MAINCAM.reset();
+    glfwDestroyWindow(WINDOW);
+    glfwTerminate();
 }
