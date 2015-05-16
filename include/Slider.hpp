@@ -29,12 +29,12 @@ public:
      * \param maxState Maximum slider state. Minimum state is 0.
      */
     Slider(unsigned int maxState, unsigned int initState, glm::vec2 position, glm::vec2 wholeSize, glm::vec2 buttonSize, glm::vec2 sliderSize, std::string texBG, std::string texSlider, std::string texLeftUnpressed, std::string texLeftPressed);
-    virtual void handle();
+    virtual void handle() override;
     /** \brief Update function
      *
      * Must be called on every iteration of the main loop if the Slider is to visualy move.
      */
-    virtual void update();
+    virtual void update() override;
     /** \brief Renders the Slider
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.

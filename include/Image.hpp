@@ -31,14 +31,14 @@ public:
      *
      * Must be called on every iteration of the main loop if the Image is to do somethink.
      */
-    virtual void update();
+    virtual void update() override;
     /** \brief Renders the Image
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
      * \param texUnit The number of the texture unit to use
      */
-    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const;
+    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const override;
 };
 
  #endif // IMAGE_HPP

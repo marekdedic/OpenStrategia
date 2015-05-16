@@ -26,7 +26,7 @@ public:
      * \param texPressed Texture file name for pressed state.
      */
     Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed);
-    virtual void handle();
+    virtual void handle() override;
     /** \brief Renders the Checkbox
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.

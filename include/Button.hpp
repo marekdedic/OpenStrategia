@@ -45,7 +45,7 @@ public:
      * \return Address of the new Button.
      */
     Button& operator=(const Button& other);
-    virtual void handle();
+    virtual void handle() override;
     /** \brief Renders the Button
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
