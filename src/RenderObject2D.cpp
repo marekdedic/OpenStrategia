@@ -11,7 +11,7 @@ void RenderObject2D::render(std::shared_ptr<Program> const prg, const GLint texU
     glDisable(GL_DEPTH_TEST);
 
     // Select shader program
-    glUseProgram(prg->programID);
+    glUseProgram(prg->ID);
 
     // Change coordinate system
     mat4 matrix = mat4{ 1, 0, 0, 0,
@@ -22,7 +22,7 @@ void RenderObject2D::render(std::shared_ptr<Program> const prg, const GLint texU
                         0, 2.0/SCREENSIZE.y, 0, 0,
                         0, 0, 1, 0,
                         0, 0, 0, 1} * *position * *orientation;
-    GLint loc {glGetUniformLocation(prg->programID, "matrix")};
+    GLint loc {glGetUniformLocation(prg->ID, "matrix")};
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(matrix));
 
     RenderObject::render(prg, 2, texUnit);

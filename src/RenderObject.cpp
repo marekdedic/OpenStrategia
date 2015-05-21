@@ -99,10 +99,10 @@ void RenderObject::render(std::shared_ptr<Program> prg, const GLint vecSize, con
 {
     // Send the 0th texture to Graphics card
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture->textureID);
+    glBindTexture(GL_TEXTURE_2D, texture->ID);
 
     // Use texture unit 0
-    GLint loc{glGetUniformLocation(prg->programID, "oSampler")};
+    GLint loc{glGetUniformLocation(prg->ID, "oSampler")};
     glUniform1i(loc, texUnit);
 
     // Send the vertices to GLSL
