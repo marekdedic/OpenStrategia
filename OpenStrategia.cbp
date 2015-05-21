@@ -88,6 +88,9 @@
 		<Unit filename="include/RenderObject3D.hpp" />
 		<Unit filename="include/Shader.hpp" />
 		<Unit filename="include/Texture.hpp" />
+		<Unit filename="include/TextureBMP.hpp" />
+		<Unit filename="include/TextureBridge.hpp" />
+		<Unit filename="include/TextureHeader.hpp" />
 		<Unit filename="src/Button.cpp" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/Checkbox.cpp" />
@@ -98,6 +101,8 @@
 		<Unit filename="src/RenderObject3D.cpp" />
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/Texture.cpp" />
+		<Unit filename="src/TextureBMP.cpp" />
+		<Unit filename="src/TextureBridge.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
