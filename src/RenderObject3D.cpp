@@ -58,7 +58,7 @@ RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData,
 
 RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
 {
-    texture.reset(new Texture{"tank-tex.bmp"});
+    texture->load("tank-tex.bmp");
     glGenBuffers(1, &NBO);
     ObjectName = "models/" + ObjectName;
     vector<GLuint> vertexIndices{}, UVIndices{}, normalIndices{};
