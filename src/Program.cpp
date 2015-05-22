@@ -2,28 +2,28 @@
 using namespace std;
 using namespace glm;
 
-Program::Program() : programID{glCreateProgram()}, shaders{} {}
+Program::Program() : ID{glCreateProgram()}, shaders{} {}
 
 void Program::addShader(const std::string name, const GLenum shaderType)
 {
     shaders.emplace_back(new Shader(name, shaderType));
-    glAttachShader(programID, shaders.back()->shaderID);
+    glAttachShader(ID, shaders.back()->ID);
 }
 
 void Program::link() const
 {
-    glLinkProgram(programID);
+    glLinkProgram(ID);
 
     /**< Verify the result */
     GLint result{};
-    glGetProgramiv(programID, GL_LINK_STATUS, &result);
+    glGetProgramiv(ID, GL_LINK_STATUS, &result);
     if(result != GL_TRUE) /**< Error */
     {
         int infoLogLength{};
-        glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &infoLogLength);
+        glGetProgramiv(ID, GL_INFO_LOG_LENGTH, &infoLogLength);
         string errorMessage{};
-        glGetProgramInfoLog(programID, infoLogLength, nullptr, &errorMessage[0]);
-        ERROR << "Error: " << errorMessage << ", when linking Program: " << programID << endl;
+        glGetProgramInfoLog(ID, infoLogLength, nullptr, &errorMessage[0]);
+        ERROR << "Error: " << errorMessage << ", when linking Program: " << ID << endl;
         glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         return;
     }
@@ -36,5 +36,5 @@ Program::~Program()
         i.reset();
     }
     shaders.clear();
-    glDeleteProgram(programID);
+    glDeleteProgram(ID);
 }

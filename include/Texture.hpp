@@ -14,8 +14,9 @@
  */
 class Texture
 {
+    #include "TextureBMP.hpp"
 public:
-    GLuint textureID; /**< ID of the texture. */
+    GLuint ID; /**< ID of the texture. */
     /** \brief Texture class default constructor
      *
      * Allocates memory for the texture
@@ -40,11 +41,18 @@ public:
      * \return Address of the new Texture.
      */
     Texture& operator=(const Texture& other);
+    /** \brief Texture loader
+     *
+     * Physically loads the texture.
+     */
+    bool load(std::string name);
     /** \brief Texture class destructor
      *
      * Deletes the texture.
      */
     ~Texture();
+private:
+    std::unique_ptr<TextureBridge> implementation;
 };
 
  #endif // TEXTURE_HPP

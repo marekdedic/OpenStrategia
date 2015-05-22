@@ -17,7 +17,7 @@ class Program
 {
     #include "Shader.hpp"
 public:
-    const GLuint programID; /**< ID of the shader program. */
+    const GLuint ID; /**< ID of the shader program. */
     Program();
     /** \brief Adds a shader to the program
      *

@@ -6,7 +6,7 @@ Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string name, float ang
 {
     *position = translate(mat4{}, vec3{imagePosition, 0});
     *orientation = rotate(mat4{}, angle, vec3{0, 0, 1});
-    texture.reset(new Texture{name});
+    texture->load(name);
     vector<GLfloat> vertex_buffer_data{0, 0, imageSize.x, 0, imageSize.x, imageSize.y, 0, imageSize.y};
 	vector<GLfloat> UV_buffer_data{0, 0, 1, 0, 1, 1, 0, 1};
 	vector<GLuint> element_buffer_data{0, 1, 2, 0, 2, 3};

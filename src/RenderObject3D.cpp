@@ -58,7 +58,7 @@ RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData,
 
 RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
 {
-    texture.reset(new Texture{"tank-tex.bmp"});
+    texture->load("tank-tex.bmp");
     glGenBuffers(1, &NBO);
     ObjectName = "models/" + ObjectName;
     vector<GLuint> vertexIndices{}, UVIndices{}, normalIndices{};
@@ -141,33 +141,33 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
 void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit) const
 {
     // Select shader program
-    glUseProgram(prg->programID);
+    glUseProgram(prg->ID);
 
     // Compute Model matrix, send it to GLSL
     mat4 modelMatrix{*position * *orientation};
-    GLint loc {glGetUniformLocation(prg->programID, "modelMatrix")};
+    GLint loc {glGetUniformLocation(prg->ID, "modelMatrix")};
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
 
     // Compute ModelViewProjection matrix, send it to GLSL
     mat4 MVP{*cam->projection * *cam->view * modelMatrix};
-    loc = glGetUniformLocation(prg->programID, "MVP");
+    loc = glGetUniformLocation(prg->ID, "MVP");
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(MVP));
 
     // Send light position to GLSL
     vec3 LightPosition{-3, 1, 5};
-    loc = glGetUniformLocation(prg->programID, "lPosition_w");
+    loc = glGetUniformLocation(prg->ID, "lPosition_w");
     glUniform3fv(loc, 1, value_ptr(LightPosition));
 
     // Send light falloff distances to GLSL
     float LightFalloffMin{1};
-    loc = glGetUniformLocation(prg->programID, "lFalloffMin");
+    loc = glGetUniformLocation(prg->ID, "lFalloffMin");
     glUniform1fv(loc, 1, &LightFalloffMin);
     float LightFalloffMax{6};
-    loc = glGetUniformLocation(prg->programID, "lFalloffMax");
+    loc = glGetUniformLocation(prg->ID, "lFalloffMax");
     glUniform1fv(loc, 1, &LightFalloffMax);
 
     // Send camera position to GLSL
-    loc = glGetUniformLocation(prg->programID, "cPosition_w");
+    loc = glGetUniformLocation(prg->ID, "cPosition_w");
     glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
 
     // Send normals to GLSL
