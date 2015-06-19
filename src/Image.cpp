@@ -25,6 +25,6 @@ void Image::update()
 
 void Image::render(std::shared_ptr<Program> prg, const GLint texUnit) const
 {
-    *position = translate(mat4{}, vec3{imagePosition, 0});
+    //*position = translate(mat4{}, vec3{imagePosition, 0});
     RenderObject2D::render(prg, texUnit);
 }

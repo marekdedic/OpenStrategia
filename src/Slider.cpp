@@ -24,6 +24,7 @@ void Slider::handle()
 void Slider::update()
 {
     slider->imagePosition = vec2{1.0f * state / maxState * (imageSize.x - 2 * leftButton->imageSize.x - slider->imageSize.x) + imagePosition.x + leftButton->imageSize.x, imagePosition.y};
+    slider->update();
 }
 
 void Slider::render(std::shared_ptr<Program> prg) const
