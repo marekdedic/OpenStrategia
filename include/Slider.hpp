@@ -42,6 +42,7 @@ public:
      */
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
+    bool sliderState;
     std::unique_ptr<MultiButton<Slider>> leftButton;
     std::unique_ptr<MultiButton<Slider>> rightButton;
     std::unique_ptr<Image> slider;
