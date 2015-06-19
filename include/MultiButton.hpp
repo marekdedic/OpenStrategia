@@ -32,12 +32,11 @@ public:
     MultiButton(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double firstDelay = 0.2, double otherDelay = 0.05);
     virtual void handle() override;
 protected:
-    double firstDelay;
     double otherDelay;
 };
 
 template<class T>
-MultiButton<T>::MultiButton(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double firstDelay, double otherDelay) : Button<T>(inPosition, inSize, texUnpressed, texPressed, func, callObject, firstDelay), firstDelay{firstDelay}, otherDelay{otherDelay} {}
+MultiButton<T>::MultiButton(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double firstDelay, double otherDelay) : Button<T>(inPosition, inSize, texUnpressed, texPressed, func, callObject, firstDelay), otherDelay{otherDelay} {}
 
 template<class T>
 void MultiButton<T>::handle()
