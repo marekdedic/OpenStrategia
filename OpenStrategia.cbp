@@ -82,6 +82,7 @@
 		<Unit filename="include/Checkbox.hpp" />
 		<Unit filename="include/Image.hpp" />
 		<Unit filename="include/Libs.hpp" />
+		<Unit filename="include/MultiButton.hpp" />
 		<Unit filename="include/Program.hpp" />
 		<Unit filename="include/RenderObject.hpp" />
 		<Unit filename="include/RenderObject2D.hpp" />

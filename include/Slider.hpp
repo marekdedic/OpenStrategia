@@ -8,7 +8,7 @@
 #define SLIDER_HPP
 #include "Libs.hpp"
 #include "Image.hpp"
-#include "Button.hpp"
+#include "MultiButton.hpp"
 
 /** \brief Slider class
  *
@@ -42,8 +42,8 @@ public:
      */
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
-    std::unique_ptr<Button<Slider>> leftButton;
-    std::unique_ptr<Button<Slider>> rightButton;
+    std::unique_ptr<MultiButton<Slider>> leftButton;
+    std::unique_ptr<MultiButton<Slider>> rightButton;
     std::unique_ptr<Image> slider;
     void decrease();
     void increase();

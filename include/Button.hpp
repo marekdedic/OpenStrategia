@@ -21,7 +21,7 @@ template <class T>
 class Button : public Image
 {
 public:
-    static double pressedTime; /**< Static variable determining for how long should the Button stay visualy pressed. */
+    double pressedTime; /**< Variable determining for how long should the Button stay visualy pressed. */
     Button() = delete;
     /** \brief Button class constructor
      *
@@ -30,8 +30,9 @@ public:
      * \param texUnpressed Texture file name for unpressed state.
      * \param texPressed Texture file name for pressed state.
      * \param func Callback function
+     * \param callObject Object on which the func is called.
      */
-    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject);
+    Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double pressedTime = 0.12);
     /** \brief Button class copy constructor
      *
      * Copies all the pointers.
@@ -60,10 +61,7 @@ protected:
 };
 
 template<class T>
-double Button<T>::pressedTime{0.12};
-
-template<class T>
-Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject) : Image(inPosition, inSize, texUnpressed), texture1{new Texture{texPressed}}, state{0}, callback{func}, callObject{callObject} {}
+Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double pressedTime) : Image(inPosition, inSize, texUnpressed), texture1{new Texture{texPressed}}, state{0}, callback{func}, callObject{callObject}, pressedTime(pressedTime) {}
 
 template<class T>
 Button<T>::Button(const Button& other) : Image(other), texture1{new Texture{*other.texture1}}, state{0}, callback{other.callback}, callObject{other.callObject} {}
@@ -91,7 +89,7 @@ void Button<T>::handle()
         if (DELTA > state) {state = -1;}
         else {state -= DELTA;}
     }
-    else if((CURSOR.x < imagePosition.x) or (CURSOR.y > (imagePosition.x + imageSize.x)) or (CURSOR.y < imagePosition.y) or (CURSOR.y > (imagePosition.y + imageSize.y)) or (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) != GLFW_PRESS))
+    if((CURSOR.x < imagePosition.x) or (CURSOR.y > (imagePosition.x + imageSize.x)) or (CURSOR.y < imagePosition.y) or (CURSOR.y > (imagePosition.y + imageSize.y)) or (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) != GLFW_PRESS))
     {
         state = 0;
     }

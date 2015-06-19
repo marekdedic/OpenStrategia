@@ -15,6 +15,7 @@
 #include "include/Camera.hpp"
 #include "include/Checkbox.hpp"
 #include "include/Image.hpp"
+#include "include/MultiButton.hpp"
 #include "include/Program.hpp"
 #include "include/RenderObject.hpp"
 #include "include/RenderObject2D.hpp"
