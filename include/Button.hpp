@@ -102,7 +102,7 @@ void Button<T>::render(std::shared_ptr<Program> prg) const
 {
     // Send the 1st texture to Graphics card
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture1->textureID);
+    glBindTexture(GL_TEXTURE_2D, texture1->ID);
 
     if((state == 0) or (state == -1))
     {
