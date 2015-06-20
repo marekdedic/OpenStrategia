@@ -17,6 +17,14 @@ slider{new Image{position, sliderSize, texSlider}}
 
 void Slider::handle()
 {
+    if(click(CURSOR, GLFW_MOUSE_BUTTON_1))
+    {
+        sliderState = true;
+    }
+    if((glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) != GLFW_PRESS))
+    {
+        sliderState = false;
+    }
     leftButton->handle();
     rightButton->handle();
 }

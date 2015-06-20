@@ -55,7 +55,7 @@ protected:
     virtual void handle();
     /** \brief Update function
      *
-     * Must be called on every iteration of the main loop if the RenderObject is to do somethink.
+     * Must be called on every iteration of the main loop if the RenderObject is to do something.
      */
     virtual void update();
     /** \brief Renders the object

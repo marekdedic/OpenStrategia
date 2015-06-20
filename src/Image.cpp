@@ -25,6 +25,15 @@ void Image::update()
 
 void Image::render(std::shared_ptr<Program> prg, const GLint texUnit) const
 {
-    //*position = translate(mat4{}, vec3{imagePosition, 0});
     RenderObject2D::render(prg, texUnit);
+}
+
+bool Image::hover(glm::dvec2 cursor)
+{
+    return ((cursor.x > imagePosition.x) and (cursor.x < (imagePosition.x + imageSize.x)) and (cursor.y > imagePosition.y) and (cursor.y < (imagePosition.y + imageSize.y)));
+}
+
+bool Image::click(glm::dvec2 cursor, int mouseButton)
+{
+    return (hover(cursor) and (glfwGetMouseButton(WINDOW, mouseButton) == GLFW_PRESS));
 }

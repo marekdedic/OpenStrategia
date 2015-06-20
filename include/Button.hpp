@@ -61,7 +61,7 @@ protected:
 };
 
 template<class T>
-Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double pressedTime) : Image(inPosition, inSize, texUnpressed), texture1{new Texture{texPressed}}, state{0}, callback{func}, callObject{callObject}, pressedTime(pressedTime) {}
+Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double pressedTime) : Image(inPosition, inSize, texUnpressed), pressedTime(pressedTime), texture1{new Texture{texPressed}}, state{0}, callback{func}, callObject{callObject} {}
 
 template<class T>
 Button<T>::Button(const Button& other) : Image(other), texture1{new Texture{*other.texture1}}, state{0}, callback{other.callback}, callObject{other.callObject} {}
@@ -79,7 +79,7 @@ Button<T>& Button<T>::operator=(const Button& other)
 template<class T>
 void Button<T>::handle()
 {
-    if((state == 0) and (CURSOR.x > imagePosition.x) and (CURSOR.x < (imagePosition.x + imageSize.x)) and (CURSOR.y > imagePosition.y) and (CURSOR.y < (imagePosition.y + imageSize.y)) and (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS))
+    if((state == 0) and click(CURSOR, GLFW_MOUSE_BUTTON_1))
     {
         state = pressedTime;
         (callObject->*callback)();
@@ -89,7 +89,7 @@ void Button<T>::handle()
         if (DELTA > state) {state = -1;}
         else {state -= DELTA;}
     }
-    if((CURSOR.x < imagePosition.x) or (CURSOR.y > (imagePosition.x + imageSize.x)) or (CURSOR.y < imagePosition.y) or (CURSOR.y > (imagePosition.y + imageSize.y)) or (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) != GLFW_PRESS))
+    if(!click(CURSOR, GLFW_MOUSE_BUTTON_1))
     {
         state = 0;
     }
