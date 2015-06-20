@@ -17,6 +17,7 @@ class Texture
     #include "TextureBMP.hpp"
 public:
     GLuint ID; /**< ID of the texture. */
+    glm::mat3 transformation;
     /** \brief Texture class default constructor
      *
      * Allocates memory for the texture
@@ -46,6 +47,16 @@ public:
      * Physically loads the texture.
      */
     bool load(std::string name);
+    /** \brief Horizontally flip Texture
+     *
+     * Changes Texture y axis orientation.
+     */
+    void hflip();
+    /** \brief Vertically flip Texture
+     *
+     * Changes Texture x axis orientation.
+     */
+    void vflip();
     /** \brief Texture class destructor
      *
      * Deletes the texture.

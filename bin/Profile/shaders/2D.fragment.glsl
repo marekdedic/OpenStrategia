@@ -1,10 +1,10 @@
 #version 330 core
 
-in vec2 fUV;
+in vec3 fUV;
 
 uniform sampler2D oSampler;
 
 void main()
 {
-	gl_FragColor = texture(oSampler, fUV);
+	gl_FragColor = texture(oSampler, fUV.xy);
 }

@@ -19,7 +19,6 @@ class RenderObject
 protected:
     std::unique_ptr<glm::mat4> position; /**< Position of the RenderObject represented by a matrix */
     std::unique_ptr<glm::mat4> orientation; /**< Orientation of the RenderObject represented by a matrix */
-    std::unique_ptr<Texture> texture; /**< Surface texture of the object. */
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */

@@ -18,6 +18,7 @@ class Image : public RenderObject2D
 public:
     glm::vec2 imagePosition; /**< Position of the Image represented as a vec2. */
     glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height). */
+    std::unique_ptr<Texture> texture; /**< The image itself, as a Texture. */
     Image() = delete;
     /** \brief Image class constructor
      *

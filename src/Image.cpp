@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string name, float angle) : RenderObject2D(), imagePosition{inPosition}, imageSize{inSize}
+Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string name, float angle) : RenderObject2D(), imagePosition{inPosition}, imageSize{inSize}, texture{new Texture{}}
 {
     *position = translate(mat4{}, vec3{imagePosition, 0});
     *orientation = rotate(mat4{}, angle, vec3{0, 0, 1});
@@ -25,6 +25,17 @@ void Image::update()
 
 void Image::render(std::shared_ptr<Program> prg, const GLint texUnit) const
 {
+    // Send the 0th texture to Graphics card
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture->ID);
+
+    // Send the Texture transformation matrix to GLSL
+    GLint loc{glGetUniformLocation(prg->ID, "uvMatrix")};
+    glUniformMatrix3fv(loc, 1, GL_FALSE, value_ptr(texture->transformation));
+
+    // Use texture unit 0
+    loc = glGetUniformLocation(prg->ID, "oSampler");
+    glUniform1i(loc, texUnit);
     RenderObject2D::render(prg, texUnit);
 }
 

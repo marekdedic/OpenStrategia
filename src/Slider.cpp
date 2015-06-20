@@ -7,6 +7,8 @@ leftButton{new MultiButton<Slider>(position, buttonSize, texLeftUnpressed, texLe
 rightButton{new MultiButton<Slider>(vec2{position.x + wholeSize.x - buttonSize.x, position.y}, buttonSize, texLeftUnpressed, texLeftPressed, &Slider::increase, this)},
 slider{new Image{position, sliderSize, texSlider}}
 {
+    rightButton->texture->vflip();
+    rightButton->texture1->vflip();
     if(state > maxState)
     {
         state = maxState / 2;
