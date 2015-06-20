@@ -2,14 +2,14 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, texture{new Texture{}}, VBO{}, UVBO{}, EBO{}
+RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, VBO{}, UVBO{}, EBO{}
 {
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &UVBO);
     glGenBuffers(1, &EBO);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, texture{new Texture{*other.texture}}, VBO{}, UVBO{}, EBO{}
+RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, VBO{}, UVBO{}, EBO{}
 {
     GLint bufferSize{};
     glGenBuffers(1, &VBO);
@@ -46,7 +46,6 @@ RenderObject& RenderObject::operator=(const RenderObject& other)
     GLint bufferSize{};
     *position = *other.position;
     *orientation = *other.orientation;
-    *texture = *other.texture;
     glBindBuffer(GL_COPY_READ_BUFFER, other.VBO);
     glGetBufferParameteriv (GL_COPY_READ_BUFFER, GL_BUFFER_SIZE, &bufferSize);
     if(bufferSize > 0)
@@ -97,14 +96,6 @@ void RenderObject::update() {}
 
 void RenderObject::render(std::shared_ptr<Program> prg, const GLint vecSize, const GLint texUnit) const
 {
-    // Send the 0th texture to Graphics card
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture->ID);
-
-    // Use texture unit 0
-    GLint loc{glGetUniformLocation(prg->ID, "oSampler")};
-    glUniform1i(loc, texUnit);
-
     // Send the vertices to GLSL
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glEnableVertexAttribArray(0);
@@ -128,7 +119,6 @@ RenderObject::~RenderObject()
 {
     position.reset();
     orientation.reset();
-    texture.reset();
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &UVBO);
     glDeleteBuffers(1, &EBO);

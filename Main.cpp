@@ -85,7 +85,7 @@ int main()
                                                                         vector<GLuint> iData2{0,1,2};
                                                                         //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
-                                                                        Checkbox* objekt3{new Checkbox{vec2(50, 50), vec2{100, 100}, "unpressed.bmp", "pressed.bmp"}};
+                                                                        Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
@@ -109,6 +109,7 @@ int main()
                                                                         objekt3->handle();
 
         // Updating
+                                                                        objekt3->update();
 
         // Timer restart
         DELTA = glfwGetTime();
@@ -122,4 +123,6 @@ int main()
     shaders3D.reset();
     shaders2D.reset();
     MAINCAM.reset();
+    glfwDestroyWindow(WINDOW);
+    glfwTerminate();
 }

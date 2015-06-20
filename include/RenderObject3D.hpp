@@ -56,6 +56,7 @@ public:
     virtual void render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit = 0) const;
     ~RenderObject3D();
 protected:
+    std::unique_ptr<Texture> texture; /**< Surface texture of the object. */
     GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals. */
 };
 

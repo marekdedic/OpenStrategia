@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject3D::RenderObject3D() : NBO{}                   //DEBUG ONLY
+RenderObject3D::RenderObject3D() : texture{new Texture{}}, NBO{}                //DEBUG ONLY
 {
     glGenBuffers(1, &NBO);
     const GLfloat vertex_buffer_data[]{
@@ -56,7 +56,7 @@ RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData,
     glGenBuffers(1, &NBO);
 }
 
-RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
+RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), texture{new Texture{}}, NBO{}
 {
     texture->load("tank-tex.bmp");
     glGenBuffers(1, &NBO);
@@ -117,7 +117,6 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), NBO{}
         }
         file.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-
     for(unsigned int i = 0; i < vertexIndices.size(); i++)
     {
         vertex = rawVertices[vertexIndices[i] - 1];
@@ -143,9 +142,21 @@ void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<
     // Select shader program
     glUseProgram(prg->ID);
 
+    // Send the 0th texture to Graphics card
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture->ID);
+
+    // Use texture unit 0
+    GLint loc{glGetUniformLocation(prg->ID, "oSampler")};
+    glUniform1i(loc, texUnit);
+
+    // Send the Texture transformation matrix to GLSL
+    loc = glGetUniformLocation(prg->ID, "uvMatrix");
+    glUniformMatrix3fv(loc, 1, GL_FALSE, value_ptr(texture->transformation));
+
     // Compute Model matrix, send it to GLSL
     mat4 modelMatrix{*position * *orientation};
-    GLint loc {glGetUniformLocation(prg->ID, "modelMatrix")};
+    loc = glGetUniformLocation(prg->ID, "modelMatrix");
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
 
     // Compute ModelViewProjection matrix, send it to GLSL

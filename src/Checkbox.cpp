@@ -6,7 +6,7 @@ Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpres
 
 void Checkbox::handle()
 {
-    if((CURSOR.x > imagePosition.x) and (CURSOR.x < (imagePosition.x + imageSize.x)) and (CURSOR.y > imagePosition.y) and (CURSOR.y < (imagePosition.y + imageSize.y)) and (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS))
+    if(click(CURSOR, GLFW_MOUSE_BUTTON_1))
     {
         if(!cooldown) {state = !state;}
         cooldown = true;

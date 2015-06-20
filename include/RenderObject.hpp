@@ -19,7 +19,6 @@ class RenderObject
 protected:
     std::unique_ptr<glm::mat4> position; /**< Position of the RenderObject represented by a matrix */
     std::unique_ptr<glm::mat4> orientation; /**< Orientation of the RenderObject represented by a matrix */
-    std::unique_ptr<Texture> texture; /**< Surface texture of the object. */
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
@@ -55,7 +54,7 @@ protected:
     virtual void handle();
     /** \brief Update function
      *
-     * Must be called on every iteration of the main loop if the RenderObject is to do somethink.
+     * Must be called on every iteration of the main loop if the RenderObject is to do something.
      */
     virtual void update();
     /** \brief Renders the object

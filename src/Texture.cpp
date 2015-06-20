@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Texture::Texture() : ID{}, implementation{}
+Texture::Texture() : ID{}, transformation{1}, implementation{}
 {
     glGenTextures(1, &ID);
 }
@@ -57,6 +57,16 @@ bool Texture::load(std::string name)
     name = "textures/" + name;
     implementation.reset(new TextureBMP);
     return implementation->load(ID, name);
+}
+
+void Texture::hflip()
+{
+    transformation = mat3(1, 0, 0, 0, -1, 0, 0, 0, 1) * transformation;
+}
+
+void Texture::vflip()
+{
+    transformation = mat3(-1, 0, 0, 0, 1, 0, 0, 0, 1) * transformation;
 }
 
 Texture::~Texture()

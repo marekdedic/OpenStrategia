@@ -16,25 +16,43 @@
 class Image : public RenderObject2D
 {
 public:
+    glm::vec2 imagePosition; /**< Position of the Image represented as a vec2. */
+    glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height). */
+    std::unique_ptr<Texture> texture; /**< The image itself, as a Texture. */
     Image() = delete;
     /** \brief Image class constructor
      *
-     * \param inPosition Position of the Image.
-     * \param inSize Size of the image represented as a vec2(width, height).
-     * \param tex Texture file name.
-     * \param angle Tilting angle.
+     * \param inPosition Position of the Image
+     * \param inSize Size of the image represented as a vec2(width, height)
+     * \param tex Texture file name
+     * \param angle Tilting angle
      */
     Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float angle = 0);
+    /** \brief Update function
+     *
+     * Must be called on every iteration of the main loop if the Image is to do something.
+     */
+    virtual void update() override;
     /** \brief Renders the Image
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
      * \param texUnit The number of the texture unit to use
      */
-    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const;
-protected:
-    glm::vec2 imagePosition; /**< Position of the Image represented as a vec2. */
-    glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height). */
+    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const override;
+    /** \brief Hover function
+     *
+     * Returns whether the cursor is over the image, but it does NOT detect pressing of mouse.
+     / \param cursor A cursor position to decide for
+     */
+    bool hover(glm::dvec2 cursor);
+    /** \brief Click function
+     *
+     * Returns whether the cursor is over the image and the desired mouse button is pressed.
+     * \param cursor A cursor position to decide for
+     * \param mouseButton A mouse button, which is to be pressed
+     */
+    bool click(glm::dvec2 cursor, int mouseButton);
 };
 
  #endif // IMAGE_HPP
