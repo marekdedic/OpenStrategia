@@ -7,6 +7,7 @@
 #ifndef RENDEROBJECT_HPP
 #define RENDEROBJECT_HPP
 #include "Libs.hpp"
+#include "Program.hpp"
 #include "Texture.hpp"
 
 /** \brief RenderObject class
@@ -15,29 +16,38 @@
  */
 class RenderObject
 {
-public:
+protected:
     std::unique_ptr<glm::mat4> position; /**< Position of the RenderObject represented by a matrix */
     std::unique_ptr<glm::mat4> orientation; /**< Orientation of the RenderObject represented by a matrix */
+    GLuint VAO; /**< Index of the vertex array object */
+    GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER */
+    GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER */
+    GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER */
+    /** \brief RenderObject class default constructor
+     *
+     * Initializes all buffers and dynamic variables.
+     */
+    RenderObject();
     /** \brief RenderObject class copy constructor
      *
      * Copies all the variables and all the buffers.
-     * \param other Address of the RenderObject to copy.
+     * \param other Address of the RenderObject to copy
      */
     RenderObject(const RenderObject& other);
     /** \brief RenderObject class assignment operator
      *
      * Copies all the variables and all the buffers.
-     * \param other Address of the RenderObject to copy.
-     * \return Address of the new RenderObject.
+     * \param other Address of the RenderObject to copy
+     * \return Address of the new RenderObject
      */
     RenderObject& operator=(const RenderObject& other);
     /** \brief RenderObject constructor
      *
      * Creates an object from 2 vectors.
-     * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
-     * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
+     * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates
+     * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices
      */
-    RenderObject(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
+    RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
     /** \brief RenderObject event handle
      *
      * Handles user input.
@@ -45,33 +55,20 @@ public:
     virtual void handle();
     /** \brief Update function
      *
-     * Must be called on every iteration of the main loop if the RenderObject is to do somethink.
+     * Must be called on every iteration of the main loop if the RenderObject is to do something.
      */
     virtual void update();
-    /** \brief Renders the object
+    /** \brief Renders the object.
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
-     * \param prg A shader program to use.
-     * \param viewMatrix A view matrix to use.
-     * \param projectionMatrix A projection matrix to use
+     * \param prg A shader program to use
      */
-    virtual void render(const Program* const prg, const std::shared_ptr<const glm::mat4> viewMatrix, const std::shared_ptr<const glm::mat4> projectionMatrix) const;
+    virtual void render(std::shared_ptr<Program> prg) const;
     /** \brief RenderObject class destructor
      *
      * Deletes all dynamically allocated variables and all buffer objects.
      */
     virtual ~RenderObject();
-protected:
-    std::unique_ptr<Texture> texture; /**< Surface texture of the object. */
-    GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
-    GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
-    GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
-    GLuint elementCount; /**< Number of elements single object has. */
-    /** \brief RenderObject class default constructor
-     *
-     * Initializes all buffers and dynamic variables.
-     */
-    RenderObject();
 };
 
  #endif // RENDEROBJECT_HPP

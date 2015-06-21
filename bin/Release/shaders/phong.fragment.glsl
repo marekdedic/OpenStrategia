@@ -3,7 +3,7 @@
 in vec4 vNormal_w;
 in vec4 vToCamera_w;
 in vec4 vToLight_w;
-in vec2 fUV;
+in vec3 fUV;
 
 uniform float lFalloffMin;
 uniform float lFalloffMax;
@@ -14,7 +14,7 @@ void main()
     float phongExp = 1;
     vec4 lDiffuseColor = vec4(0.3, 0.3, 0.3, 1);
     vec4 lSpecularColor = lDiffuseColor;
-    vec4 mDiffuseColor = texture(oSampler, fUV);
+    vec4 mDiffuseColor = texture(oSampler, fUV.xy);
     vec4 mSpecularColor = mDiffuseColor;
     vec4 mAmbientColor = mDiffuseColor;
     vec4 gAmbientColor = vec4 (0.2, 0.2, 0.2, 1);
@@ -48,5 +48,4 @@ void main()
     }
 
 	gl_FragColor = lFalloffMultiplier * (fDiffuseColor + fSpecularColor) + fAmbientColor;
-	//gl_FragColor = mDiffuseColor;
 }

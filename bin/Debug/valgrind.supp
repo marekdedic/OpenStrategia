@@ -70,15 +70,4 @@
    ...
    obj:*/lib*.so.*
 }
-{
-   ignore_unversioned_libs5
-   Memcheck:Param
-   ...
-   obj:*lib*
-}
-{
-   ignore_versioned_libs5
-   Memcheck:Param
-   ...
-   obj:*/lib*.so.*
-}
+

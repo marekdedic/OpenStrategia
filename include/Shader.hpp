@@ -15,10 +15,10 @@
 class Shader
 {
 public:
-    const GLuint shaderID; /**< ID of the shader. */
+    const GLuint ID; /**< ID of the shader */
     Shader() = delete;
-    /** \brief Loads a shader
-     * \param name Filename with extension, relative to the shaders subdir.
+    /** \brief Loads a shader.
+     * \param name Filename with extension, relative to the shaders subdir
      * \param shaderType Type of the shader passed to glCreateShader() - see OpenGL documentation
      */
     Shader(std::string name, const GLenum shaderType);

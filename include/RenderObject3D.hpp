@@ -23,39 +23,44 @@ public:
     /** \brief RenderObject3D class copy constructor
      *
      * Copies all the variables and all the buffers.
-     * \param other Address of the RenderObject3D to copy.
+     * \param other Address of the RenderObject3D to copy
      */
     RenderObject3D(const RenderObject3D& other);
     /** \brief RenderObject3D class assignment operator
      *
      * Copies all the variables and all the buffers.
-     * \param other Address of the RenderObject3D to copy.
-     * \return Address of the new RenderObject3D.
+     * \param other Address of the RenderObject3D to copy
+     * \return Address of the new RenderObject3D
      */
     RenderObject3D& operator=(const RenderObject3D& other);
     /** \brief RenderObject3D constructor
      *
      * Creates an object from 2 vectors.
-     * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates.
-     * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices.
+     * \param vertexData Data passed to the GL_ARRAY_BUFFER - vertex coordinates
+     * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices
      */
-    RenderObject3D(std::vector<GLfloat>* vertexData, std::vector<GLuint>* indexData);
+    RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
     /** \brief RenderObject3D constructor
      *
      * Creates an object from a .OBJ file.
-     * \param objectName Filename with extension, relative to the models subdir.
+     * \param objectName Filename with extension, relative to the models subdir
      */
     RenderObject3D(std::string objectName);
     /** \brief Renders the 3D object
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
-     * \param prg A shader program to use.
-     * \param cam A Camera to render the object with.
+     * \param prg A shader program to use
+     * \param cam A Camera to render the object with
      */
-    virtual void render(const Program* const prg, const std::shared_ptr<const Camera> cam) const;
+    virtual void render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam) const;
+    /** \brief RenderObject3D class destructor
+     *
+     * Deletes all dynamically allocated variables and all buffer objects.
+     */
     ~RenderObject3D();
 protected:
-    GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals. */
+    std::unique_ptr<Texture> texture; /**< Surface texture of the object */
+    GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals */
 };
 
  #endif // RENDEROBJECT3D_HPP

@@ -1,8 +1,8 @@
-#include "Main.hpp"
+#include "../Main.hpp"
 using namespace std;
 using namespace glm;
 
-Program::Shader::Shader(std::string name, const GLenum shaderType) : shaderID{glCreateShader(shaderType)}
+Program::Shader::Shader(std::string name, const GLenum shaderType) : ID{glCreateShader(shaderType)}
 {
     /**< Load the shader code from the file */
     name = "shaders/" + name;
@@ -20,21 +20,21 @@ Program::Shader::Shader(std::string name, const GLenum shaderType) : shaderID{gl
             code += "\n" + line;
         }
         file.close();
-    GLchar const *codePtr{code.c_str()};
+    GLchar const* codePtr{code.c_str()};
 
     /**< Handle the code to OpenGL and compile it */
-    glShaderSource(shaderID, 1, &codePtr, nullptr);
-    glCompileShader(shaderID);
+    glShaderSource(ID, 1, &codePtr, nullptr);
+    glCompileShader(ID);
 
     /**< Verify the result */
     GLint result{};
-    glGetShaderiv(shaderID, GL_COMPILE_STATUS, &result);
+    glGetShaderiv(ID, GL_COMPILE_STATUS, &result);
     if(result != GL_TRUE) /**< Error */
     {
         int infoLogLength{};
-        glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &infoLogLength);
+        glGetShaderiv(ID, GL_INFO_LOG_LENGTH, &infoLogLength);
         string errorMessage{};
-        glGetShaderInfoLog(shaderID, infoLogLength, nullptr, &errorMessage[0]);
+        glGetShaderInfoLog(ID, infoLogLength, nullptr, &errorMessage[0]);
         ERROR << "Error: " << errorMessage << ", when compiling shader: " << name << " of type: " << shaderType << endl;
         glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         return;
@@ -43,5 +43,5 @@ Program::Shader::Shader(std::string name, const GLenum shaderType) : shaderID{gl
 
 Program::Shader::~Shader()
 {
-    glDeleteShader(shaderID);
+    glDeleteShader(ID);
 }

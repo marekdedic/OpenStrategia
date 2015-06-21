@@ -4,14 +4,12 @@ using namespace glm;
 
 std::ofstream ERROR{"ErrorLog.txt", fstream::trunc};
 GLFWwindow* WINDOW{};
-shared_ptr<Camera> MAINCAM{new Camera{3.1415926535 / 4, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}}};
+std::shared_ptr<Camera> MAINCAM{new Camera{3.1415926535 / 4, 4.0 / 3.0, 0.1, vec3{0, 0, -10}, quat{0.9238795325112867, -0.3826834323650897, 0, 0}}};
 double DELTA{};
 float SPEED{1};
-int PAUSE{0};
-double XCURSOR{};
-double YCURSOR{};
-int WIDTH{};
-int HEIGHT{};
+double PAUSE{0};
+glm::dvec2 CURSOR{};
+glm::ivec2 SCREENSIZE{};
 
 int main()
 {
@@ -37,7 +35,7 @@ int main()
     glfwSwapInterval(1);
     glfwSetInputMode(WINDOW, GLFW_STICKY_KEYS, GL_TRUE);
     glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
-    glfwGetWindowSize(WINDOW, &WIDTH, &HEIGHT);
+    glfwGetWindowSize(WINDOW, &SCREENSIZE.x, &SCREENSIZE.y);
 
     glewExperimental = GL_TRUE;
     GLenum GLEWerror{glewInit()};
@@ -53,14 +51,15 @@ int main()
     glDepthFunc(GL_LESS);
 
     // Loading shaders
-    Program* shaders{new Program};
-    shaders->AddShader("phong.vertex.glsl", GL_VERTEX_SHADER);
-    shaders->AddShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
+    std::shared_ptr<Program> shaders3D{new Program};
+    shaders3D->addShader("phong.vertex.glsl", GL_VERTEX_SHADER);
+    shaders3D->addShader("phong.fragment.glsl", GL_FRAGMENT_SHADER);
+    std::shared_ptr<Program> shaders2D{new Program};
+    shaders2D->addShader("2D.vertex.glsl", GL_VERTEX_SHADER);
+    shaders2D->addShader("2D.fragment.glsl", GL_FRAGMENT_SHADER);
     if(glfwWindowShouldClose(WINDOW)) {return -1;}
-    shaders->Link();
-                                                                        glUseProgram(shaders->programID);
-
-    // Setting up some important variables
+    shaders3D->link();
+    shaders2D->link();
 
     // Reset timer and swap buffers, so that the main loop can start immediatelly
     glfwSetTime(0);
@@ -84,30 +83,33 @@ int main()
 	};
                                                                         vector<GLuint> iData{0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
                                                                         vector<GLuint> iData2{0,1,2};
-                                                                        //RenderObject3D* objekt{new RenderObject3D(&vData, &iData)};
-                                                                        //RenderObject2D* objekt2{new RenderObject2D(&vData2, &iData2)};
-                                                                        RenderObject3D* objekt3{new RenderObject3D("tank.obj")};
+                                                                        //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
+                                                                        RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
+                                                                        Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         //objekt->render(shaders, MAINCAM);
-                                                                        //objekt2->render(shaders);
-                                                                        objekt3->render(shaders, MAINCAM);
+                                                                        objekt2->render(shaders3D, MAINCAM);
+                                                                        objekt3->render(shaders2D);
 
         // Input handling
-        glfwGetCursorPos(WINDOW, &XCURSOR, &YCURSOR);
+        glfwGetCursorPos(WINDOW, &CURSOR.x, &CURSOR.y);
+        CURSOR.y = SCREENSIZE.y - CURSOR.y;
         if(glfwGetKey(WINDOW, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
             glfwSetWindowShouldClose(WINDOW, GL_TRUE);
         }
-        if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (XCURSOR < 2) or (YCURSOR < 2) or (XCURSOR > (WIDTH - 2)) or (YCURSOR > (HEIGHT - 2)))
+        if((glfwGetKey(WINDOW, GLFW_KEY_LEFT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_RIGHT) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_UP) == GLFW_PRESS) or (glfwGetKey(WINDOW, GLFW_KEY_DOWN) == GLFW_PRESS) or (CURSOR.x < 2) or (CURSOR.y < 2) or (CURSOR.x > (SCREENSIZE.x - 2)) or (CURSOR.y > (SCREENSIZE.y - 2)))
         {
             thread t(&Camera::handle, MAINCAM);
             t.detach();
         }
+                                                                        objekt3->handle();
 
         // Updating
+                                                                        objekt3->update();
 
         // Timer restart
         DELTA = glfwGetTime();
@@ -116,8 +118,11 @@ int main()
         glfwPollEvents();
     }
     //delete objekt;
-    //delete objekt2;
+    delete objekt2;
     delete objekt3;
-    delete shaders;
+    shaders3D.reset();
+    shaders2D.reset();
     MAINCAM.reset();
+    glfwDestroyWindow(WINDOW);
+    glfwTerminate();
 }
