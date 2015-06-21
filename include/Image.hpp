@@ -18,7 +18,7 @@ class Image : public RenderObject2D
 public:
     glm::vec2 imagePosition; /**< Position of the Image represented as a vec2. */
     glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height). */
-    std::unique_ptr<Texture> texture; /**< The image itself, as a Texture. */
+    std::shared_ptr<Texture> texture; /**< The image itself, as a Texture. */
     Image() = delete;
     /** \brief Image class constructor
      *
@@ -33,13 +33,14 @@ public:
      * Must be called on every iteration of the main loop if the Image is to do something.
      */
     virtual void update() override;
+    virtual void render(std::shared_ptr<Program> prg) const;
     /** \brief Renders the Image
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
      * \param prg A shader program to use.
      * \param texUnit The number of the texture unit to use
      */
-    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const override;
+    virtual void render(std::shared_ptr<Program> prg, std::shared_ptr<Texture> activeTexture) const;
     /** \brief Hover function
      *
      * Returns whether the cursor is over the image, but it does NOT detect pressing of mouse.

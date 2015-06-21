@@ -35,7 +35,7 @@ public:
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
     bool cooldown;
-    std::unique_ptr<Texture> texture1; /**< Surface texture of the object. */
+    std::shared_ptr<Texture> texture1; /**< Surface texture of the object. */
 };
 
  #endif // CHECKBOX_HPP

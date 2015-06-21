@@ -23,20 +23,17 @@ void Image::update()
     *position = translate(mat4{}, vec3{imagePosition, 0});
 }
 
-void Image::render(std::shared_ptr<Program> prg, const GLint texUnit) const
+void Image::render(std::shared_ptr<Program> prg) const
 {
-    // Send the 0th texture to Graphics card
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture->ID);
+    render(prg, texture);
+}
 
-    // Send the Texture transformation matrix to GLSL
-    GLint loc{glGetUniformLocation(prg->ID, "uvMatrix")};
-    glUniformMatrix3fv(loc, 1, GL_FALSE, value_ptr(texture->transformation));
+void Image::render(std::shared_ptr<Program> prg, std::shared_ptr<Texture> activeTexture) const
+{
+    glUseProgram(prg->ID);
 
-    // Use texture unit 0
-    loc = glGetUniformLocation(prg->ID, "oSampler");
-    glUniform1i(loc, texUnit);
-    RenderObject2D::render(prg, texUnit);
+    activeTexture->use(prg, GL_TEXTURE0, 0, "uvMatrix", "oSampler");
+    RenderObject2D::render(prg);
 }
 
 bool Image::hover(glm::dvec2 cursor)

@@ -119,7 +119,7 @@ RenderObject::RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std
 void RenderObject::handle() {}
 void RenderObject::update() {}
 
-void RenderObject::render(std::shared_ptr<Program> prg, const GLint texUnit) const
+void RenderObject::render(std::shared_ptr<Program> prg) const
 {
     // Select shader program and VAO
     glUseProgram(prg->ID);

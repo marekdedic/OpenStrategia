@@ -22,7 +22,7 @@ class Button : public Image
 {
 public:
     double pressedTime; /**< Variable determining for how long should the Button stay visualy pressed. */
-    std::unique_ptr<Texture> texture1; /**< Surface texture of the object. */
+    std::shared_ptr<Texture> texture1; /**< Surface texture of the object. */
     Button() = delete;
     /** \brief Button class constructor
      *
@@ -98,17 +98,13 @@ void Button<T>::handle()
 template<class T>
 void Button<T>::render(std::shared_ptr<Program> prg) const
 {
-    // Send the 1st texture to Graphics card
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture1->ID);
-
     if((state == 0) or (state == -1))
     {
-        Image::render(prg, 0);
+        Image::render(prg, texture);
     }
     else
     {
-        Image::render(prg, 1);
+        Image::render(prg, texture1);
     }
 }
 

@@ -19,16 +19,12 @@ void Checkbox::handle()
 
 void Checkbox::render(std::shared_ptr<Program> prg) const
 {
-    // Send the 1st texture to Graphics card
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture1->ID);
-
     if(state)
     {
-        Image::render(prg, 1);
+        Image::render(prg, texture1);
     }
     else
     {
-        Image::render(prg, 0);
+        Image::render(prg, texture);
     }
 }
