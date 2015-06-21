@@ -28,8 +28,9 @@ RenderObject3D::RenderObject3D() : texture{new Texture{}}, NBO{}                
 	glBindVertexArray(0);
 }
 
-RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other), NBO{}
+RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other), texture{new Texture{}}, NBO{}
 {
+    *texture = *other.texture;
     GLint bufferSize{};
     glGenBuffers(1, &NBO);
     glBindBuffer(GL_COPY_READ_BUFFER, other.NBO);
@@ -44,6 +45,7 @@ RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other
 
 RenderObject3D& RenderObject3D::operator=(const RenderObject3D& other)
 {
+    *texture = *other.texture;
     RenderObject::operator=(other);
     GLint bufferSize{};
     glBindBuffer(GL_COPY_READ_BUFFER, other.NBO);
@@ -57,7 +59,7 @@ RenderObject3D& RenderObject3D::operator=(const RenderObject3D& other)
     return *this;
 }
 
-RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject(vertexData, indexData), NBO{}
+RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData) : RenderObject(vertexData, indexData), texture{new Texture{}}, NBO{}
 {
     glGenBuffers(1, &NBO);
 }
