@@ -21,7 +21,6 @@ template <class T>
 class Button : public Image
 {
 public:
-    double pressedTime; /**< Variable determining for how long should the Button stay visualy pressed. */
     std::shared_ptr<Texture> texture1; /**< Surface texture of the object. */
     Button() = delete;
     /** \brief Button class constructor
@@ -55,13 +54,14 @@ public:
      */
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
+    double pressedTime; /**< Variable determining for how long should the Button stay visualy pressed. */
     double state; /**< State of the button. 0 for unpressed, -1 for pressed but image already changed back, otherwise countdown. */
     void (T::* callback)(void); /**< Button callback function. */
     T* const callObject; /**< Button callback object. */
 };
 
 template<class T>
-Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double pressedTime) : Image(inPosition, inSize, texUnpressed), pressedTime(pressedTime), texture1{new Texture{texPressed}}, state{0}, callback{func}, callObject{callObject} {}
+Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double pressedTime) : Image(inPosition, inSize, texUnpressed), texture1{new Texture{texPressed}}, pressedTime(pressedTime), state{0}, callback{func}, callObject{callObject} {}
 
 template<class T>
 Button<T>::Button(const Button& other) : Image(other), texture1{new Texture{*other.texture1}}, state{0}, callback{other.callback}, callObject{other.callObject} {}

@@ -18,7 +18,6 @@ class Slider : public Image
 {
 public:
     int state; /**< State of the Slider ranging from 0 to maxState. */
-    const int maxState; /**< Maximal state of the Slider. */
     Slider() = delete;
     /** \brief Slider class constructor
      *
@@ -42,6 +41,7 @@ public:
      */
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
+    const int maxState; /**< Maximal state of the Slider. */
     bool sliderState;
     std::unique_ptr<MultiButton<Slider>> leftButton;
     std::unique_ptr<MultiButton<Slider>> rightButton;

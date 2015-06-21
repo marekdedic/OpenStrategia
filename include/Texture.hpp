@@ -17,7 +17,6 @@ class Texture
     #include "TextureBMP.hpp"
 public:
     GLuint ID; /**< ID of the texture. */
-    glm::mat3 transformation;
     /** \brief Texture class default constructor
      *
      * Allocates memory for the texture
@@ -64,6 +63,7 @@ public:
      */
     ~Texture();
 private:
+    glm::mat3 transformation;
     std::unique_ptr<TextureBridge> implementation;
 };
 
