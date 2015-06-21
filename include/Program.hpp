@@ -17,18 +17,18 @@ class Program
 {
     #include "Shader.hpp"
 public:
-    const GLuint ID; /**< ID of the shader program. */
+    const GLuint ID; /**< ID of the shader program */
     Program();
-    /** \brief Adds a shader to the program
+    /** \brief Adds a shader to the program.
      *
      * Has no effect unless Link() was called afterwards.
-     * \param name Filename with extension, relative to the shaders subdir.
+     * \param name Filename with extension, relative to the shaders subdir
      * \param shaderType Type of the shader passed to glCreateShader() - see OpenGL documentation
      */
     void addShader(const std::string name, const GLenum shaderType);
     /** \brief Links shader program
      *
-     * After changing anything to the shader program, Link() must be called again.
+     * After changing anything to the shader program, link() must be called again.
      */
     void link() const;
     /** \brief Program class destructor
@@ -37,7 +37,7 @@ public:
      */
     ~Program();
 private:
-    std::vector<std::unique_ptr<Shader>> shaders; /**< Vector with pointers to all shaders in the shader program. */
+    std::vector<std::unique_ptr<Shader>> shaders; /**< Vector with pointers to all shaders in the shader program */
 };
 
  #endif // PROGRAM_HPP

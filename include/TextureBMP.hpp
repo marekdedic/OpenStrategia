@@ -16,6 +16,13 @@
 class TextureBMP : public TextureBridge
 {
 public:
+    /** \brief Load a Texture
+     *
+     * Loads a texture from a BMP file.
+     * \param ID ID of the Texture
+     * \param name Texture file name with extension .BMP, relative to the textures subdir
+     * \return True when the Texture was loaded without errors, false otherwise
+     */
     bool load(GLuint ID, std::string name) override final;
 };
 
