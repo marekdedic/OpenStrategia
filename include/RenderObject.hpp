@@ -19,6 +19,7 @@ class RenderObject
 protected:
     std::unique_ptr<glm::mat4> position; /**< Position of the RenderObject represented by a matrix */
     std::unique_ptr<glm::mat4> orientation; /**< Orientation of the RenderObject represented by a matrix */
+    GLuint VAO; /**< Index of the vertex array object. */
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER. */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER. */
     GLuint EBO; /**< Index of the GL_ELEMENT_ARRAY_BUFFER. */
@@ -64,7 +65,7 @@ protected:
      * \param vecSize How many components do the vectors have.
      * \param texUnit A texture unit to use
      */
-    virtual void render(std::shared_ptr<Program> prg, const GLint vecSize = 4, const GLint texUnit = 0) const;
+    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const;
     /** \brief RenderObject class destructor
      *
      * Deletes all dynamically allocated variables and all buffer objects.

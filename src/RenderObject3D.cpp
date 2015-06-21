@@ -4,7 +4,13 @@ using namespace glm;
 
 RenderObject3D::RenderObject3D() : texture{new Texture{}}, NBO{}                //DEBUG ONLY
 {
+    glBindVertexArray(VAO);
     glGenBuffers(1, &NBO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, NBO);
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
     const GLfloat vertex_buffer_data[]{
 		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
@@ -18,8 +24,8 @@ RenderObject3D::RenderObject3D() : texture{new Texture{}}, NBO{}                
 	const GLuint element_buffer_data[]{0,1,2,1,3,2,4,7,5,6,4,5,1,5,7,1,7,3,2,4,0,6,0,4,3,7,4,3,4,2,1,5,6,1,6,0};
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(element_buffer_data), element_buffer_data, GL_STATIC_DRAW);
+	glBindVertexArray(0);
 }
 
 RenderObject3D::RenderObject3D(const RenderObject3D& other) : RenderObject(other), NBO{}
@@ -58,8 +64,18 @@ RenderObject3D::RenderObject3D(std::shared_ptr<std::vector<GLfloat>> vertexData,
 
 RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), texture{new Texture{}}, NBO{}
 {
-    texture->load("tank-tex.bmp");
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
     glGenBuffers(1, &NBO);
+    glBindBuffer(GL_ARRAY_BUFFER, NBO);
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+    texture->load("tank-tex.bmp");
     ObjectName = "models/" + ObjectName;
     vector<GLuint> vertexIndices{}, UVIndices{}, normalIndices{};
     vector<vec3> rawVertices{};
@@ -131,10 +147,10 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), texture
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, UVBO);
     glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(vec2), UVs.data(), GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, vertexIndices.size() * sizeof(GLuint), vertexIndices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, NBO);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(vec3), normals.data(), GL_STATIC_DRAW);
+    glBindVertexArray(0);
 }
 
 void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit) const
@@ -142,6 +158,7 @@ void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<
     // Select shader program
     glUseProgram(prg->ID);
 
+    glBindVertexArray(VAO);
     // Send the 0th texture to Graphics card
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture->ID);
@@ -181,14 +198,9 @@ void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<
     loc = glGetUniformLocation(prg->ID, "cPosition_w");
     glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
 
-    // Send normals to GLSL
-    glBindBuffer(GL_ARRAY_BUFFER, NBO);
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-
     // Render
-    RenderObject::render(prg, 3, texUnit);
-    glDisableVertexAttribArray(2);
+    RenderObject::render(prg, texUnit);
+    glBindVertexArray(0);
 }
 
 RenderObject3D::~RenderObject3D()
