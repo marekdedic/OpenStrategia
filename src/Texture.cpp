@@ -52,6 +52,22 @@ Texture& Texture::operator=(const Texture& other)
     return *this;
 }
 
+void Texture::use(std::shared_ptr<Program> prg, GLenum texUnit, GLint texUnitNumber, std::string uvMatrix, std::string sampler)
+{
+    // Send the texture to Graphics card
+    glActiveTexture(texUnit);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, ID);
+
+    // Send the Texture transformation matrix to GLSL
+    GLint loc{glGetUniformLocation(prg->ID, uvMatrix.c_str())};
+    glUniformMatrix3fv(loc, 1, GL_FALSE, value_ptr(transformation));
+
+    // Use texture unit
+    loc = glGetUniformLocation(prg->ID, sampler.c_str());
+    glUniform1i(loc, texUnitNumber);
+}
+
 bool Texture::load(std::string name)
 {
     name = "textures/" + name;

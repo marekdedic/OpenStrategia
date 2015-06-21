@@ -65,7 +65,7 @@ protected:
      * \param vecSize How many components do the vectors have.
      * \param texUnit A texture unit to use
      */
-    virtual void render(std::shared_ptr<Program> prg, const GLint texUnit = 0) const;
+    virtual void render(std::shared_ptr<Program> prg) const;
     /** \brief RenderObject class destructor
      *
      * Deletes all dynamically allocated variables and all buffer objects.

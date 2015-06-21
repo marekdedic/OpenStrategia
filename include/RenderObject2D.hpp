@@ -34,7 +34,7 @@ protected:
      * \param prg A shader program to use.
      * \param texUnit A texture unit to use.
      */
-    virtual void render(std::shared_ptr<Program> const prg, const GLint texUnit = 0) const;
+    virtual void render(std::shared_ptr<Program> const prg) const override;
 };
 
  #endif // RENDEROBJECT2D_HPP

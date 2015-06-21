@@ -54,10 +54,10 @@ void Slider::update()
 
 void Slider::render(std::shared_ptr<Program> prg) const
 {
-    Image::render(prg, 0);
+    Image::render(prg);
     leftButton->render(prg);
     rightButton->render(prg);
-    slider->render(prg, 0);
+    slider->render(prg);
 }
 
 void Slider::decrease()

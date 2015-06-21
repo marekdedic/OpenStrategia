@@ -153,27 +153,18 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), texture
     glBindVertexArray(0);
 }
 
-void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit) const
+void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam) const
 {
     // Select shader program
     glUseProgram(prg->ID);
 
     glBindVertexArray(VAO);
-    // Send the 0th texture to Graphics card
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture->ID);
 
-    // Use texture unit 0
-    GLint loc{glGetUniformLocation(prg->ID, "oSampler")};
-    glUniform1i(loc, texUnit);
-
-    // Send the Texture transformation matrix to GLSL
-    loc = glGetUniformLocation(prg->ID, "uvMatrix");
-    glUniformMatrix3fv(loc, 1, GL_FALSE, value_ptr(texture->transformation));
+    texture->use(prg, GL_TEXTURE0, 0, "uvMatrix", "oSampler");
 
     // Compute Model matrix, send it to GLSL
     mat4 modelMatrix{*position * *orientation};
-    loc = glGetUniformLocation(prg->ID, "modelMatrix");
+    GLint loc {glGetUniformLocation(prg->ID, "modelMatrix")};
     glUniformMatrix4fv(loc, 1, GL_FALSE, value_ptr(modelMatrix));
 
     // Compute ModelViewProjection matrix, send it to GLSL
@@ -199,7 +190,7 @@ void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<
     glUniform3fv(loc, 1, value_ptr(*MAINCAM->position));
 
     // Render
-    RenderObject::render(prg, texUnit);
+    RenderObject::render(prg);
     glBindVertexArray(0);
 }
 

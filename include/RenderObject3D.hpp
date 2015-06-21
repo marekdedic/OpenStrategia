@@ -53,7 +53,7 @@ public:
      * \param cam A Camera to render the object with.
      * \param texUnit A texture unit to use.
      */
-    virtual void render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam, const GLint texUnit = 0) const;
+    virtual void render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam) const;
     ~RenderObject3D();
 protected:
     std::unique_ptr<Texture> texture; /**< Surface texture of the object. */

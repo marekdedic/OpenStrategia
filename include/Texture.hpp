@@ -42,6 +42,7 @@ public:
      * \return Address of the new Texture.
      */
     Texture& operator=(const Texture& other);
+    void use(std::shared_ptr<Program> prg, GLenum texUnit, GLint texUnitNumber, std::string uvMatrix, std::string sampler);
     /** \brief Texture loader
      *
      * Physically loads the texture.
