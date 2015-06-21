@@ -25,7 +25,7 @@ public:
      * \param inPosition Position of the Image
      * \param inSize Size of the image represented as a vec2(width, height)
      * \param tex Texture file name
-     * \param angle Tilting angle
+     * \param angle Tilting angle in radians
      */
     Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float angle = 0);
     /** \brief Update function

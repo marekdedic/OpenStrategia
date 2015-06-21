@@ -38,7 +38,10 @@ void Image::render(std::shared_ptr<Program> prg, std::shared_ptr<Texture> active
 
 bool Image::hover(glm::dvec2 cursor)
 {
-    return ((cursor.x > imagePosition.x) and (cursor.x < (imagePosition.x + imageSize.x)) and (cursor.y > imagePosition.y) and (cursor.y < (imagePosition.y + imageSize.y)));
+    dvec4 transformedCursor{cursor.x, cursor.y, 0, 0};
+    transformedCursor -= dvec4{imagePosition.x, imagePosition.y, 0, 0};
+    transformedCursor = inverse(*orientation) * transformedCursor;
+    return ((transformedCursor.x > 0) and (transformedCursor.x < imageSize.x) and (transformedCursor.y > 0) and (transformedCursor.y < imageSize.y));
 }
 
 bool Image::click(glm::dvec2 cursor, int mouseButton)
