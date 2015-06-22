@@ -70,8 +70,21 @@ void Texture::use(std::shared_ptr<Program> prg, GLenum texUnit, GLint texUnitNum
 
 bool Texture::load(std::string name)
 {
+    string extension = name.substr(name.find_last_of(".") + 1);
     name = "textures/" + name;
-    implementation.reset(new TextureBMP);
+    if((extension == "BMP") or (extension == "bmp"))
+    {
+        implementation.reset(new TextureBMP{});
+    }
+    else if((extension == "DDS") or (extension == "dds"))
+    {
+        implementation.reset(new TextureDDS{});
+    }
+    else
+    {
+        ERROR << "File " << name <<" is not a valid file format." << endl;
+        return false;
+    }
     return implementation->load(ID, name);
 }
 
