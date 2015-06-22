@@ -15,6 +15,7 @@
 class Texture
 {
     #include "TextureBMP.hpp"
+    #include "TextureDDS.hpp"
 public:
     GLuint ID; /**< ID of the texture. */
     /** \brief Texture class default constructor
