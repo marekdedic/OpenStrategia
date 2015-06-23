@@ -9,6 +9,41 @@
 #include "Libs.hpp"
 #include "TextureBridge.hpp"
 
+typedef struct {
+    unsigned long low;
+    unsigned long high;
+} DDS_COLORKEY;
+
+typedef struct {
+    unsigned long structSize;
+    unsigned long flags;
+    unsigned long fourCC;
+    unsigned long RGBBitCount;
+    unsigned long RBitMask;
+    unsigned long GBitMask;
+    unsigned long BBitMask;
+    unsigned long ABitMask;
+} DDS_PIXELFORMAT;
+
+typedef struct {
+    unsigned long structSize;
+    unsigned long flags;
+    unsigned long height;
+    unsigned long width;
+    unsigned long linearSize;
+    unsigned long depth;
+    unsigned long mipmapCount;
+    unsigned long alphaBitDepth;
+    unsigned long reserved0[2];
+    DDS_COLORKEY destOverlay;
+    DDS_COLORKEY destBlit;
+    DDS_COLORKEY srcOverlay;
+    DDS_COLORKEY srcBlit;
+    DDS_PIXELFORMAT pixelFormat;
+    unsigned long caps[4];
+    unsigned long reserved1;
+} DDS_HEADER;
+
 /** \brief TextureDDS class
  *
  * Implements a DDS texture.
