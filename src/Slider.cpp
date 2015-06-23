@@ -22,6 +22,8 @@ void Slider::handle()
     if(slider->click(CURSOR, GLFW_MOUSE_BUTTON_1))
     {
         sliderState = true;
+        leftButton->state = 0;
+        rightButton->state = 0;
     }
     if((glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_1) != GLFW_PRESS))
     {
