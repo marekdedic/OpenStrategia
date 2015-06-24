@@ -16,13 +16,16 @@
 #define DDS_FOURCC_BC4S 0x53344342
 #define DDS_FOURCC_BC5S 0x53354342
 
+#pragma pack(push)
+#pragma pack(1)
+
 typedef struct {
     unsigned long low;
     unsigned long high;
 } DDS_COLORKEY;
 
 typedef struct {
-    unsigned long structSize;
+    unsigned long structSize;   // 32
     unsigned long flags;
     unsigned long fourCC;
     unsigned long RGBBitCount;
@@ -33,7 +36,8 @@ typedef struct {
 } DDS_PIXELFORMAT;
 
 typedef struct {
-    unsigned long structSize;
+    char header[4];
+    unsigned long structSize;   // 124
     unsigned long flags;
     unsigned long height;
     unsigned long width;
@@ -50,6 +54,8 @@ typedef struct {
     unsigned long caps[4];
     unsigned long reserved1;
 } DDS_HEADER;
+
+#pragma pack(pop)
 
 /** \brief TextureDDS class
  *

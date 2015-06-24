@@ -8,61 +8,61 @@ bool Texture::TextureBMP::load(std::string name)
 {
     fileName = name;
     glBindTexture(GL_TEXTURE_2D, parent->ID);
-    GLuint dataPos{}, imageSize{}, width{}, height{};
     ifstream file{fileName, ifstream::binary};
     if(!file.is_open())
     {
         ERROR << "File " << fileName <<" could not be opened." << endl;
         return false;
     }
-    char* header{new char[54]};
-    file.read(header, 54);
+    BMP_HEADER header;
+    file.read(reinterpret_cast<char*>(&header), 54);
     if(!file.good())
     {
         ERROR << "File " << fileName << " is not a correct BMP file. No BMP header found." << endl;
-        delete[] header;
         return false;
     }
-    if((header[0x00] != 'B') or (header[0x01] != 'M'))
+    if((header.magic[0] != 'B') or (header.magic[1] != 'M'))
     {
-        ERROR << "File " << fileName << " is not a correct BMP file. Wrong BMP header." << endl;
-        delete[] header;
+        ERROR << "File " << fileName << " is not a correct BMP file. Wrong BMP signature." << endl;
         return false;
     }
-    if(header[0x1E] != 0)
+    if(header.numPlanes != 1)
     {
-        ERROR << "File " << fileName << " is not a correct BMP file. File is compressed." << endl;
-        delete[] header;
+        ERROR << "File " << fileName << " is not a correct BMP file. Wrong number of planes." << endl;
         return false;
     }
-    if(header[0x1C] != 24)
+    if(header.BPP != 24)
     {
         ERROR << "File " << fileName << " is not a correct BMP file. Wrong BitCount. Use 24bpp." << endl;
-        delete[] header;
         return false;
     }
-    dataPos = *reinterpret_cast<int*>(&header[0x0A]);
-    imageSize = *reinterpret_cast<int*>(&header[0x22]);
-    width = *reinterpret_cast<int*>(&header[0x12]);
-    height = *reinterpret_cast<int*>(&header[0x16]);
-    if(imageSize == 0)
+    if(header.compression != 0)
     {
-        imageSize = 3 * width * height;
+        ERROR << "File " << fileName << " is not a correct BMP file. File is compressed." << endl;
+        return false;
     }
-    if(dataPos == 0)
+    if(header.imageSize == 0)
     {
-        dataPos = 54;
+        header.imageSize = 3 * header.width * header.height;
     }
-    char* data{new char[imageSize]};
-    file.seekg(dataPos);
-    file.read(data, imageSize);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+    if(header.dataOffset == 0)
+    {
+        header.dataOffset = 54;
+    }
+    char* data{new char[header.imageSize]};
+    file.seekg(header.dataOffset);
+    file.read(data, header.imageSize);
+    if(!file.good())
+    {
+        ERROR << "File " << fileName << " is not a correct DDS file. Failed to read the file." << endl;
+        return false;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, header.width, header.height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glGenerateMipmap(GL_TEXTURE_2D);
-    delete[] header;
     delete[] data;
     file.close();
     parent->components = 3;

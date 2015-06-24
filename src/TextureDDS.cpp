@@ -14,23 +14,16 @@ bool Texture::TextureDDS::load(std::string name)
         ERROR << "File " << fileName <<" could not be opened." << endl;
         return false;
     }
-    char magic[4];
-    file.read(magic, 4);
-    if(!file.good())
-    {
-        ERROR << "File " << fileName << " is not a correct DDS file. No DDS header found." << endl;
-        return false;
-    }
-    if((magic[0x00] != 'D') or (magic[0x01] != 'D') or (magic[0x02] != 'S') or (magic[0x03] != ' '))
-    {
-        ERROR << "File " << fileName << " is not a correct DDS file. Wrong DDS header." << endl;
-        return false;
-    }
     DDS_HEADER header;
     file.read(reinterpret_cast<char*>(&header), 124);
     if(!file.good())
     {
         ERROR << "File " << fileName << " is not a correct DDS file. No DDS header found." << endl;
+        return false;
+    }
+    if((header.magic[0] != 'D') or (header.magic[1] != 'D') or (header.magic[2] != 'S') or (header.magic[3] != ' '))
+    {
+        ERROR << "File " << fileName << " is not a correct DDS file. Wrong DDS header." << endl;
         return false;
     }
     if((header.structSize != 124) or (header.pixelFormat.structSize != 32))
@@ -46,6 +39,11 @@ bool Texture::TextureDDS::load(std::string name)
     unsigned int bufSize{header.mipmapCount > 1 ? 2 * header.linearSize : header.linearSize};
     char* data{new char[bufSize]};
     file.read(data, bufSize);
+    if(!file.good())
+    {
+        ERROR << "File " << fileName << " is not a correct DDS file. Failed to read the file." << endl;
+        return false;
+    }
     GLuint format{};
     switch(header.pixelFormat.fourCC)
     {
