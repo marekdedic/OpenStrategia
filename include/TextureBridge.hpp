@@ -15,6 +15,7 @@
 class TextureBridge
 {
 public:
+    Texture* parent;
     TextureBridge() = delete;
     /** \brief TextureBridge constructor
      *
@@ -22,6 +23,19 @@ public:
      * \param parent The parent object, which the implementation belongs to.
      */
     TextureBridge(Texture* parent);
+    /** \brief TextureBridge class copy constructor
+     *
+     * Copies the texture implementation object.
+     * \param other Address of the TextureBridge to copy
+     */
+    TextureBridge(const TextureBridge& other);
+    /** \brief TextureBridge class assignment operator
+     *
+     * Copies the texture implementation object.
+     * \param other Address of the TextureBridge to copy
+     * \return Address of the new TextureBridge
+     */
+    TextureBridge& operator=(const TextureBridge& other);
     /** \brief Load a Texture
      *
      * Loads a texture from the corresponding file.
@@ -35,7 +49,6 @@ public:
      */
      virtual ~TextureBridge();
 protected:
-    Texture* parent;
     std::string fileName;
 };
 

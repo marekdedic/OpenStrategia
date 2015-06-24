@@ -36,7 +36,7 @@ typedef struct {
 } DDS_PIXELFORMAT;
 
 typedef struct {
-    char header[4];
+    char magic[4];
     unsigned long structSize;   // 124
     unsigned long flags;
     unsigned long height;

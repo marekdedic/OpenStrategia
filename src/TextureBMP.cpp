@@ -52,11 +52,6 @@ bool Texture::TextureBMP::load(std::string name)
     char* data{new char[header.imageSize]};
     file.seekg(header.dataOffset);
     file.read(data, header.imageSize);
-    if(!file.good())
-    {
-        ERROR << "File " << fileName << " is not a correct DDS file. Failed to read the file." << endl;
-        return false;
-    }
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, header.width, header.height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

@@ -15,7 +15,7 @@ bool Texture::TextureDDS::load(std::string name)
         return false;
     }
     DDS_HEADER header;
-    file.read(reinterpret_cast<char*>(&header), 124);
+    file.read(reinterpret_cast<char*>(&header), 128);
     if(!file.good())
     {
         ERROR << "File " << fileName << " is not a correct DDS file. No DDS header found." << endl;
@@ -39,11 +39,6 @@ bool Texture::TextureDDS::load(std::string name)
     unsigned int bufSize{header.mipmapCount > 1 ? 2 * header.linearSize : header.linearSize};
     char* data{new char[bufSize]};
     file.read(data, bufSize);
-    if(!file.good())
-    {
-        ERROR << "File " << fileName << " is not a correct DDS file. Failed to read the file." << endl;
-        return false;
-    }
     GLuint format{};
     switch(header.pixelFormat.fourCC)
     {
