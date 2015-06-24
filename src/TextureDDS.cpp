@@ -103,5 +103,6 @@ bool Texture::TextureDDS::load(std::string name)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     delete[] data;
     file.close();
+    parent->hflip(); // DDS is a DirectX format - V coordinate is flipped
     return true;
 }
