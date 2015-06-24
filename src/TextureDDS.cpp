@@ -101,6 +101,10 @@ bool Texture::TextureDDS::load(std::string name)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    if(header.mipmapCount <= 1)
+    {
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
     delete[] data;
     file.close();
     parent->hflip(); // DDS is a DirectX format - V coordinate is flipped
