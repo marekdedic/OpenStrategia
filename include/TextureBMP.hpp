@@ -16,14 +16,19 @@
 class TextureBMP : public TextureBridge
 {
 public:
+    /** \brief TextureBMP constructor
+     *
+     * Saves a pointer to the parent Texture.
+     * \param parent The parent object, which the implementation belongs to.
+     */
+    TextureBMP(Texture* parent);
     /** \brief Load a Texture
      *
      * Loads a texture from a BMP file.
-     * \param ID ID of the Texture
      * \param name Texture file name with extension .BMP, relative to the textures subdir
      * \return True when the Texture was loaded without errors, false otherwise
      */
-    bool load(GLuint ID, std::string name) override final;
+    bool load(std::string name) override final;
 };
 
 #endif // TEXTUREBMP_HPP

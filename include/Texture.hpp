@@ -16,6 +16,8 @@ class Texture
 {
     #include "TextureBMP.hpp"
     #include "TextureDDS.hpp"
+    friend TextureBMP;
+    friend TextureDDS;
 public:
     GLuint ID; /**< ID of the texture. */
     /** \brief Texture class default constructor
@@ -75,6 +77,7 @@ public:
      */
     ~Texture();
 private:
+    GLuint components;
     glm::mat3 transformation; /**< Matrix which is applied on the UV coordinates. Can be used to rotate/flip... the Texture without changing the actual data. */
     std::unique_ptr<TextureBridge> implementation; /**< The actual implementation in the client filesystem. Look up Bridge design pattern for more information. */
 };

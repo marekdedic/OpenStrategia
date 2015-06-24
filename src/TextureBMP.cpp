@@ -2,40 +2,42 @@
 using namespace std;
 using namespace glm;
 
-bool Texture::TextureBMP::load(GLuint ID, std::string name)
+Texture::TextureBMP::TextureBMP(Texture* parent) : TextureBridge(parent) {}
+
+bool Texture::TextureBMP::load(std::string name)
 {
-    glBindTexture(GL_TEXTURE_2D, ID);
-    char* header{new char[54]};
+    fileName = name;
+    glBindTexture(GL_TEXTURE_2D, parent->ID);
     GLuint dataPos{}, imageSize{}, width{}, height{};
-    ifstream file{name, ifstream::binary};
+    ifstream file{fileName, ifstream::binary};
     if(!file.is_open())
     {
-        ERROR << "File " << name <<" could not be opened." << endl;
-        delete[] header;
+        ERROR << "File " << fileName <<" could not be opened." << endl;
         return false;
     }
+    char* header{new char[54]};
     file.read(header, 54);
     if(!file.good())
     {
-        ERROR << "File " << name << " is not a correct BMP file. No BMP header found." << endl;
+        ERROR << "File " << fileName << " is not a correct BMP file. No BMP header found." << endl;
         delete[] header;
         return false;
     }
-    if(header[0x00] != 'B' || header[0x01] != 'M')
+    if((header[0x00] != 'B') or (header[0x01] != 'M'))
     {
-        ERROR << "File " << name << " is not a correct BMP file. Wrong BMP header." << endl;
+        ERROR << "File " << fileName << " is not a correct BMP file. Wrong BMP header." << endl;
         delete[] header;
         return false;
     }
     if(header[0x1E] != 0)
     {
-        ERROR << "File " << name << " is not a correct BMP file. File is compressed." << endl;
+        ERROR << "File " << fileName << " is not a correct BMP file. File is compressed." << endl;
         delete[] header;
         return false;
     }
     if(header[0x1C] != 24)
     {
-        ERROR << "File " << name << " is not a correct BMP file. Wrong BitCount. Use 24bpp." << endl;
+        ERROR << "File " << fileName << " is not a correct BMP file. Wrong BitCount. Use 24bpp." << endl;
         delete[] header;
         return false;
     }
@@ -63,5 +65,6 @@ bool Texture::TextureBMP::load(GLuint ID, std::string name)
     delete[] header;
     delete[] data;
     file.close();
+    parent->components = 3;
     return true;
 }

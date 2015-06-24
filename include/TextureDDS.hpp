@@ -9,6 +9,13 @@
 #include "Libs.hpp"
 #include "TextureBridge.hpp"
 
+#define DDS_FOURCC_DXT1 0x31545844 // ASCII-encoded name
+#define DDS_FOURCC_DXT3 0x33545844
+#define DDS_FOURCC_DXT5 0x35545844
+#define DDS_FOURCC_BC4U 0x55344342
+#define DDS_FOURCC_BC4S 0x53344342
+#define DDS_FOURCC_BC5S 0x53354342
+
 typedef struct {
     unsigned long low;
     unsigned long high;
@@ -51,14 +58,19 @@ typedef struct {
 class TextureDDS : public TextureBridge
 {
 public:
+    /** \brief TextureDDS constructor
+     *
+     * Saves a pointer to the parent Texture.
+     * \param parent The parent object, which the implementation belongs to.
+     */
+    TextureDDS(Texture* parent);
     /** \brief Load a Texture
      *
      * Loads a texture from a DDS file.
-     * \param ID ID of the Texture
      * \param name Texture file name with extension .DDS, relative to the textures subdir
      * \return True when the Texture was loaded without errors, false otherwise
      */
-    bool load(GLuint ID, std::string name) override final;
+    bool load(std::string name) override final;
 };
 
 #endif // TEXTUREDDS_HPP

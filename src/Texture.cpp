@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Texture::Texture() : ID{}, transformation{1}, implementation{}
+Texture::Texture() : ID{}, components{}, transformation{1}, implementation{}
 {
     glGenTextures(1, &ID);
 }
@@ -74,18 +74,18 @@ bool Texture::load(std::string name)
     name = "textures/" + name;
     if((extension == "BMP") or (extension == "bmp"))
     {
-        implementation.reset(new TextureBMP{});
+        implementation.reset(new TextureBMP(this));
     }
     else if((extension == "DDS") or (extension == "dds"))
     {
-        implementation.reset(new TextureDDS{});
+        implementation.reset(new TextureDDS(this));
     }
     else
     {
         ERROR << "File " << name <<" is not a valid file format." << endl;
         return false;
     }
-    return implementation->load(ID, name);
+    return implementation->load(name);
 }
 
 void Texture::hflip()
