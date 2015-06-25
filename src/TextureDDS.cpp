@@ -36,7 +36,7 @@ bool Texture::TextureDDS::load(std::string name)
         ERROR << "File " << fileName << " is not a correct DDS file. No width or height provided." << endl;
         return false;
     }
-    unsigned int bufSize{header.mipmapCount > 1 ? 2 * header.linearSize : header.linearSize};
+    unsigned int bufSize{static_cast<unsigned int>(header.mipmapCount) > 1 ? 2 * header.linearSize : header.linearSize};
     char* data{new char[bufSize]};
     file.read(data, bufSize);
     GLuint format{};
