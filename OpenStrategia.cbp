@@ -92,7 +92,7 @@
 		<Unit filename="include/Texture.hpp" />
 		<Unit filename="include/TextureBMP.hpp" />
 		<Unit filename="include/TextureBridge.hpp" />
-		<Unit filename="include/TextureHeader.hpp" />
+		<Unit filename="include/TextureDDS.hpp" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/Checkbox.cpp" />
 		<Unit filename="src/Image.cpp" />
@@ -105,6 +105,7 @@
 		<Unit filename="src/Texture.cpp" />
 		<Unit filename="src/TextureBMP.cpp" />
 		<Unit filename="src/TextureBridge.cpp" />
+		<Unit filename="src/TextureDDS.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Texture::Texture() : ID{}, transformation{1}, implementation{}
+Texture::Texture() : ID{}, components{}, transformation{1}, implementation{}
 {
     glGenTextures(1, &ID);
 }
@@ -15,40 +15,79 @@ Texture::Texture(std::string name) : Texture()
     }
 }
 
-Texture::Texture(const Texture& other) : Texture()
+Texture::Texture(const Texture& other) : ID{}, components{other.components}, transformation{other.transformation}, implementation{}
 {
-    GLint width{}, height{};
+    glGenTextures(1, &ID);
+    GLint maxLevel{}, wrapS{}, wrapT{}, magFilter{}, minFilter{};
     glBindTexture(GL_TEXTURE_2D, other.ID);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
-    GLubyte* data{new GLubyte[3 * width * height]};
-    glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, &maxLevel);
+    GLint width[maxLevel + 1], height[maxLevel + 1];
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width[0]);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height[0]);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &wrapS);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &wrapT);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &magFilter);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &minFilter);
+    GLubyte* data{new GLubyte[(maxLevel > 0 ? 2 : 1) * components * width[0] * height[0]]};
+    int dataPos{0};
+    for(GLint level{0}; level <= maxLevel; level++)
+    {
+        glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width[level]);
+        glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height[level]);
+        glGetTexImage(GL_TEXTURE_2D, level, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        dataPos += components * width[level] * height[level];
+    }
     glBindTexture(GL_TEXTURE_2D, ID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glGenerateMipmap(GL_TEXTURE_2D);
+    dataPos = 0;
+    for(GLint level{0}; level <= maxLevel; level++)
+    {
+        glTexImage2D(GL_TEXTURE_2D, level, GL_RGB, width[level], height[level], 0, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        dataPos += components * width[level] * height[level];
+    }
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
     delete[] data;
+    *implementation = *other.implementation;
+    implementation->parent = this;
 }
 
 Texture& Texture::operator=(const Texture& other)
 {
-    GLint width{}, height{};
+    GLint maxLevel{}, wrapS{}, wrapT{}, magFilter{}, minFilter{};
     glBindTexture(GL_TEXTURE_2D, other.ID);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
-    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
-    GLubyte* data{new GLubyte[3 * width * height]};
-    glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, &maxLevel);
+    GLint width[maxLevel + 1], height[maxLevel + 1];
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width[0]);
+    glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height[0]);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &wrapS);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &wrapT);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &magFilter);
+    glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &minFilter);
+    GLubyte* data{new GLubyte[(maxLevel > 0 ? 2 : 1) * components * width[0] * height[0]]};
+    int dataPos{0};
+    for(GLint level{0}; level <= maxLevel; level++)
+    {
+        glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width[level]);
+        glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height[level]);
+        glGetTexImage(GL_TEXTURE_2D, level, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        dataPos += components * width[level] * height[level];
+    }
     glBindTexture(GL_TEXTURE_2D, ID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glGenerateMipmap(GL_TEXTURE_2D);
+    dataPos = 0;
+    for(GLint level{0}; level <= maxLevel; level++)
+    {
+        glTexImage2D(GL_TEXTURE_2D, level, GL_RGB, width[level], height[level], 0, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        dataPos += components * width[level] * height[level];
+    }
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
     delete[] data;
+    *implementation = *other.implementation;
+    implementation->parent = this;
     return *this;
 }
 
@@ -70,9 +109,22 @@ void Texture::use(std::shared_ptr<Program> prg, GLenum texUnit, GLint texUnitNum
 
 bool Texture::load(std::string name)
 {
+    string extension = name.substr(name.find_last_of(".") + 1);
     name = "textures/" + name;
-    implementation.reset(new TextureBMP);
-    return implementation->load(ID, name);
+    if((extension == "BMP") or (extension == "bmp"))
+    {
+        implementation.reset(new TextureBMP(this));
+    }
+    else if((extension == "DDS") or (extension == "dds"))
+    {
+        implementation.reset(new TextureDDS(this));
+    }
+    else
+    {
+        ERROR << "File " << name <<" is not a valid file format." << endl;
+        return false;
+    }
+    return implementation->load(name);
 }
 
 void Texture::hflip()
