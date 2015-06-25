@@ -15,7 +15,7 @@ bool Texture::TextureDDS::load(std::string name)
         return false;
     }
     DDS_HEADER header;
-    file.read(reinterpret_cast<char*>(&header), 128);
+    file.read(reinterpret_cast<char*>(&header), sizeof(header));
     if(!file.good())
     {
         ERROR << "File " << fileName << " is not a correct DDS file. No DDS header found." << endl;

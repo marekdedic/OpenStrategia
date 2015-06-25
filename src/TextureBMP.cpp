@@ -15,7 +15,7 @@ bool Texture::TextureBMP::load(std::string name)
         return false;
     }
     BMP_HEADER header;
-    file.read(reinterpret_cast<char*>(&header), 54);
+    file.read(reinterpret_cast<char*>(&header), sizeof(header));
     if(!file.good())
     {
         ERROR << "File " << fileName << " is not a correct BMP file. No BMP header found." << endl;
