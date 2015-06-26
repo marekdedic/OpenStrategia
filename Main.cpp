@@ -53,7 +53,7 @@ int main()
     glDepthFunc(GL_LESS);
 
     // FreeType Initialization
-    FT_Error FTerror = Font::init();
+    FT_Error FTerror{Font::init()};
     if(FTerror)
     {
         ERROR << "Failed to initialize FreeType, error code: " << FTerror << endl;
