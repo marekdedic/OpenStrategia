@@ -19,5 +19,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #endif // LIBS_HPP

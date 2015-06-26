@@ -13,7 +13,7 @@ glm::ivec2 SCREENSIZE{};
 
 int main()
 {
-    // GLFW, GLEW and OpenGL Initialization
+    // GLFW Initialization
     if(glfwInit() != GL_TRUE)
     {
         ERROR << "Failed to Initialize GLFW." << endl;
@@ -37,6 +37,7 @@ int main()
     glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
     glfwGetWindowSize(WINDOW, &SCREENSIZE.x, &SCREENSIZE.y);
 
+    // GLEW Initialization
     glewExperimental = GL_TRUE;
     GLenum GLEWerror{glewInit()};
     if(GLEWerror != GLEW_OK)
@@ -46,9 +47,19 @@ int main()
         return -1;
     }
     glGetError();                           // Flush error - glewInit() may set errorflag even if everything is OK
+    // OpenGL Initialization
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+
+    // FreeType Initialization
+    FT_Error FTerror = Font::init();
+    if(FTerror)
+    {
+        ERROR << "Failed to initialize FreeType, error code: " << FTerror << endl;
+        glfwTerminate();
+        return -1;
+    }
 
     // Loading shaders
     std::shared_ptr<Program> shaders3D{new Program};

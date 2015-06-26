@@ -15,6 +15,9 @@
 class Font
 {
 public:
+    static FT_Error init();
+protected:
+    static FT_Library library;
 };
 
  #endif // FONT_HPP
