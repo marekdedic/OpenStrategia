@@ -1,7 +1,7 @@
 LD = $(CXX)
 
 CFLAGS = -Wnon-virtual-dtor -Winit-self -Wredundant-decls -Wcast-align -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
-LIB = -lglfw3 -lGLEW -lGL -lX11 -lXxf86vm -lpthread -lXrandr -lXi -lXcursor -lXinerama
+LIB = -lglfw3 -lGLEW -lGL -lfreetype -lX11 -lXxf86vm -lpthread -lXrandr -lXi -lXcursor -lXinerama
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
