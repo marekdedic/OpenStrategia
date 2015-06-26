@@ -14,6 +14,7 @@
 #include "include/Button.hpp"
 #include "include/Camera.hpp"
 #include "include/Checkbox.hpp"
+#include "include/Font.hpp"
 #include "include/Image.hpp"
 #include "include/MultiButton.hpp"
 #include "include/Program.hpp"
