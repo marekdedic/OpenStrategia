@@ -22,6 +22,7 @@
 #include "include/RenderObject2D.hpp"
 #include "include/RenderObject3D.hpp"
 #include "include/Slider.hpp"
+#include "include/Text.hpp"
 #include "include/Texture.hpp"
 
 extern std::ofstream ERROR; /**< Stream pointing to Errorlog.txt. Used to log errors. */

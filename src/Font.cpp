@@ -9,7 +9,7 @@ int Font::init()
     return FT_Init_FreeType(&library);
 }
 
-Font::Font(std::string name)
+Font::Font(std::string name) : face{}, fileName{}
 {
     fileName = "fonts/" + name;
     FT_Error error{FT_New_Face(library, fileName.c_str(), 0, &face)};
@@ -18,7 +18,7 @@ Font::Font(std::string name)
         ERROR << "File " << fileName << " is not a correct font file." << endl;
         glfwSetWindowShouldClose(WINDOW, GL_TRUE);
     }
-    error = FT_Set_Pixel_Sizes(face, 0, 50);
+    error = FT_Set_Pixel_Sizes(face, 0, 256);
     if(error)
     {
         ERROR << "Failed to create font from file:" << fileName << endl;
@@ -26,9 +26,10 @@ Font::Font(std::string name)
     }
 }
 
-std::shared_ptr<Image> Font::render(char c)
+Font::Font(const Font& other) : face{other.face}, fileName{other.fileName} {}
+Font& Font::operator=(const Font& other)
 {
-    //shared_ptr<Image> ret = new Image();
-    FT_Error error{FT_Load_Char(face, c, FT_LOAD_RENDER)};
-    error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+    face = other.face;
+    fileName = other.fileName;
+    return *this;
 }

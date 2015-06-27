@@ -90,6 +90,7 @@
 		<Unit filename="include/RenderObject3D.hpp" />
 		<Unit filename="include/Shader.hpp" />
 		<Unit filename="include/Slider.hpp" />
+		<Unit filename="include/Text.hpp" />
 		<Unit filename="include/Texture.hpp" />
 		<Unit filename="include/TextureBMP.hpp" />
 		<Unit filename="include/TextureBridge.hpp" />
@@ -104,6 +105,7 @@
 		<Unit filename="src/RenderObject3D.cpp" />
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/Slider.cpp" />
+		<Unit filename="src/Text.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Unit filename="src/TextureBMP.cpp" />
 		<Unit filename="src/TextureBridge.cpp" />

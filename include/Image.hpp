@@ -18,8 +18,16 @@ class Image : public RenderObject2D
 public:
     glm::vec2 imagePosition; /**< Position of the Image represented as a vec2 */
     glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height) */
+    float imageAngle;
     std::shared_ptr<Texture> texture; /**< The image itself, as a Texture */
     Image() = delete;
+    /** \brief Image class constructor
+     *
+     * \param inPosition Position of the Image
+     * \param inSize Size of the image represented as a vec2(width, height)
+     * \param angle Tilting angle in radians
+     */
+    Image(glm::vec2 inPosition, glm::vec2 inSize, float inAngle = 0);
     /** \brief Image class constructor
      *
      * \param inPosition Position of the Image
@@ -27,7 +35,7 @@ public:
      * \param tex Texture file name
      * \param angle Tilting angle in radians
      */
-    Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float angle = 0);
+    Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float inAngle = 0);
     /** \brief Update function
      *
      * Must be called on every iteration of the main loop if the Image is to do something.
@@ -46,6 +54,7 @@ public:
      * \param activeTexture The Texture to use
      */
     virtual void render(std::shared_ptr<Program> prg, std::shared_ptr<Texture> activeTexture) const;
+    bool load(std::string tex);
     /** \brief Hover function
      *
      * Returns whether the cursor is over the image, but it does NOT detect pressing of mouse.

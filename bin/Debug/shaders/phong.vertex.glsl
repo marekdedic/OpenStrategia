@@ -1,7 +1,7 @@
 #version 330 core
 
 layout(location = 0) in vec4 vPosition_m;
-layout(location = 1) in vec3 vUV;
+layout(location = 1) in vec2 vUV;
 layout(location = 2) in vec4 vNormal_m;
 
 out vec4 vNormal_w;
@@ -17,7 +17,8 @@ uniform vec4 lPosition_w;
 
 void main()
 {
-    fUV = uvMatrix * vUV;
+    vec3 tUV = vec3(vUV.x, vUV.y, 1);
+    fUV = uvMatrix * tUV;
     vec4 vPosition_w = modelMatrix * vPosition_m;
     vNormal_w = normalize(modelMatrix * vNormal_m);
     vToCamera_w = normalize(cPosition_w - vPosition_w);

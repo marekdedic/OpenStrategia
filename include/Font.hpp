@@ -15,13 +15,14 @@
 class Font
 {
 public:
+    FT_Face face;
     static FT_Error init();
     Font(std::string name);
-    std::shared_ptr<Image> render(char c);
+    Font(const Font& other);
+    Font& operator=(const Font& other);
 protected:
     static FT_Library library;
     std::string fileName;
-    FT_Face face;
 };
 
  #endif // FONT_HPP

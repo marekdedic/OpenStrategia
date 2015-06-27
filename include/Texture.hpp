@@ -8,6 +8,8 @@
 #define TEXTURE_HPP
 #include "Libs.hpp"
 
+class Text;
+
 /** \brief Texture class
  *
  * This class is used to load, store and use individual texture.
@@ -16,6 +18,7 @@ class Texture
 {
     #include "TextureBMP.hpp"
     #include "TextureDDS.hpp"
+    friend Text;
 public:
     GLuint ID; /**< ID of the texture. */
     /** \brief Texture class default constructor
