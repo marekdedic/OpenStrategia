@@ -14,6 +14,12 @@
  */
 class Text
 {
+public:
+    Text() = delete;
+    Text(glm::vec2 inPosition, std::shared_ptr<Font> font, std::string s);
+    virtual void render(std::shared_ptr<Program> prg) const;
+protected:
+    Character* head;
 };
 
 #endif // TEXT_HPP

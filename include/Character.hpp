@@ -17,9 +17,11 @@
 class Character : public Image
 {
 public:
+    Character* next;
     Character() = delete;
     bool load(std::string tex) = delete;
     Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle = 0);
+    virtual void render(std::shared_ptr<Program> prg) const;
 private:
     FT_UInt glyphIndex;
 };

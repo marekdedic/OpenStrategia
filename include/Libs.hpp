@@ -12,6 +12,7 @@
 #include <vector>
 #include <thread>
 #include <memory>
+#include <iterator>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #define GLM_FORCE_RADIANS

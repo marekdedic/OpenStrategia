@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle): Image(inPosition, vec2{1, 1}, inAngle), glyphIndex{FT_Get_Char_Index(font->face, c)}
+Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle): Image(inPosition, vec2{1, 1}, inAngle), glyphIndex{FT_Get_Char_Index(font->face, c)}, next{}
 {
     FT_Error error{FT_Load_Glyph(font->face, glyphIndex, FT_LOAD_DEFAULT)};
     error += FT_Render_Glyph(font->face->glyph, FT_RENDER_MODE_NORMAL);
@@ -32,4 +32,13 @@ Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, f
     glGenerateMipmap(GL_TEXTURE_2D);
     texture->hflip();
     texture->components = 4;
+}
+
+void Character::render(std::shared_ptr<Program> prg) const
+{
+    Image::render(prg);
+    if(next != nullptr)
+    {
+        next->render(prg);
+    }
 }
