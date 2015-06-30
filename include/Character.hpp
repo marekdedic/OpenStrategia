@@ -12,7 +12,7 @@
 
 /** \brief Character class
  *
- * Displays one character on the screen
+ * Displays one character on the screen.
  */
 class Character : public Image
 {
@@ -20,6 +20,8 @@ public:
     Character() = delete;
     bool load(std::string tex) = delete;
     Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle = 0);
+private:
+    FT_UInt glyphIndex;
 };
 
 #endif // TEXT_HPP
