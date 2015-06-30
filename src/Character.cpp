@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Text::Text(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle): Image(inPosition, vec2{1, 1}, inAngle)
+Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle): Image(inPosition, vec2{1, 1}, inAngle)
 {
     FT_Error error{FT_Load_Char(font->face, c, FT_LOAD_DEFAULT)};
     error += FT_Render_Glyph(font->face->glyph, FT_RENDER_MODE_NORMAL);

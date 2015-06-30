@@ -79,6 +79,7 @@
 		<Unit filename="bin/Release/shaders/phong.vertex.glsl" />
 		<Unit filename="include/Button.hpp" />
 		<Unit filename="include/Camera.hpp" />
+		<Unit filename="include/Character.hpp" />
 		<Unit filename="include/Checkbox.hpp" />
 		<Unit filename="include/Font.hpp" />
 		<Unit filename="include/Image.hpp" />
@@ -90,12 +91,12 @@
 		<Unit filename="include/RenderObject3D.hpp" />
 		<Unit filename="include/Shader.hpp" />
 		<Unit filename="include/Slider.hpp" />
-		<Unit filename="include/Text.hpp" />
 		<Unit filename="include/Texture.hpp" />
 		<Unit filename="include/TextureBMP.hpp" />
 		<Unit filename="include/TextureBridge.hpp" />
 		<Unit filename="include/TextureDDS.hpp" />
 		<Unit filename="src/Camera.cpp" />
+		<Unit filename="src/Character.cpp" />
 		<Unit filename="src/Checkbox.cpp" />
 		<Unit filename="src/Font.cpp" />
 		<Unit filename="src/Image.cpp" />
@@ -105,7 +106,6 @@
 		<Unit filename="src/RenderObject3D.cpp" />
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/Slider.cpp" />
-		<Unit filename="src/Text.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Unit filename="src/TextureBMP.cpp" />
 		<Unit filename="src/TextureBridge.cpp" />

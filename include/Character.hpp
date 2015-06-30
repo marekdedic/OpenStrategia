@@ -1,0 +1,25 @@
+/**
+ * \file Character.hpp
+ * \brief File with Character class
+ * \author GenaBitu
+ **/
+
+#ifndef CHARACTER_HPP
+#define CHARACTER_HPP
+#include "Libs.hpp"
+#include "Image.hpp"
+#include "Font.hpp"
+
+/** \brief Character class
+ *
+ * Displays one character on the screen
+ */
+class Character : public Image
+{
+public:
+    Character() = delete;
+    bool load(std::string tex) = delete;
+    Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle = 0);
+};
+
+#endif // TEXT_HPP

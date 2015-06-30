@@ -8,7 +8,7 @@
 #define TEXTURE_HPP
 #include "Libs.hpp"
 
-class Text;
+class Character;
 
 /** \brief Texture class
  *
@@ -18,7 +18,7 @@ class Texture
 {
     #include "TextureBMP.hpp"
     #include "TextureDDS.hpp"
-    friend Text;
+    friend Character;
 public:
     GLuint ID; /**< ID of the texture. */
     /** \brief Texture class default constructor
