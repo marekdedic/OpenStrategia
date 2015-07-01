@@ -17,6 +17,7 @@ class Text : public Image
 public:
     Text() = delete;
     Text(glm::vec2 inPosition, glm::vec2 inSize, std::shared_ptr<Font> font, std::string s);
+    virtual void update() override;
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:
     Character* head;

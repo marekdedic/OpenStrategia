@@ -18,9 +18,15 @@ Text::Text(glm::vec2 inPosition, glm::vec2 inSize, std::shared_ptr<Font> font, s
             ch = ch->next;
         }
     }
+    update();
+}
+
+void Text::update()
+{
     if(head != nullptr)
     {
-        head->update();
+        head->origin.x = imagePosition.x;
+        head->origin.y = imagePosition.y + imageSize.y - (head->metrics.horiBearingY / 64);
     }
 }
 
