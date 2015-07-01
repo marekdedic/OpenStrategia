@@ -16,6 +16,7 @@ class Font
 {
 public:
     FT_Face face;
+    FT_Bool kerning;
     static FT_Error init();
     Font(std::string name);
     Font(const Font& other);

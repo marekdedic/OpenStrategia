@@ -17,11 +17,16 @@
 class Character : public Image
 {
 public:
+    Character* previous;
     Character* next;
+    glm::vec2 origin;
+    FT_Glyph_Metrics metrics;
+    GLfloat kerning;
     Character() = delete;
     bool load(std::string tex) = delete;
-    Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle = 0);
-    virtual void render(std::shared_ptr<Program> prg) const;
+    Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, Character* previous, float inAngle = 0);
+    virtual void render(std::shared_ptr<Program> prg) const override;
+    void position();
 private:
     FT_UInt glyphIndex;
 };

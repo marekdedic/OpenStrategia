@@ -9,7 +9,7 @@ int Font::init()
     return FT_Init_FreeType(&library);
 }
 
-Font::Font(std::string name) : face{}, fileName{}
+Font::Font(std::string name) : face{}, kerning{false}, fileName{}
 {
     fileName = "fonts/" + name;
     FT_Error error{FT_New_Face(library, fileName.c_str(), 0, &face)};
@@ -24,6 +24,7 @@ Font::Font(std::string name) : face{}, fileName{}
         ERROR << "Failed to create font from file:" << fileName << endl;
         glfwSetWindowShouldClose(WINDOW, GL_TRUE);
     }
+    kerning = FT_HAS_KERNING(face);
 }
 
 Font::Font(const Font& other) : face{other.face}, fileName{other.fileName} {}

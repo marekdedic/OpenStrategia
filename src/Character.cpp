@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, float inAngle): Image(inPosition, vec2{1, 1}, inAngle), glyphIndex{FT_Get_Char_Index(font->face, c)}, next{}
+Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, Character* previous, float inAngle): Image(inPosition, vec2{1, 1}, inAngle), previous{previous}, next{}, origin{}, metrics{}, kerning{0}, glyphIndex{FT_Get_Char_Index(font->face, c)}
 {
     FT_Error error{FT_Load_Glyph(font->face, glyphIndex, FT_LOAD_DEFAULT)};
     error += FT_Render_Glyph(font->face->glyph, FT_RENDER_MODE_NORMAL);
@@ -14,6 +14,16 @@ Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, f
     imageSize.x = font->face->glyph->bitmap.width;
     imageSize.y = font->face->glyph->bitmap.rows;
     update();
+    origin = imagePosition;
+    metrics = font->face->glyph->metrics;
+    if(font->kerning and (previous != nullptr))
+    {
+        FT_Vector delta;
+        if(FT_Get_Kerning(font->face, previous->glyphIndex, glyphIndex, FT_KERNING_DEFAULT, &delta) == 0)
+        {
+            kerning = delta.x;
+        }
+    }
     unsigned int bufSize{static_cast<unsigned int>(4 * imageSize.x * imageSize.y)};
     GLubyte* data = new GLubyte[bufSize];
     for(unsigned int i{0}; i < (imageSize.x * imageSize.y); i++)
@@ -40,5 +50,21 @@ void Character::render(std::shared_ptr<Program> prg) const
     if(next != nullptr)
     {
         next->render(prg);
+    }
+}
+
+void Character::position()
+{
+    if(previous != nullptr)
+    {
+        origin.x = previous->origin.x + (previous->metrics.horiAdvance / 64);
+        origin.y = previous->origin.y;
+    }
+    imagePosition.x = origin.x + (metrics.horiBearingX / 64) + (kerning / 64);
+    imagePosition.y = origin.y + ((metrics.horiBearingY - metrics.height) / 64);
+    update();
+    if(next != nullptr)
+    {
+        next->position();
     }
 }

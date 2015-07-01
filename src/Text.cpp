@@ -9,14 +9,18 @@ Text::Text(glm::vec2 inPosition, std::shared_ptr<Font> font, std::string s) : he
     {
         if(head == nullptr)
         {
-            head = new Character{inPosition, font, *it};
-            ch = head->next;
+            head = new Character{inPosition, font, *it, nullptr};
+            ch = head;
         }
         else
         {
-            ch = new Character{inPosition, font, *it};
+            ch->next = new Character{inPosition, font, *it, ch};
             ch = ch->next;
         }
+    }
+    if(head != nullptr)
+    {
+        head->position();
     }
 }
 
