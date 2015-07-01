@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Text::Text(glm::vec2 inPosition, std::shared_ptr<Font> font, std::string s) : head{}
+Text::Text(glm::vec2 inPosition, glm::vec2 inSize, std::shared_ptr<Font> font, std::string s) : Image(inPosition, inSize), head{}
 {
     Character* ch{};
     for(string::iterator it{s.begin()}; it < s.end(); it++)
@@ -20,7 +20,7 @@ Text::Text(glm::vec2 inPosition, std::shared_ptr<Font> font, std::string s) : he
     }
     if(head != nullptr)
     {
-        head->position();
+        head->update();
     }
 }
 

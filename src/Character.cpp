@@ -2,7 +2,7 @@
 using namespace std;
 using namespace glm;
 
-Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, Character* previous, float inAngle): Image(inPosition, vec2{1, 1}, inAngle), previous{previous}, next{}, origin{}, metrics{}, kerning{0}, glyphIndex{FT_Get_Char_Index(font->face, c)}
+Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, Character* previous, float inAngle): Image(inPosition, vec2{1, 1}, inAngle), previous{previous}, next{}, origin{inPosition}, metrics{}, kerning{0}, glyphIndex{FT_Get_Char_Index(font->face, c)}
 {
     FT_Error error{FT_Load_Glyph(font->face, glyphIndex, FT_LOAD_DEFAULT)};
     error += FT_Render_Glyph(font->face->glyph, FT_RENDER_MODE_NORMAL);
@@ -13,8 +13,6 @@ Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, C
     }
     imageSize.x = font->face->glyph->bitmap.width;
     imageSize.y = font->face->glyph->bitmap.rows;
-    update();
-    origin = imagePosition;
     metrics = font->face->glyph->metrics;
     if(font->kerning and (previous != nullptr))
     {
@@ -42,18 +40,24 @@ Character::Character(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, C
     glGenerateMipmap(GL_TEXTURE_2D);
     texture->hflip();
     texture->components = 4;
+    update();
 }
 
-void Character::render(std::shared_ptr<Program> prg) const
+Character::Character(const Character& other) : Image(other), previous(other.previous), next(other.next), origin(other.origin), metrics(other.metrics), kerning(other.kerning), glyphIndex(other.glyphIndex) {}
+
+Character& Character::operator=(const Character& other)
 {
-    Image::render(prg);
-    if(next != nullptr)
-    {
-        next->render(prg);
-    }
+    Image::operator=(other);
+    previous = other.previous;
+    next = other.next;
+    origin = other.origin;
+    metrics = other.metrics;
+    kerning = other.kerning;
+    glyphIndex = other.glyphIndex;
+    return *this;
 }
 
-void Character::position()
+void Character::update()
 {
     if(previous != nullptr)
     {
@@ -62,9 +66,18 @@ void Character::position()
     }
     imagePosition.x = origin.x + (metrics.horiBearingX / 64) + (kerning / 64);
     imagePosition.y = origin.y + ((metrics.horiBearingY - metrics.height) / 64);
-    update();
+    Image::update();
     if(next != nullptr)
     {
-        next->position();
+        next->update();
+    }
+}
+
+void Character::render(std::shared_ptr<Program> prg) const
+{
+    Image::render(prg);
+    if(next != nullptr)
+    {
+        next->render(prg);
     }
 }
