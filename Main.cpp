@@ -100,7 +100,7 @@ int main()
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
                                                                         Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
                                                                         shared_ptr<Font> charis{new Font{"CharisSILR.ttf"}};
-                                                                        Text* objekt4{new Text{vec2{100, 100}, vec2{800, 400}, charis, "AV"}};
+                                                                        Text* objekt4{new Text{vec2{100, 100}, vec2{800, 400}, charis, "AV line 1\n BC line 2"}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering

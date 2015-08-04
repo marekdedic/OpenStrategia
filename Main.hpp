@@ -17,6 +17,7 @@
 #include "include/Checkbox.hpp"
 #include "include/Font.hpp"
 #include "include/Image.hpp"
+#include "include/LineBreak.hpp"
 #include "include/MultiButton.hpp"
 #include "include/Program.hpp"
 #include "include/RenderObject.hpp"

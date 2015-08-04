@@ -9,12 +9,26 @@ Text::Text(glm::vec2 inPosition, glm::vec2 inSize, std::shared_ptr<Font> font, s
     {
         if(head == nullptr)
         {
-            head = new Character{inPosition, font, *it, nullptr};
+            if(*it == '\n')
+            {
+                head = new LineBreak(inPosition, font, nullptr);
+            }
+            else
+            {
+                head = new Character{inPosition, font, *it, nullptr};
+            }
             ch = head;
         }
         else
         {
-            ch->next = new Character{inPosition, font, *it, ch};
+            if(*it == '\n')
+            {
+                ch->next = new LineBreak{inPosition, font, ch};
+            }
+            else
+            {
+                ch->next = new Character{inPosition, font, *it, ch};
+            }
             ch = ch->next;
         }
     }
