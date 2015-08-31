@@ -13,7 +13,7 @@ glm::ivec2 SCREENSIZE{};
 
 int main()
 {
-    // GLFW, GLEW and OpenGL Initialization
+    // GLFW Initialization
     if(glfwInit() != GL_TRUE)
     {
         ERROR << "Failed to Initialize GLFW." << endl;
@@ -37,6 +37,7 @@ int main()
     glfwSetInputMode(WINDOW, GLFW_CURSOR, GL_TRUE);
     glfwGetWindowSize(WINDOW, &SCREENSIZE.x, &SCREENSIZE.y);
 
+    // GLEW Initialization
     glewExperimental = GL_TRUE;
     GLenum GLEWerror{glewInit()};
     if(GLEWerror != GLEW_OK)
@@ -46,9 +47,21 @@ int main()
         return -1;
     }
     glGetError();                           // Flush error - glewInit() may set errorflag even if everything is OK
+    // OpenGL Initialization
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+
+    // FreeType Initialization
+    FT_Error FTerror{Font::init()};
+    if(FTerror)
+    {
+        ERROR << "Failed to initialize FreeType, error code: " << FTerror << endl;
+        glfwTerminate();
+        return -1;
+    }
 
     // Loading shaders
     std::shared_ptr<Program> shaders3D{new Program};
@@ -86,6 +99,8 @@ int main()
                                                                         //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
                                                                         Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
+                                                                        shared_ptr<Font> charis{new Font{"CharisSILR.ttf"}};
+                                                                        Text* objekt4{new Text{vec2{100, 100}, vec2{800, 400}, charis, "AV line 1\n BC line 2"}};
     while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
@@ -93,6 +108,7 @@ int main()
                                                                         //objekt->render(shaders, MAINCAM);
                                                                         objekt2->render(shaders3D, MAINCAM);
                                                                         objekt3->render(shaders2D);
+                                                                        objekt4->render(shaders2D);
 
         // Input handling
         glfwGetCursorPos(WINDOW, &CURSOR.x, &CURSOR.y);
@@ -120,9 +136,11 @@ int main()
     //delete objekt;
     delete objekt2;
     delete objekt3;
+    delete objekt4;
     shaders3D.reset();
     shaders2D.reset();
     MAINCAM.reset();
+    Font::done();
     glfwDestroyWindow(WINDOW);
     glfwTerminate();
 }

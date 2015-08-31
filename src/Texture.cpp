@@ -34,14 +34,14 @@ Texture::Texture(const Texture& other) : ID{}, components{other.components}, tra
     {
         glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width[level]);
         glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height[level]);
-        glGetTexImage(GL_TEXTURE_2D, level, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        glGetTexImage(GL_TEXTURE_2D, level, GL_RGBA, GL_UNSIGNED_BYTE, &data[dataPos]);
         dataPos += components * width[level] * height[level];
     }
     glBindTexture(GL_TEXTURE_2D, ID);
     dataPos = 0;
     for(GLint level{0}; level <= maxLevel; level++)
     {
-        glTexImage2D(GL_TEXTURE_2D, level, GL_RGB, width[level], height[level], 0, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        glTexImage2D(GL_TEXTURE_2D, level, GL_RGBA, width[level], height[level], 0, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
         dataPos += components * width[level] * height[level];
     }
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
@@ -71,14 +71,14 @@ Texture& Texture::operator=(const Texture& other)
     {
         glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width[level]);
         glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height[level]);
-        glGetTexImage(GL_TEXTURE_2D, level, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        glGetTexImage(GL_TEXTURE_2D, level, GL_RGBA, GL_UNSIGNED_BYTE, &data[dataPos]);
         dataPos += components * width[level] * height[level];
     }
     glBindTexture(GL_TEXTURE_2D, ID);
     dataPos = 0;
     for(GLint level{0}; level <= maxLevel; level++)
     {
-        glTexImage2D(GL_TEXTURE_2D, level, GL_RGB, width[level], height[level], 0, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
+        glTexImage2D(GL_TEXTURE_2D, level, GL_RGBA, width[level], height[level], 0, GL_RGB, GL_UNSIGNED_BYTE, &data[dataPos]);
         dataPos += components * width[level] * height[level];
     }
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS);
@@ -129,12 +129,12 @@ bool Texture::load(std::string name)
 
 void Texture::hflip()
 {
-    transformation = mat3(1, 0, 0, 0, -1, 0, 0, 0, 1) * transformation;
+    transformation = mat3(1, 0, 0, 0, -1, 0, 0, 1, 1) * transformation;
 }
 
 void Texture::vflip()
 {
-    transformation = mat3(-1, 0, 0, 0, 1, 0, 0, 0, 1) * transformation;
+    transformation = mat3(-1, 0, 0, 0, 1, 0, 1, 0, 1) * transformation;
 }
 
 Texture::~Texture()
