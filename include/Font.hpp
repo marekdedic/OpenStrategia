@@ -18,6 +18,7 @@ public:
     FT_Face face;
     FT_Bool kerning;
     static FT_Error init();
+    static void done();
     Font(std::string name);
     Font(const Font& other);
     Font& operator=(const Font& other);

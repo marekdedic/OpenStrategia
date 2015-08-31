@@ -140,6 +140,7 @@ int main()
     shaders3D.reset();
     shaders2D.reset();
     MAINCAM.reset();
+    Font::done();
     glfwDestroyWindow(WINDOW);
     glfwTerminate();
 }

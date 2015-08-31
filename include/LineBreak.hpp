@@ -19,6 +19,7 @@ public:
     LineBreak() = delete;
     LineBreak(glm::vec2 inPosition, std::shared_ptr<Font> font, char c, Character* previous, float inAngle) = delete;
     LineBreak(glm::vec2 inPosition, std::shared_ptr<Font> font, Character* previous);
+    virtual void update() override;
     virtual void render(std::shared_ptr<Program> prg) const override;
 };
 

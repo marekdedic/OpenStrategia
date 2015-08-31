@@ -41,6 +41,7 @@ void Text::update()
     {
         head->origin.x = imagePosition.x;
         head->origin.y = imagePosition.y + imageSize.y - (head->metrics.horiBearingY / 64);
+        head->update();
     }
 }
 

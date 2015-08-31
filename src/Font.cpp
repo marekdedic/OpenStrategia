@@ -8,6 +8,11 @@ int Font::init()
 {
     return FT_Init_FreeType(&library);
 }
+void Font::done()
+{
+    FT_Done_FreeType(library);
+    return;
+}
 
 Font::Font(std::string name) : face{}, kerning{false}, fileName{}
 {
