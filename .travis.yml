@@ -30,4 +30,4 @@ install:
  - if [ "$CXX" = "clang++" ]; then export LD="clang++"; fi
 script: make debug
 notifications:
-	email: false
+ email: false
