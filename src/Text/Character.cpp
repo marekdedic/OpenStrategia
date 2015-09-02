@@ -1,7 +1,7 @@
-#include "../include/Character.hpp"
+#include "../../include/Character.hpp"
 
-#include "../include/Font.hpp"
-#include "../include/Texture.hpp"
+#include "../../include/Font.hpp"
+#include "../../include/Texture.hpp"
 using namespace std;
 using namespace glm;
 

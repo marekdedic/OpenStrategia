@@ -131,23 +131,23 @@
 		<Unit filename="include/TextureBridge.hpp" />
 		<Unit filename="include/TextureDDS.hpp" />
 		<Unit filename="src/Camera.cpp" />
-		<Unit filename="src/Character.cpp" />
 		<Unit filename="src/Checkbox.cpp" />
 		<Unit filename="src/Font.cpp" />
 		<Unit filename="src/Image.cpp" />
-		<Unit filename="src/LineBreak.cpp" />
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/Program.cpp" />
+		<Unit filename="src/Program/Shader.cpp" />
 		<Unit filename="src/RenderObject.cpp" />
 		<Unit filename="src/RenderObject2D.cpp" />
 		<Unit filename="src/RenderObject3D.cpp" />
-		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/Slider.cpp" />
 		<Unit filename="src/Text.cpp" />
+		<Unit filename="src/Text/Character.cpp" />
+		<Unit filename="src/Text/LineBreak.cpp" />
 		<Unit filename="src/Texture.cpp" />
-		<Unit filename="src/TextureBMP.cpp" />
-		<Unit filename="src/TextureBridge.cpp" />
-		<Unit filename="src/TextureDDS.cpp" />
+		<Unit filename="src/Texture/TextureBMP.cpp" />
+		<Unit filename="src/Texture/TextureBridge.cpp" />
+		<Unit filename="src/Texture/TextureDDS.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
