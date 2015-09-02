@@ -7,7 +7,7 @@
 #ifndef RENDEROBJECT3D_HPP
 #define RENDEROBJECT3D_HPP
 #include "Global.hpp"
-#include "Renderobject.hpp"
+#include "RenderObject.hpp"
 class Texture;
 
 /** \brief RenderObject3D class
