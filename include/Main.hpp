@@ -9,23 +9,23 @@
 #ifndef MAIN_HPP
 #define MAIN_HPP
 
-#include "include/Libs.hpp"
+#include "Libs.hpp"
 
-#include "include/Button.hpp"
-#include "include/Camera.hpp"
-#include "include/Character.hpp"
-#include "include/Checkbox.hpp"
-#include "include/Font.hpp"
-#include "include/Image.hpp"
-#include "include/LineBreak.hpp"
-#include "include/MultiButton.hpp"
-#include "include/Program.hpp"
-#include "include/RenderObject.hpp"
-#include "include/RenderObject2D.hpp"
-#include "include/RenderObject3D.hpp"
-#include "include/Slider.hpp"
-#include "include/Text.hpp"
-#include "include/Texture.hpp"
+#include "Button.hpp"
+#include "Camera.hpp"
+#include "Character.hpp"
+#include "Checkbox.hpp"
+#include "Font.hpp"
+#include "Image.hpp"
+#include "LineBreak.hpp"
+#include "MultiButton.hpp"
+#include "Program.hpp"
+#include "RenderObject.hpp"
+#include "RenderObject2D.hpp"
+#include "RenderObject3D.hpp"
+#include "Slider.hpp"
+#include "Text.hpp"
+#include "Texture.hpp"
 
 extern std::ofstream ERROR; /**< Stream pointing to Errorlog.txt. Used to log errors. */
 extern GLFWwindow* WINDOW; /**< Pointer to the main/current/only window */

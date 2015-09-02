@@ -101,8 +101,6 @@
 		<Linker>
 			<Add library="glfw3" />
 		</Linker>
-		<Unit filename="Main.cpp" />
-		<Unit filename="Main.hpp" />
 		<Unit filename="bin/Release/shaders/2D.fragment.glsl" />
 		<Unit filename="bin/Release/shaders/2D.vertex.glsl" />
 		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
@@ -119,6 +117,7 @@
 		<Unit filename="include/Image.hpp" />
 		<Unit filename="include/Libs.hpp" />
 		<Unit filename="include/LineBreak.hpp" />
+		<Unit filename="include/Main.hpp" />
 		<Unit filename="include/MultiButton.hpp" />
 		<Unit filename="include/Program.hpp" />
 		<Unit filename="include/RenderObject.hpp" />
@@ -137,6 +136,7 @@
 		<Unit filename="src/Font.cpp" />
 		<Unit filename="src/Image.cpp" />
 		<Unit filename="src/LineBreak.cpp" />
+		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/Program.cpp" />
 		<Unit filename="src/RenderObject.cpp" />
 		<Unit filename="src/RenderObject2D.cpp" />

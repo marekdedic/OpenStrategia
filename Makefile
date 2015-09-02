@@ -92,9 +92,6 @@ Debug: debug
 out_debug: $(OBJ_DEBUG)
 	$(LD) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
 
-$(OBJDIR_DEBUG)/Main.o: Main.cpp
-	$(CXX) $(CFLAGS_DEBUG) -c Main.cpp -o $(OBJDIR_DEBUG)/Main.o
-
 $(OBJDIR_DEBUG)/%.o: $(SRCDIR_DEBUG)/%.cpp
 	$(CXX) $(CFLAGS_DEBUG) -c $< -o $@
 
@@ -116,9 +113,6 @@ Release: release
 out_release: before_release $(OBJ_RELEASE)
 	$(LD) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
 
-$(OBJDIR_RELEASE)/Main.o: Main.cpp
-	$(CXX) $(CFLAGS_RELEASE) -c Main.cpp -o $(OBJDIR_RELEASE)/Main.o
-
 $(OBJDIR_RELEASE)/%.o: $(SRCDIR_RELEASE)/%.cpp
 	$(CXX) $(CFLAGS_RELEASE) -c $< -o $@
 
@@ -138,9 +132,6 @@ Profile: profile
 
 out_profile: $(OBJ_PROFILE)
 	$(LD) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
-
-$(OBJDIR_PROFILE)/Main.o: Main.cpp
-	$(CXX) $(CFLAGS_PROFILE) -c Main.cpp -o $(OBJDIR_PROFILE)/Main.o
 
 $(OBJDIR_PROFILE)/%.o: $(SRCDIR_PROFILE)/%.cpp
 	$(CXX) $(CFLAGS_PROFILE) -c $< -o $@
