@@ -1,33 +1,33 @@
 sudo: false
 language: cpp
 git:
-	submodules: false
+ submodules: false
 compiler:
-	- gcc
-	- clang
+ - gcc
+ - clang
 addons:
-	apt:
-		sources:
-			- ppa:ubuntu-sdk-team/ppa
-    	- ppa:ubuntu-toolchain-r/test
-    	- ppa:h-rayflood/llvm
-    packages:
-    	- libglew-dev
-    	- libglm-dev
-    	- xorg-dev
-    	- cmake
-    	- libfreetype6-dev
-    	- g++-4.8
-    	- libstdc++-4.8-dev
+ apt:
+  sources:
+   - ppa:ubuntu-sdk-team/ppa
+   - ppa:ubuntu-toolchain-r/test
+   - ppa:h-rayflood/llvm
+  packages:
+   - libglew-dev
+   - libglm-dev
+   - xorg-dev
+   - cmake
+   - libfreetype6-dev
+   - g++-4.8
+   - libstdc++-4.8-dev
 install:
-	- git clone https://github.com/glfw/glfw.git
-	- cd glfw
-	- git checkout latest
-	- cmake .
-	- make && make install
-	- cd ..
-	- if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" LD="g++-4.8"; fi
-	- if [ "$CXX" = "clang++" ]; then export LD="clang++"; fi
+ - git clone https://github.com/glfw/glfw.git
+ - cd glfw
+ - git checkout latest
+ - cmake .
+ - make && make install
+ - cd ..
+ - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" LD="g++-4.8"; fi
+ - if [ "$CXX" = "clang++" ]; then export LD="clang++"; fi
 script: make debug
 notifications:
 	email: false
