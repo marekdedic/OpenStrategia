@@ -1,10 +1,10 @@
 sudo: false
 language: cpp
 git:
-	submodules: false
+ submodules: false
 compiler:
-	- gcc
-	- clang
+ - gcc
+ - clang
 addons:
  apt:
   sources:
