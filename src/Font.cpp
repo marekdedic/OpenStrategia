@@ -32,7 +32,7 @@ Font::Font(std::string name) : face{}, kerning{false}, fileName{}
     kerning = FT_HAS_KERNING(face);
 }
 
-Font::Font(const Font& other) : face{other.face}, fileName{other.fileName} {}
+Font::Font(const Font& other) : face{other.face}, kerning{other.kerning}, fileName{other.fileName} {}
 Font& Font::operator=(const Font& other)
 {
     face = other.face;

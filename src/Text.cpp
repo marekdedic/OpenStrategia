@@ -35,6 +35,15 @@ Text::Text(glm::vec2 inPosition, glm::vec2 inSize, std::shared_ptr<Font> font, s
     update();
 }
 
+Text::Text(const Text& other) : Image(other), head{new Character(*other.head)} {}
+
+Text& Text::operator=(const Text& other)
+{
+    Image::operator=(other);
+    head = new Character(*other.head);
+    return *this;
+}
+
 void Text::update()
 {
     if(head != nullptr)
