@@ -38,22 +38,22 @@ VALG_OUT = /valgrind-output.txt
 CFLAGS_DEBUG = $(CFLAGS) -g
 LIB_DEBUG = $(LIB)
 SRCDIR_DEBUG = $(SRCDIR)
-OBJDIR_DEBUG = $(OBJDIR)/Debug
-BINDIR_DEBUG = $(BINDIR)/Debug
+OBJDIR_DEBUG = $(OBJDIR)/debug
+BINDIR_DEBUG = $(BINDIR)/debug
 OUT_DEBUG = $(BINDIR_DEBUG)/$(EXEC_NAME)
 
 CFLAGS_RELEASE = $(CFLAGS) -s -O3
 LIB_RELEASE = $(LIB)
 SRCDIR_RELEASE = $(SRCDIR)
-OBJDIR_RELEASE = $(OBJDIR)/Release
-BINDIR_RELEASE = $(BINDIR)/Release
+OBJDIR_RELEASE = $(OBJDIR)/release
+BINDIR_RELEASE = $(BINDIR)/release
 OUT_RELEASE = $(BINDIR_RELEASE)/$(EXEC_NAME)
 
 CFLAGS_PROFILE = $(CFLAGS) -pg
 LIB_PROFILE = $(LIB) -pg
 SRCDIR_PROFILE = $(SRCDIR)
-OBJDIR_PROFILE = $(OBJDIR)/Profile
-BINDIR_PROFILE = $(BINDIR)/Profile
+OBJDIR_PROFILE = $(OBJDIR)/profile
+BINDIR_PROFILE = $(BINDIR)/profile
 OUT_PROFILE = $(BINDIR_PROFILE)/$(EXEC_NAME)
 
 OBJ_DEBUG = $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Character.o $(OBJDIR_DEBUG)/Checkbox.o $(OBJDIR_DEBUG)/Font.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/LineBreak.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Slider.o $(OBJDIR_DEBUG)/Text.o $(OBJDIR_DEBUG)/Texture.o $(OBJDIR_DEBUG)/TextureBMP.o $(OBJDIR_DEBUG)/TextureBridge.o $(OBJDIR_DEBUG)/TextureDDS.o
@@ -87,8 +87,6 @@ before_debug:
 
 debug: before_debug out_debug
 
-Debug: debug
-
 out_debug: $(OBJ_DEBUG)
 	$(LD) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
 
@@ -108,8 +106,6 @@ before_release:
 
 release: before_release out_release
 
-Release: release
-
 out_release: before_release $(OBJ_RELEASE)
 	$(LD) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
 
@@ -128,8 +124,6 @@ before_profile:
 
 profile: before_profile out_profile
 
-Profile: profile
-
 out_profile: $(OBJ_PROFILE)
 	$(LD) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
 
@@ -142,4 +136,4 @@ clean_profile:
 	$(RM) $(BINDIR_PROFILE)$(CORE)
 	$(RM) $(OUT_PROFILE)
 
-.PHONY: all clean before_debug debug Debug out_debug clean_debug before_release release Release out_release clean_release before_profile profile Profile out_profile clean_profile
+.PHONY: all clean before_debug debug out_debug clean_debug before_release release out_release clean_release before_profile profile out_profile clean_profile
