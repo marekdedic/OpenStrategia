@@ -6,7 +6,7 @@
 
 #ifndef CAMERA_HPP
 #define CAMERA_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 
 /** \brief Camera class
  *

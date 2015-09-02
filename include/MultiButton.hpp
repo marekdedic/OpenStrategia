@@ -6,7 +6,7 @@
 
 #ifndef MULTIBUTTON_HPP
 #define MULTIBUTTON_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 #include "Button.hpp"
 
 /** \brief MultiButton class

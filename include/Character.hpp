@@ -6,9 +6,9 @@
 
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 #include "Image.hpp"
-#include "Font.hpp"
+class Font;
 
 /** \brief Character class
  *

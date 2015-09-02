@@ -1,4 +1,6 @@
-#include "../include/Main.hpp"
+#include "../include/Image.hpp"
+
+#include "../include/Texture.hpp"
 using namespace std;
 using namespace glm;
 

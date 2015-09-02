@@ -6,7 +6,7 @@
 
 #ifndef RENDEROBJECT2D_HPP
 #define RENDEROBJECT2D_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 #include "RenderObject.hpp"
 
 /** \brief RenderObject2D class

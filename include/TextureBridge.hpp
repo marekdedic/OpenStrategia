@@ -6,7 +6,7 @@
 
 #ifndef TEXTUREBRIDGE_HPP
 #define TEXTUREBRIDGE_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 
 /** \brief TextureBridge class
  *

@@ -1,4 +1,6 @@
-#include "../include/Main.hpp"
+#include "../include/RenderObject.hpp"
+
+#include "../include/Program.hpp"
 using namespace std;
 using namespace glm;
 

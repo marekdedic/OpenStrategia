@@ -6,7 +6,7 @@
 
 #ifndef FONT_HPP
 #define FONT_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 
 /** \brief Font class
  *

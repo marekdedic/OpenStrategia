@@ -6,12 +6,9 @@
 
 #ifndef BUTTON_HPP
 #define BUTTON_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 #include "Image.hpp"
-
-extern glm::dvec2 CURSOR;
-extern GLFWwindow* WINDOW;
-extern double DELTA;
+#include "Texture.hpp"
 
 /** \brief Button class
  *

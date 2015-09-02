@@ -6,9 +6,9 @@
 
 #ifndef SLIDER_HPP
 #define SLIDER_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 #include "Image.hpp"
-#include "MultiButton.hpp"
+template <class T> class MultiButton;
 
 /** \brief Slider class
  *

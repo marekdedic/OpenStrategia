@@ -6,7 +6,7 @@
 
 #ifndef LINEBREAK_HPP
 #define LINEBREAK_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 #include "Character.hpp"
 
 /** \brief LineBreak class

@@ -6,7 +6,7 @@
 
 #ifndef PROGRAM_HPP
 #define PROGRAM_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 
 /** \brief Program class
  *

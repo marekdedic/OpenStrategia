@@ -6,7 +6,7 @@
 
 #ifndef SHADER_HPP
 #define SHADER_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 
 /** \brief Shader class
  *

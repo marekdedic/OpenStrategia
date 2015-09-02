@@ -1,4 +1,4 @@
-#include "../include/Main.hpp"
+#include "../include/Program.hpp"
 using namespace std;
 using namespace glm;
 

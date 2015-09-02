@@ -6,7 +6,10 @@
 
 #ifndef TEXT_HPP
 #define TEXT_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
+#include "Image.hpp"
+class Font;
+class Character;
 
 /** \brief Text class
  *

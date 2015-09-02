@@ -1,4 +1,4 @@
-#include "../include/Main.hpp"
+#include "../include/Camera.hpp"
 using namespace std;
 using namespace glm;
 

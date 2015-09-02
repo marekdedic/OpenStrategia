@@ -101,21 +101,21 @@
 		<Linker>
 			<Add library="glfw3" />
 		</Linker>
-		<Unit filename="bin/Release/shaders/2D.fragment.glsl" />
-		<Unit filename="bin/Release/shaders/2D.vertex.glsl" />
-		<Unit filename="bin/Release/shaders/basic.fragment.glsl" />
-		<Unit filename="bin/Release/shaders/basic.vertex.glsl" />
-		<Unit filename="bin/Release/shaders/blinn.fragment.glsl" />
-		<Unit filename="bin/Release/shaders/blinn.vertex.glsl" />
-		<Unit filename="bin/Release/shaders/phong.fragment.glsl" />
-		<Unit filename="bin/Release/shaders/phong.vertex.glsl" />
+		<Unit filename="bin/release/shaders/2D.fragment.glsl" />
+		<Unit filename="bin/release/shaders/2D.vertex.glsl" />
+		<Unit filename="bin/release/shaders/basic.fragment.glsl" />
+		<Unit filename="bin/release/shaders/basic.vertex.glsl" />
+		<Unit filename="bin/release/shaders/blinn.fragment.glsl" />
+		<Unit filename="bin/release/shaders/blinn.vertex.glsl" />
+		<Unit filename="bin/release/shaders/phong.fragment.glsl" />
+		<Unit filename="bin/release/shaders/phong.vertex.glsl" />
 		<Unit filename="include/Button.hpp" />
 		<Unit filename="include/Camera.hpp" />
 		<Unit filename="include/Character.hpp" />
 		<Unit filename="include/Checkbox.hpp" />
 		<Unit filename="include/Font.hpp" />
+		<Unit filename="include/Global.hpp" />
 		<Unit filename="include/Image.hpp" />
-		<Unit filename="include/Libs.hpp" />
 		<Unit filename="include/LineBreak.hpp" />
 		<Unit filename="include/Main.hpp" />
 		<Unit filename="include/MultiButton.hpp" />
