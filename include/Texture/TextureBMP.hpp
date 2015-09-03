@@ -6,7 +6,7 @@
 
 #ifndef TEXTUREBMP_HPP
 #define TEXTUREBMP_HPP
-#include "Global.hpp"
+#include "../Global.hpp"
 #include "TextureBridge.hpp"
 
 #pragma pack(push)

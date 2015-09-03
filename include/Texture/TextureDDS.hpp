@@ -6,7 +6,7 @@
 
 #ifndef TEXTUREDDS_HPP
 #define TEXTUREDDS_HPP
-#include "Global.hpp"
+#include "../Global.hpp"
 #include "TextureBridge.hpp"
 
 #define DDS_FOURCC_DXT1 0x31545844 // ASCII-encoded name

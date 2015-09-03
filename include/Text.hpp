@@ -8,8 +8,9 @@
 #define TEXT_HPP
 #include "Global.hpp"
 #include "Image.hpp"
-class Font;
-class Character;
+
+#include "Text/Character.hpp"
+#include "Text/LineBreak.hpp"
 
 /** \brief Text class
  *

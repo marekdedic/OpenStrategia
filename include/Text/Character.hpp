@@ -6,8 +6,8 @@
 
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
-#include "Global.hpp"
-#include "Image.hpp"
+#include "../Global.hpp"
+#include "../Image.hpp"
 class Font;
 
 /** \brief Character class

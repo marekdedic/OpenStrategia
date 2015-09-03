@@ -16,9 +16,9 @@
 class Texture
 {
     friend class Character;
-    #include "TextureBridge.hpp"
-    #include "TextureBMP.hpp"
-    #include "TextureDDS.hpp"
+    #include "Texture/TextureBridge.hpp"
+    #include "Texture/TextureBMP.hpp"
+    #include "Texture/TextureDDS.hpp"
 public:
     GLuint ID; /**< ID of the texture. */
     /** \brief Texture class default constructor

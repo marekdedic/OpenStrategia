@@ -13,11 +13,9 @@
 
 #include "Button.hpp"
 #include "Camera.hpp"
-#include "Character.hpp"
 #include "Checkbox.hpp"
 #include "Font.hpp"
 #include "Image.hpp"
-#include "LineBreak.hpp"
 #include "MultiButton.hpp"
 #include "Program.hpp"
 #include "RenderObject.hpp"
