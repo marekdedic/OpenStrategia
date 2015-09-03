@@ -1,4 +1,4 @@
-#include "../include/LineBreak.hpp"
+#include "../../include/LineBreak.hpp"
 using namespace std;
 using namespace glm;
 

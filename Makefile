@@ -11,7 +11,7 @@ EXEC_NAME_WIN = OpenStrategia.exe
 EXEC_NAME_LINUX = OpenStrategia
 RM_WIN = del /Q
 RM_LINUX = rm -fr
-MKDIR_WIN = if not exist $(1) mkdir $(1)
+MKDIR_WIN = for /F "tokens=* delims= " %%p in ("$(1)") do ( for %%b in (%%p) do ( if not exist %%b mkdir %%b ))
 MKDIR_LINUX = mkdir -p $(1)
 
 ifeq ($(OS),Windows_NT)
@@ -39,6 +39,7 @@ CFLAGS_DEBUG = $(CFLAGS) -g
 LIB_DEBUG = $(LIB)
 SRCDIR_DEBUG = $(SRCDIR)
 OBJDIR_DEBUG = $(OBJDIR)/debug
+OBJDIRS_DEBUG = $(OBJDIR_DEBUG)/Text $(OBJDIR_DEBUG)/Program $(OBJDIR_DEBUG)/Texture
 BINDIR_DEBUG = $(BINDIR)/debug
 OUT_DEBUG = $(BINDIR_DEBUG)/$(EXEC_NAME)
 
@@ -56,17 +57,18 @@ OBJDIR_PROFILE = $(OBJDIR)/profile
 BINDIR_PROFILE = $(BINDIR)/profile
 OUT_PROFILE = $(BINDIR_PROFILE)/$(EXEC_NAME)
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Text/Character.o $(OBJDIR_DEBUG)/Checkbox.o $(OBJDIR_DEBUG)/Font.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/LineBreak.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Shader.o $(OBJDIR_DEBUG)/Slider.o $(OBJDIR_DEBUG)/Text.o $(OBJDIR_DEBUG)/Texture.o $(OBJDIR_DEBUG)/TextureBMP.o $(OBJDIR_DEBUG)/TextureBridge.o $(OBJDIR_DEBUG)/TextureDDS.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Text/Character.o $(OBJDIR_DEBUG)/Checkbox.o $(OBJDIR_DEBUG)/Font.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/Text/LineBreak.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Program/Shader.o $(OBJDIR_DEBUG)/Slider.o $(OBJDIR_DEBUG)/Text.o $(OBJDIR_DEBUG)/Texture.o $(OBJDIR_DEBUG)/Texture/TextureBMP.o $(OBJDIR_DEBUG)/Texture/TextureBridge.o $(OBJDIR_DEBUG)/Texture/TextureDDS.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Text/Character.o $(OBJDIR_RELEASE)/Checkbox.o $(OBJDIR_RELEASE)/Font.o $(OBJDIR_RELEASE)/Image.o $(OBJDIR_RELEASE)/LineBreak.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Shader.o $(OBJDIR_RELEASE)/Slider.o $(OBJDIR_RELEASE)/Text.o $(OBJDIR_RELEASE)/Texture.o $(OBJDIR_RELEASE)/TextureBMP.o $(OBJDIR_RELEASE)/TextureBridge.o $(OBJDIR_RELEASE)/TextureDDS.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Text/Character.o $(OBJDIR_RELEASE)/Checkbox.o $(OBJDIR_RELEASE)/Font.o $(OBJDIR_RELEASE)/Image.o $(OBJDIR_RELEASE)/Text/LineBreak.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Program/Shader.o $(OBJDIR_RELEASE)/Slider.o $(OBJDIR_RELEASE)/Text.o $(OBJDIR_RELEASE)/Texture.o $(OBJDIR_RELEASE)/Texture/TextureBMP.o $(OBJDIR_RELEASE)/Texture/TextureBridge.o $(OBJDIR_RELEASE)/Texture/TextureDDS.o
 
-OBJ_PROFILE = $(OBJDIR_PROFILE)/Camera.o $(OBJDIR_PROFILE)/Text/Character.o $(OBJDIR_PROFILE)/Checkbox.o $(OBJDIR_PROFILE)/Font.o $(OBJDIR_PROFILE)/Image.o $(OBJDIR_PROFILE)/LineBreak.o $(OBJDIR_PROFILE)/Main.o $(OBJDIR_PROFILE)/Program.o $(OBJDIR_PROFILE)/RenderObject.o $(OBJDIR_PROFILE)/RenderObject2D.o $(OBJDIR_PROFILE)/RenderObject3D.o $(OBJDIR_PROFILE)/Shader.o $(OBJDIR_PROFILE)/Slider.o $(OBJDIR_PROFILE)/Text.o $(OBJDIR_PROFILE)/Texture.o $(OBJDIR_PROFILE)/TextureBMP.o $(OBJDIR_PROFILE)/TextureBridge.o $(OBJDIR_PROFILE)/TextureDDS.o
+OBJ_PROFILE = $(OBJDIR_PROFILE)/Camera.o $(OBJDIR_PROFILE)/Text/Character.o $(OBJDIR_PROFILE)/Checkbox.o $(OBJDIR_PROFILE)/Font.o $(OBJDIR_PROFILE)/Image.o $(OBJDIR_PROFILE)/Text/LineBreak.o $(OBJDIR_PROFILE)/Main.o $(OBJDIR_PROFILE)/Program.o $(OBJDIR_PROFILE)/RenderObject.o $(OBJDIR_PROFILE)/RenderObject2D.o $(OBJDIR_PROFILE)/RenderObject3D.o $(OBJDIR_PROFILE)/Program/Shader.o $(OBJDIR_PROFILE)/Slider.o $(OBJDIR_PROFILE)/Text.o $(OBJDIR_PROFILE)/Texture.o $(OBJDIR_PROFILE)/Texture/TextureBMP.o $(OBJDIR_PROFILE)/Texture/TextureBridge.o $(OBJDIR_PROFILE)/Texture/TextureDDS.o
 
 ifeq ($(OS),Windows_NT)
 	ERRFILE ::= $(strip $(subst /,\, $(ERRFILE)))
 	CORE ::= $(strip $(subst /,\, $(CORE)))
 	VALG_OUT ::= $(strip $(subst /,\, $(VALG_OUT)))
 	OBJDIR_DEBUG ::= $(subst /,\, $(OBJDIR_DEBUG))
+	OBJDIRS_DEBUG ::= $(subst /,\, $(OBJDIRS_DEBUG))
 	BINDIR_DEBUG ::= $(subst /,\, $(BINDIR_DEBUG))
 	OUT_DEBUG ::= $(subst /,\, $(OUT_DEBUG))
 	OBJDIR_RELEASE ::= $(subst /,\, $(OBJDIR_RELEASE))
@@ -82,8 +84,9 @@ all: debug release profile
 clean: clean_debug clean_release clean_profile
 
 before_debug:
-	$(call MKDIR, $(BINDIR_DEBUG))
 	$(call MKDIR, $(OBJDIR_DEBUG))
+	$(call MKDIR, $(OBJDIRS_DEBUG))
+	$(call MKDIR, $(BINDIR_DEBUG))
 
 debug: before_debug out_debug
 
