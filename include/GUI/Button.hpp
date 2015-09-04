@@ -6,9 +6,9 @@
 
 #ifndef BUTTON_HPP
 #define BUTTON_HPP
-#include "Global.hpp"
+#include "../Global.hpp"
 #include "Image.hpp"
-#include "Texture.hpp"
+#include "../Texture.hpp"
 
 /** \brief Button class
  *
@@ -62,6 +62,6 @@ protected:
     T* const callObject; /**< Button callback object */
 };
 
-#include "../src/Button.tpp"
+#include "../../src/GUI/Button.tpp"
 
  #endif // BUTTON_HPP

@@ -11,18 +11,18 @@
 
 #include "Global.hpp"
 
-#include "Button.hpp"
+#include "GUI/Button.hpp"
 #include "Camera.hpp"
-#include "Checkbox.hpp"
+#include "GUI/Checkbox.hpp"
 #include "Font.hpp"
-#include "Image.hpp"
-#include "MultiButton.hpp"
+#include "GUI/Image.hpp"
+#include "GUI/MultiButton.hpp"
 #include "Program.hpp"
 #include "RenderObject.hpp"
 #include "RenderObject2D.hpp"
 #include "RenderObject3D.hpp"
-#include "Slider.hpp"
-#include "Text.hpp"
+#include "GUI/Slider.hpp"
+#include "GUI/Text.hpp"
 #include "Texture.hpp"
 
 #endif // MAIN_HPP

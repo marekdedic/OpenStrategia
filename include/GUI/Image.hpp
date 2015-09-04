@@ -6,8 +6,8 @@
 
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
-#include "Global.hpp"
-#include "RenderObject2D.hpp"
+#include "../Global.hpp"
+#include "../RenderObject2D.hpp"
 class Texture;
 
 /** \brief Image class

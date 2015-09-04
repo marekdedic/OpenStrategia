@@ -1,6 +1,6 @@
-#include "../include/Checkbox.hpp"
+#include "../../include/GUI/Checkbox.hpp"
 
-#include "../include/Texture.hpp"
+#include "../../include/Texture.hpp"
 using namespace std;
 using namespace glm;
 

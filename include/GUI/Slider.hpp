@@ -6,7 +6,7 @@
 
 #ifndef SLIDER_HPP
 #define SLIDER_HPP
-#include "Global.hpp"
+#include "../Global.hpp"
 #include "Image.hpp"
 template <class T> class MultiButton;
 

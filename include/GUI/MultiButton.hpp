@@ -6,7 +6,7 @@
 
 #ifndef MULTIBUTTON_HPP
 #define MULTIBUTTON_HPP
-#include "Global.hpp"
+#include "../Global.hpp"
 #include "Button.hpp"
 
 /** \brief MultiButton class
@@ -39,6 +39,6 @@ protected:
     double otherDelay; /**< Delay between all callbacks except the after the first one */
 };
 
-#include "../src/MultiButton.tpp"
+#include "../../src/GUI/MultiButton.tpp"
 
 #endif // MULTIBUTTON_HPP

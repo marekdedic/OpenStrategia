@@ -1,4 +1,4 @@
-#include "../include/Text.hpp"
+#include "../../include/GUI/Text.hpp"
 
 using namespace std;
 using namespace glm;

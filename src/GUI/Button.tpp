@@ -1,4 +1,4 @@
-#include "../include/Button.hpp"
+#include "../../include/GUI/Button.hpp"
 
 template<class T>
 Button<T>::Button(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed, void (T::* func)(void), T* callObject, double pressedTime) : Image(inPosition, inSize, texUnpressed), texture1{new Texture{texPressed}}, state{0}, pressedTime(pressedTime), callback{func}, callObject{callObject} {}

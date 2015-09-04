@@ -6,7 +6,7 @@
 
 #ifndef CHECKBOX_HPP
 #define CHECKBOX_HPP
-#include "Global.hpp"
+#include "../Global.hpp"
 #include "Image.hpp"
 
 /** \brief Checkbox class

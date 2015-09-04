@@ -1,6 +1,6 @@
-#include "../include/Slider.hpp"
+#include "../../include/GUI/Slider.hpp"
 
-#include "../include/MultiButton.hpp"
+#include "../../include/GUI/MultiButton.hpp"
 using namespace std;
 using namespace glm;
 

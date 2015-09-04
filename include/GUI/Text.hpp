@@ -6,7 +6,7 @@
 
 #ifndef TEXT_HPP
 #define TEXT_HPP
-#include "Global.hpp"
+#include "../Global.hpp"
 #include "Image.hpp"
 
 #include "Text/Character.hpp"

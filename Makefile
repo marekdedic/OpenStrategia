@@ -39,7 +39,7 @@ CFLAGS_DEBUG = $(CFLAGS) -g
 LIB_DEBUG = $(LIB)
 SRCDIR_DEBUG = $(SRCDIR)
 OBJDIR_DEBUG = $(OBJDIR)/debug
-OBJDIRS_DEBUG = $(OBJDIR_DEBUG)/Text $(OBJDIR_DEBUG)/Program $(OBJDIR_DEBUG)/Texture
+OBJDIRS_DEBUG = $(OBJDIR_DEBUG)/GUI $(OBJDIR_DEBUG)/GUI/Text $(OBJDIR_DEBUG)/Program $(OBJDIR_DEBUG)/Texture
 BINDIR_DEBUG = $(BINDIR)/debug
 OUT_DEBUG = $(BINDIR_DEBUG)/$(EXEC_NAME)
 
@@ -57,11 +57,11 @@ OBJDIR_PROFILE = $(OBJDIR)/profile
 BINDIR_PROFILE = $(BINDIR)/profile
 OUT_PROFILE = $(BINDIR_PROFILE)/$(EXEC_NAME)
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Text/Character.o $(OBJDIR_DEBUG)/Checkbox.o $(OBJDIR_DEBUG)/Font.o $(OBJDIR_DEBUG)/Image.o $(OBJDIR_DEBUG)/Text/LineBreak.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Program/Shader.o $(OBJDIR_DEBUG)/Slider.o $(OBJDIR_DEBUG)/Text.o $(OBJDIR_DEBUG)/Texture.o $(OBJDIR_DEBUG)/Texture/TextureBMP.o $(OBJDIR_DEBUG)/Texture/TextureBridge.o $(OBJDIR_DEBUG)/Texture/TextureDDS.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/Camera.o $(OBJDIR_DEBUG)/Text/Character.o $(OBJDIR_DEBUG)/GUI/Checkbox.o $(OBJDIR_DEBUG)/Font.o $(OBJDIR_DEBUG)/GUI/Image.o $(OBJDIR_DEBUG)/Text/LineBreak.o $(OBJDIR_DEBUG)/Main.o $(OBJDIR_DEBUG)/Program.o $(OBJDIR_DEBUG)/RenderObject.o $(OBJDIR_DEBUG)/RenderObject2D.o $(OBJDIR_DEBUG)/RenderObject3D.o $(OBJDIR_DEBUG)/Program/Shader.o $(OBJDIR_DEBUG)/GUI/Slider.o $(OBJDIR_DEBUG)/GUI/Text.o $(OBJDIR_DEBUG)/Texture.o $(OBJDIR_DEBUG)/Texture/TextureBMP.o $(OBJDIR_DEBUG)/Texture/TextureBridge.o $(OBJDIR_DEBUG)/Texture/TextureDDS.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Text/Character.o $(OBJDIR_RELEASE)/Checkbox.o $(OBJDIR_RELEASE)/Font.o $(OBJDIR_RELEASE)/Image.o $(OBJDIR_RELEASE)/Text/LineBreak.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Program/Shader.o $(OBJDIR_RELEASE)/Slider.o $(OBJDIR_RELEASE)/Text.o $(OBJDIR_RELEASE)/Texture.o $(OBJDIR_RELEASE)/Texture/TextureBMP.o $(OBJDIR_RELEASE)/Texture/TextureBridge.o $(OBJDIR_RELEASE)/Texture/TextureDDS.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/Camera.o $(OBJDIR_RELEASE)/Text/Character.o $(OBJDIR_RELEASE)/GUI/Checkbox.o $(OBJDIR_RELEASE)/Font.o $(OBJDIR_RELEASE)/GUI/Image.o $(OBJDIR_RELEASE)/Text/LineBreak.o $(OBJDIR_RELEASE)/Main.o $(OBJDIR_RELEASE)/Program.o $(OBJDIR_RELEASE)/RenderObject.o $(OBJDIR_RELEASE)/RenderObject2D.o $(OBJDIR_RELEASE)/RenderObject3D.o $(OBJDIR_RELEASE)/Program/Shader.o $(OBJDIR_RELEASE)/GUI/Slider.o $(OBJDIR_RELEASE)/GUI/Text.o $(OBJDIR_RELEASE)/Texture.o $(OBJDIR_RELEASE)/Texture/TextureBMP.o $(OBJDIR_RELEASE)/Texture/TextureBridge.o $(OBJDIR_RELEASE)/Texture/TextureDDS.o
 
-OBJ_PROFILE = $(OBJDIR_PROFILE)/Camera.o $(OBJDIR_PROFILE)/Text/Character.o $(OBJDIR_PROFILE)/Checkbox.o $(OBJDIR_PROFILE)/Font.o $(OBJDIR_PROFILE)/Image.o $(OBJDIR_PROFILE)/Text/LineBreak.o $(OBJDIR_PROFILE)/Main.o $(OBJDIR_PROFILE)/Program.o $(OBJDIR_PROFILE)/RenderObject.o $(OBJDIR_PROFILE)/RenderObject2D.o $(OBJDIR_PROFILE)/RenderObject3D.o $(OBJDIR_PROFILE)/Program/Shader.o $(OBJDIR_PROFILE)/Slider.o $(OBJDIR_PROFILE)/Text.o $(OBJDIR_PROFILE)/Texture.o $(OBJDIR_PROFILE)/Texture/TextureBMP.o $(OBJDIR_PROFILE)/Texture/TextureBridge.o $(OBJDIR_PROFILE)/Texture/TextureDDS.o
+OBJ_PROFILE = $(OBJDIR_PROFILE)/Camera.o $(OBJDIR_PROFILE)/Text/Character.o $(OBJDIR_PROFILE)/GUI/Checkbox.o $(OBJDIR_PROFILE)/Font.o $(OBJDIR_PROFILE)/GUI/Image.o $(OBJDIR_PROFILE)/Text/LineBreak.o $(OBJDIR_PROFILE)/Main.o $(OBJDIR_PROFILE)/Program.o $(OBJDIR_PROFILE)/RenderObject.o $(OBJDIR_PROFILE)/RenderObject2D.o $(OBJDIR_PROFILE)/RenderObject3D.o $(OBJDIR_PROFILE)/Program/Shader.o $(OBJDIR_PROFILE)/GUI/Slider.o $(OBJDIR_PROFILE)/GUI/Text.o $(OBJDIR_PROFILE)/Texture.o $(OBJDIR_PROFILE)/Texture/TextureBMP.o $(OBJDIR_PROFILE)/Texture/TextureBridge.o $(OBJDIR_PROFILE)/Texture/TextureDDS.o
 
 ifeq ($(OS),Windows_NT)
 	ERRFILE ::= $(strip $(subst /,\, $(ERRFILE)))
