@@ -1,6 +1,6 @@
 LD = $(CXX)
 
-CFLAGS_ALL = -Wnon-virtual-dtor -Winit-self -Wredundant-decls -Wcast-align -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
+CFLAGS_ALL = -Wnon-virtual-dtor -Winit-self -Wredundant-decls -Wcast-align -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
 LIB_ALL = -lglfw3 -lfreetype
 
 CFLAGS_WIN = $(CFLAGS_ALL) -DGLEW_STATIC
@@ -47,6 +47,7 @@ CFLAGS_RELEASE = $(CFLAGS) -s -O3
 LIB_RELEASE = $(LIB)
 SRCDIR_RELEASE = $(SRCDIR)
 OBJDIR_RELEASE = $(OBJDIR)/release
+OBJDIRS_RELEASE = $(OBJDIR_RELEASE)/GUI $(OBJDIR_RELEASE)/GUI/Text $(OBJDIR_RELEASE)/Program $(OBJDIR_RELEASE)/Texture
 BINDIR_RELEASE = $(BINDIR)/release
 OUT_RELEASE = $(BINDIR_RELEASE)/$(EXEC_NAME)
 
@@ -54,6 +55,7 @@ CFLAGS_PROFILE = $(CFLAGS) -pg
 LIB_PROFILE = $(LIB) -pg
 SRCDIR_PROFILE = $(SRCDIR)
 OBJDIR_PROFILE = $(OBJDIR)/profile
+OBJDIRS_PROFILE = $(OBJDIR_PROFILE)/GUI $(OBJDIR_PROFILE)/GUI/Text $(OBJDIR_PROFILE)/Program $(OBJDIR_PROFILE)/Texture
 BINDIR_PROFILE = $(BINDIR)/profile
 OUT_PROFILE = $(BINDIR_PROFILE)/$(EXEC_NAME)
 
@@ -72,9 +74,11 @@ ifeq ($(OS),Windows_NT)
 	BINDIR_DEBUG ::= $(subst /,\, $(BINDIR_DEBUG))
 	OUT_DEBUG ::= $(subst /,\, $(OUT_DEBUG))
 	OBJDIR_RELEASE ::= $(subst /,\, $(OBJDIR_RELEASE))
+	OBJDIRS_RELEASE ::= $(subst /,\, $(OBJDIRS_RELEASE))
 	BINDIR_RELEASE ::= $(subst /,\, $(BINDIR_RELEASE))
 	OUT_RELEASE ::= $(subst /,\, $(OUT_RELEASE))
 	OBJDIR_PROFILE ::= $(subst /,\, $(OBJDIR_PROFILE))
+	OBJDIRS_PROFILE ::= $(subst /,\, $(OBJDIRS_PROFILE))
 	BINDIR_PROFILE ::= $(subst /,\, $(BINDIR_PROFILE))
 	OUT_PROFILE ::= $(subst /,\, $(OUT_PROFILE))
 endif
@@ -105,8 +109,9 @@ clean_debug:
 	$(RM) $(OUT_DEBUG)
 
 before_release:
-	$(call MKDIR, $(BINDIR_RELEASE))
 	$(call MKDIR, $(OBJDIR_RELEASE))
+	$(call MKDIR, $(OBJDIRS_RELEASE))
+	$(call MKDIR, $(BINDIR_RELEASE))
 
 release: before_release out_release
 
@@ -118,13 +123,15 @@ $(OBJDIR_RELEASE)/%.o: $(SRCDIR_RELEASE)/%.cpp
 
 clean_release:
 	$(RM) $(OBJDIR_RELEASE)
+	$(RM) $(OBJDIRS_RELEASE)
 	$(RM) $(BINDIR_RELEASE)$(ERRFILE)
 	$(RM) $(BINDIR_RELEASE)$(CORE)
 	$(RM) $(OUT_RELEASE)
 
 before_profile:
-	$(call MKDIR, $(BINDIR_PROFILE))
 	$(call MKDIR, $(OBJDIR_PROFILE))
+	$(call MKDIR, $(OBJDIRS_PROFILE))
+	$(call MKDIR, $(BINDIR_PROFILE))
 
 profile: before_profile out_profile
 
@@ -136,6 +143,7 @@ $(OBJDIR_PROFILE)/%.o: $(SRCDIR_PROFILE)/%.cpp
 
 clean_profile:
 	$(RM) $(OBJDIR_PROFILE)
+	$(RM) $(OBJDIRS_PROFILE)
 	$(RM) $(BINDIR_PROFILE)$(ERRFILE)
 	$(RM) $(BINDIR_PROFILE)$(CORE)
 	$(RM) $(OUT_PROFILE)
