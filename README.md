@@ -9,7 +9,7 @@ Build instructions
 ------------------
 
 In order to successfully build you must have folowing libraries installed:
-GLFW3, GLEW, GLM
+GLFW3, GLEW, GLM, freetype
 
 There are 2 possible ways to build OpenStrategia:
 
