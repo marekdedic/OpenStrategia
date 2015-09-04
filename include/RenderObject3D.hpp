@@ -48,6 +48,8 @@ public:
      * \param objectName Filename with extension, relative to the models subdir
      */
     RenderObject3D(std::string objectName);
+    virtual void handle() override;
+    virtual void update() override;
     /** \brief Renders the 3D object
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.

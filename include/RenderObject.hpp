@@ -7,17 +7,16 @@
 #ifndef RENDEROBJECT_HPP
 #define RENDEROBJECT_HPP
 #include "Global.hpp"
+#include "Renderable.hpp"
 class Program;
 
 /** \brief RenderObject class
  *
  * This abstract class is used to set and retrieve properties of all objects to be rendered on the screen. Every object to be rendered, 2D or 3D is a child of this class.
  */
-class RenderObject
+class RenderObject : public Renderable
 {
 protected:
-    std::unique_ptr<glm::mat4> position; /**< Position of the RenderObject represented by a matrix */
-    std::unique_ptr<glm::mat4> orientation; /**< Orientation of the RenderObject represented by a matrix */
     GLuint VAO; /**< Index of the vertex array object */
     GLuint VBO; /**< Index of the vertex GL_ARRAY_BUFFER */
     GLuint UVBO; /**< Index of the UV coordinates GL_ARRAY_BUFFER */
@@ -47,16 +46,6 @@ protected:
      * \param indexData Data passed to the GL_ELEMENT_ARRAY_BUFFER - vertex indices
      */
     RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std::shared_ptr<std::vector<GLuint>> indexData);
-    /** \brief RenderObject event handle
-     *
-     * Handles user input.
-     */
-    virtual void handle();
-    /** \brief Update function
-     *
-     * Must be called on every iteration of the main loop if the RenderObject is to do something.
-     */
-    virtual void update();
     /** \brief Renders the object.
      *
      * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.

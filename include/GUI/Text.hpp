@@ -34,6 +34,7 @@ public:
      * \return Address of the new Text
      */
     Text& operator=(const Text& other);
+    virtual void handle() override;
     virtual void update() override;
     virtual void render(std::shared_ptr<Program> prg) const;
 protected:

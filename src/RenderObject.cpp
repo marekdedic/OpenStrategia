@@ -4,8 +4,10 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, VAO{}, VBO{}, UVBO{}, EBO{}
+RenderObject::RenderObject() : VAO{}, VBO{}, UVBO{}, EBO{}
 {
+    position.reset(new mat4{});
+    orientation.reset(new mat4{});
     // Create VAO, Bind all buffers to it
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -25,8 +27,10 @@ RenderObject::RenderObject() : position{new mat4{}}, orientation{new mat4{}}, VA
     glBindVertexArray(0);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : position{new mat4{*other.position}}, orientation{new mat4{*other.orientation}}, VAO{}, VBO{}, UVBO{}, EBO{}
+RenderObject::RenderObject(const RenderObject& other) : VAO{}, VBO{}, UVBO{}, EBO{}
 {
+    position.reset(new mat4{*other.position});
+    orientation.reset(new mat4{*other.orientation});
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
@@ -117,9 +121,6 @@ RenderObject::RenderObject(std::shared_ptr<std::vector<GLfloat>> vertexData, std
 	glBufferData(GL_ARRAY_BUFFER, vertexData->size() * sizeof(GLfloat), vertexData->data(), GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexData->size() * sizeof(GLuint), indexData->data(), GL_STATIC_DRAW);
 }
-
-void RenderObject::handle() {}
-void RenderObject::update() {}
 
 void RenderObject::render(std::shared_ptr<Program> prg) const
 {

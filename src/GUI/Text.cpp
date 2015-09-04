@@ -45,6 +45,8 @@ Text& Text::operator=(const Text& other)
     return *this;
 }
 
+void Text::handle() {}
+
 void Text::update()
 {
     if(head != nullptr)

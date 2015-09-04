@@ -20,6 +20,8 @@ Image::Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float inAn
     load(tex);
 }
 
+void Image::handle() {}
+
 void Image::update()
 {
     *position = translate(mat4{}, vec3{imagePosition, 0});

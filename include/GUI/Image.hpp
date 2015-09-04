@@ -37,6 +37,7 @@ public:
      * \param angle Tilting angle in radians
      */
     Image(glm::vec2 inPosition, glm::vec2 inSize, std::string tex, float inAngle = 0);
+    virtual void handle() override;
     /** \brief Update function
      *
      * Must be called on every iteration of the main loop if the Image is to do something.

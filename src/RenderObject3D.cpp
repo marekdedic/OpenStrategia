@@ -158,6 +158,10 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), texture
     glBindVertexArray(0);
 }
 
+void RenderObject3D::handle() {}
+
+void RenderObject3D::update() {}
+
 void RenderObject3D::render(std::shared_ptr<Program> prg, const std::shared_ptr<const Camera> cam) const
 {
     // Select shader program
