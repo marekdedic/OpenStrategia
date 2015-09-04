@@ -131,11 +131,13 @@
 		<Unit filename="include/Texture/TextureBMP.hpp" />
 		<Unit filename="include/Texture/TextureBridge.hpp" />
 		<Unit filename="include/Texture/TextureDDS.hpp" />
+		<Unit filename="src/Button.tpp" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/Checkbox.cpp" />
 		<Unit filename="src/Font.cpp" />
 		<Unit filename="src/Image.cpp" />
 		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/MultiButton.tpp" />
 		<Unit filename="src/Program.cpp" />
 		<Unit filename="src/Program/Shader.cpp" />
 		<Unit filename="src/RenderObject.cpp" />
