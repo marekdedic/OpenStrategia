@@ -112,6 +112,7 @@
 		<Unit filename="bin/release/shaders/phong.vertex.glsl" />
 		<Unit filename="include/Camera.hpp" />
 		<Unit filename="include/Font.hpp" />
+		<Unit filename="include/GUI.hpp" />
 		<Unit filename="include/GUI/Button.hpp" />
 		<Unit filename="include/GUI/Checkbox.hpp" />
 		<Unit filename="include/GUI/Image.hpp" />
