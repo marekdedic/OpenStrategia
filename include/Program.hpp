@@ -6,7 +6,7 @@
 
 #ifndef PROGRAM_HPP
 #define PROGRAM_HPP
-#include "Libs.hpp"
+#include "Global.hpp"
 
 /** \brief Program class
  *
@@ -15,7 +15,7 @@
 
 class Program
 {
-    #include "Shader.hpp"
+    #include "Program/Shader.hpp"
 public:
     const GLuint ID; /**< ID of the shader program */
     Program();

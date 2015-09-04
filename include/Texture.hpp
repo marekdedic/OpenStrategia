@@ -6,9 +6,8 @@
 
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
-#include "Libs.hpp"
-
-class Character;
+#include "Global.hpp"
+#include "Program.hpp"
 
 /** \brief Texture class
  *
@@ -16,9 +15,10 @@ class Character;
  */
 class Texture
 {
-    #include "TextureBMP.hpp"
-    #include "TextureDDS.hpp"
-    friend Character;
+    friend class Character;
+    #include "Texture/TextureBridge.hpp"
+    #include "Texture/TextureBMP.hpp"
+    #include "Texture/TextureDDS.hpp"
 public:
     GLuint ID; /**< ID of the texture. */
     /** \brief Texture class default constructor

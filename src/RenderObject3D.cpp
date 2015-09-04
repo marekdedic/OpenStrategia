@@ -1,4 +1,7 @@
-#include "../Main.hpp"
+#include "../include/RenderObject3D.hpp"
+
+#include "../include/Camera.hpp"
+#include "../include/Texture.hpp"
 using namespace std;
 using namespace glm;
 

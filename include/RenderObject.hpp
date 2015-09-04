@@ -6,9 +6,8 @@
 
 #ifndef RENDEROBJECT_HPP
 #define RENDEROBJECT_HPP
-#include "Libs.hpp"
-#include "Program.hpp"
-#include "Texture.hpp"
+#include "Global.hpp"
+class Program;
 
 /** \brief RenderObject class
  *
