@@ -8,7 +8,7 @@ compiler:
 addons:
  apt:
   sources:
-   - ppa:smspillaz/cmake-2.8.12
+   - ppa:george-edison55-precise-backports
    - ppa:ubuntu-toolchain-r/test
   packages:
    - libglew-dev
