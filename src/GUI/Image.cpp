@@ -33,14 +33,8 @@ void Image::update()
 
 void Image::render(std::shared_ptr<Program> prg) const
 {
-    render(prg, texture);
-}
-
-void Image::render(std::shared_ptr<Program> prg, std::shared_ptr<Texture> activeTexture) const
-{
     glUseProgram(prg->ID);
-
-    activeTexture->use(prg, GL_TEXTURE0, 0, "uvMatrix", "oSampler");
+    texture->use(prg, GL_TEXTURE0, 0, "uvMatrix", "oSampler");
     RenderObject2D::render(prg);
 }
 

@@ -49,13 +49,6 @@ public:
      * \param prg A shader program to use
      */
     virtual void render(std::shared_ptr<Program> prg) const;
-    /** \brief Renders the Image
-     *
-     * Must be called on every iteration of the main loop, otherwise the object is not shown/dissappears.
-     * \param prg A shader program to use
-     * \param activeTexture The Texture to use
-     */
-    virtual void render(std::shared_ptr<Program> prg, std::shared_ptr<Texture> activeTexture) const;
     bool load(std::string tex);
     /** \brief Hover function
      *
