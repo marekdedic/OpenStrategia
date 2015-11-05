@@ -8,7 +8,6 @@
 #define RENDERABLECOMPOSITE_HPP
 #include "Renderable.hpp"
 
-
 class RenderableComposite : public Renderable
 {
 public:

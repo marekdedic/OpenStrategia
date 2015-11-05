@@ -15,7 +15,7 @@ class Program;
  */
 class Renderable
 {
-protected:
+public:
     std::shared_ptr<glm::mat4> position; /**< Position of the Renderable object represented by a matrix */
     std::shared_ptr<glm::mat4> orientation; /**< Orientation of the Renderable object represented by a matrix */
     Renderable();
@@ -37,6 +37,7 @@ protected:
     virtual void render(std::shared_ptr<Program> prg) const = 0;
     /** \brief Renderable class destructor
      */
+protected:
     virtual ~Renderable();
 };
 

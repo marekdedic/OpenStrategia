@@ -18,6 +18,7 @@
 #include "Program.hpp"
 #include "Renderable.hpp"
 #include "RenderableComposite.hpp"
+#include "RenderableCompositeParallel.hpp"
 #include "RenderObject.hpp"
 #include "RenderObject2D.hpp"
 #include "RenderObject3D.hpp"
