@@ -18,6 +18,7 @@ class Renderable
 protected:
     std::shared_ptr<glm::mat4> position; /**< Position of the Renderable object represented by a matrix */
     std::shared_ptr<glm::mat4> orientation; /**< Orientation of the Renderable object represented by a matrix */
+    Renderable();
     /** \brief Renderable event handle
      *
      * Handles user input.
