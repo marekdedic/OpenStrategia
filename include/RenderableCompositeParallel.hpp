@@ -6,6 +6,7 @@
 
 #ifndef RENDERABLECOMPOSITEPARALLEL_HPP
 #define RENDERABLECOMPOSITEPARALLEL_HPP
+#include "Global.hpp"
 #include "RenderableComposite.hpp"
 
 class RenderableCompositeParallel : public RenderableComposite

@@ -4,11 +4,15 @@
 using namespace std;
 using namespace glm;
 
-Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed) : Image(inPosition, inSize, texUnpressed), state{false}, cooldown(false), texture1{new Texture{texPressed}} {}
+Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed) : RenderableCompositeSwitching{}, state{false}, cooldown(false)
+{
+    add(new Image{inPosition, inSize, texUnpressed});
+    add(new Image{inPosition, inSize, texPressed});
+}
 
 void Checkbox::handle()
 {
-    if(click(CURSOR, GLFW_MOUSE_BUTTON_1))
+    if(dynamic_cast<Image*>(*(children.begin()))->click(CURSOR, GLFW_MOUSE_BUTTON_1))
     {
         if(!cooldown) {state = !state;}
         cooldown = true;
@@ -19,14 +23,14 @@ void Checkbox::handle()
     }
 }
 
-void Checkbox::render(std::shared_ptr<Program> prg) const
+void Checkbox::update()
 {
     if(state)
     {
-        Image::render(prg, texture1);
+        active = children.begin();
     }
     else
     {
-        Image::render(prg, texture);
+        active = children. begin() + 1;
     }
 }

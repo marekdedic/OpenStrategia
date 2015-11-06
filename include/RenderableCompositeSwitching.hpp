@@ -6,6 +6,7 @@
 
 #ifndef RENDERABLECOMPOSITESWITCHING_HPP
 #define RENDERABLECOMPOSITESWITCHING_HPP
+#include "Global.hpp"
 #include "RenderableComposite.hpp"
 
 class RenderableCompositeSwitching : public RenderableComposite

@@ -6,6 +6,7 @@
 
 #ifndef RENDERABLECOMPOSITE_HPP
 #define RENDERABLECOMPOSITE_HPP
+#include "Global.hpp"
 #include "Renderable.hpp"
 
 class RenderableComposite : public Renderable
