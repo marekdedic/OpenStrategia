@@ -1,5 +1,5 @@
 /**
- * \file RenderableComposite.hpp
+ * \file RenderableCompositeParallel.hpp
  * \brief File with RenderableCompositeParallel class
  * \author GenaBitu
  **/

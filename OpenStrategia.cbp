@@ -131,6 +131,7 @@
 		<Unit filename="include/Renderable.hpp" />
 		<Unit filename="include/RenderableComposite.hpp" />
 		<Unit filename="include/RenderableCompositeParallel.hpp" />
+		<Unit filename="include/RenderableCompositeSwitching.hpp" />
 		<Unit filename="include/Texture.hpp" />
 		<Unit filename="include/Texture/TextureBMP.hpp" />
 		<Unit filename="include/Texture/TextureBridge.hpp" />
@@ -154,6 +155,7 @@
 		<Unit filename="src/Renderable.cpp" />
 		<Unit filename="src/RenderableComposite.cpp" />
 		<Unit filename="src/RenderableCompositeParallel.cpp" />
+		<Unit filename="src/RenderableCompositeSwitching.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Unit filename="src/Texture/TextureBMP.cpp" />
 		<Unit filename="src/Texture/TextureBridge.cpp" />
