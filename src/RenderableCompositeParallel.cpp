@@ -1,11 +1,11 @@
 #include "../include/RenderableCompositeParallel.hpp"
 using namespace std;
 
-void RenderableCompositeParallel::update()
+void RenderableCompositeParallel::render(std::shared_ptr<Program> prg) const
 {
-    for(vector<Renderable*>::iterator it{children.begin()}; it < children.end(); it++)
+    for(vector<Renderable*>::const_iterator it(children.begin()); it < children.end(); it++)
     {
-        (*it)->update();
+        (*it)->render(prg);
     }
 }
 

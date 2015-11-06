@@ -12,7 +12,7 @@ class RenderableComposite : public Renderable
 {
 public:
     void add(Renderable* child);
-    void rem(std::vector<Renderable*>::const_iterator child);
+    void rem(std::vector<Renderable*>::iterator child);
 protected:
     RenderableComposite();
     virtual ~RenderableComposite();

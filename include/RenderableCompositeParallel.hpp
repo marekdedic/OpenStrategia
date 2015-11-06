@@ -11,7 +11,7 @@
 class RenderableCompositeParallel : public RenderableComposite
 {
 public:
-    virtual void update() override;
+    virtual void render(std::shared_ptr<Program> prg) const override;
 protected:
     RenderableCompositeParallel();
     virtual ~RenderableCompositeParallel();

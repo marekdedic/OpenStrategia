@@ -5,7 +5,7 @@ void RenderableComposite::add(Renderable* child)
     children.push_back(child);
 }
 
-void RenderableComposite::rem(std::vector<Renderable*>::const_iterator child)
+void RenderableComposite::rem(std::vector<Renderable*>::iterator child)
 {
     children.erase(child);
 }
