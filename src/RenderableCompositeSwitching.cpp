@@ -3,12 +3,12 @@ using namespace std;
 
 void RenderableCompositeSwitching::render(std::shared_ptr<Program> prg) const
 {
-    if(active != children.end())
+    if(active >= 0)
     {
-        (*active)->render(prg);
+        children[active]->render(prg);
     }
 }
 
-RenderableCompositeSwitching::RenderableCompositeSwitching() : RenderableComposite{}, active{} {}
+RenderableCompositeSwitching::RenderableCompositeSwitching() : RenderableComposite{}, active{-1} {}
 
 RenderableCompositeSwitching::~RenderableCompositeSwitching() {}

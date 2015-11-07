@@ -101,7 +101,7 @@ int main()
                                                                         Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
                                                                         shared_ptr<Font> charis{new Font{"CharisSILR.ttf"}};
                                                                         Text* objekt4{new Text(vec2{100, 100}, vec2{800, 400}, charis, "AV line 1\n BC line 2")};
-    while(!glfwWindowShouldClose(WINDOW)) // Main loop
+                                                                        Checkbox* objekt5{new Checkbox{vec2{200, 200}, vec2{100, 100}, "unpressed.bmp", "pressed.bmp"}};    while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -109,6 +109,7 @@ int main()
                                                                         objekt2->render(shaders3D, MAINCAM);
                                                                         objekt3->render(shaders2D);
                                                                         objekt4->render(shaders2D);
+                                                                        objekt5->render(shaders2D);
 
         // Input handling
         glfwGetCursorPos(WINDOW, &CURSOR.x, &CURSOR.y);
@@ -123,9 +124,11 @@ int main()
             t.detach();
         }
                                                                         objekt3->handle();
+                                                                        objekt5->handle();
 
         // Updating
                                                                         objekt3->update();
+                                                                        objekt5->update();
 
         // Timer restart
         DELTA = glfwGetTime();
@@ -137,6 +140,7 @@ int main()
     delete objekt2;
     delete objekt3;
     delete objekt4;
+    delete objekt5;
     shaders3D.reset();
     shaders2D.reset();
     MAINCAM.reset();

@@ -12,7 +12,7 @@ Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpres
 
 void Checkbox::handle()
 {
-    if(dynamic_cast<Image*>(*(children.begin()))->click(CURSOR, GLFW_MOUSE_BUTTON_1))
+    /*if(dynamic_cast<Image*>(*(children.begin()))->click(CURSOR, GLFW_MOUSE_BUTTON_1))
     {
         if(!cooldown) {state = !state;}
         cooldown = true;
@@ -20,17 +20,17 @@ void Checkbox::handle()
     else
     {
         cooldown = false;
-    }
+    }*/
 }
 
 void Checkbox::update()
 {
     if(state)
     {
-        active = children.begin();
+        active = 1;
     }
     else
     {
-        active = children. begin() + 1;
+        active = 0;
     }
 }

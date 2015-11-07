@@ -13,7 +13,7 @@ class RenderableCompositeSwitching : public RenderableComposite
 {
 public:
     virtual void render(std::shared_ptr<Program> prg) const override;
-    std::vector<Renderable*>::const_iterator active;
+    int active;
 protected:
     RenderableCompositeSwitching();
     virtual ~RenderableCompositeSwitching();
