@@ -14,6 +14,7 @@ class RenderableComposite : public Renderable
 public:
     void add(Renderable* child);
     void rem(std::vector<Renderable*>::iterator child);
+    void rem(const int child);
 protected:
     RenderableComposite();
     virtual ~RenderableComposite();

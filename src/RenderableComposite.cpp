@@ -10,6 +10,11 @@ void RenderableComposite::rem(std::vector<Renderable*>::iterator child)
     children.erase(child);
 }
 
+void RenderableComposite::rem(const int child)
+{
+    children.erase(children.begin() + child);
+}
+
 RenderableComposite::RenderableComposite() : Renderable{}, children{} {}
 
 RenderableComposite::~RenderableComposite()

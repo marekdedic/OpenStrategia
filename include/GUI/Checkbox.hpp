@@ -34,6 +34,10 @@ public:
     virtual void update() override;
 protected:
     bool cooldown; /**< True when the Checkbox has been pressed but the mouse is still pressing it. Avoids multiple presses. */
+    glm::vec2 imagePosition; /**< Position of the Image represented as a vec2 */
+    glm::vec2 imageSize; /**< Size of the Image represented as a vec2(width, height) */
+    bool hover(glm::dvec2 cursor);
+    bool click(glm::dvec2 cursor, int mouseButton);
 };
 
  #endif // CHECKBOX_HPP
