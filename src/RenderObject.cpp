@@ -4,7 +4,7 @@
 using namespace std;
 using namespace glm;
 
-RenderObject::RenderObject() : VAO{}, VBO{}, UVBO{}, EBO{}
+RenderObject::RenderObject() : Renderable{shared_ptr<mat4>{new mat4{}}, shared_ptr<mat4>{new mat4{}}}, VAO{}, VBO{}, UVBO{}, EBO{}
 {
     position.reset(new mat4{});
     orientation.reset(new mat4{});
@@ -27,10 +27,8 @@ RenderObject::RenderObject() : VAO{}, VBO{}, UVBO{}, EBO{}
     glBindVertexArray(0);
 }
 
-RenderObject::RenderObject(const RenderObject& other) : VAO{}, VBO{}, UVBO{}, EBO{}
+RenderObject::RenderObject(const RenderObject& other) : Renderable{shared_ptr<mat4>{new mat4{*other.position}}, shared_ptr<mat4>{new mat4{*other.orientation}}}, VAO{}, VBO{}, UVBO{}, EBO{}
 {
-    position.reset(new mat4{*other.position});
-    orientation.reset(new mat4{*other.orientation});
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 

@@ -9,6 +9,6 @@ void RenderableCompositeSwitching::render(std::shared_ptr<Program> prg) const
     }
 }
 
-RenderableCompositeSwitching::RenderableCompositeSwitching() : RenderableComposite{}, active{-1} {}
+RenderableCompositeSwitching::RenderableCompositeSwitching(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation) : RenderableComposite{position, orientation}, active{-1} {}
 
 RenderableCompositeSwitching::~RenderableCompositeSwitching() {}

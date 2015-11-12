@@ -9,6 +9,6 @@ void RenderableCompositeParallel::render(std::shared_ptr<Program> prg) const
     }
 }
 
-RenderableCompositeParallel::RenderableCompositeParallel() : RenderableComposite{} {}
+RenderableCompositeParallel::RenderableCompositeParallel(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation) : RenderableComposite{position, orientation} {}
 
 RenderableCompositeParallel::~RenderableCompositeParallel() {}

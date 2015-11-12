@@ -37,7 +37,7 @@ public:
     /** \brief Renderable class destructor
      */
 protected:
-    Renderable();
+    Renderable(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation);
     virtual ~Renderable();
 };
 

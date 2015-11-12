@@ -15,7 +15,7 @@ void RenderableComposite::rem(const int child)
     children.erase(children.begin() + child);
 }
 
-RenderableComposite::RenderableComposite() : Renderable{}, children{} {}
+RenderableComposite::RenderableComposite(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation) : Renderable{position, orientation}, children{} {}
 
 RenderableComposite::~RenderableComposite()
 {

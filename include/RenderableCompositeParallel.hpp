@@ -14,7 +14,7 @@ class RenderableCompositeParallel : public RenderableComposite
 public:
     virtual void render(std::shared_ptr<Program> prg) const override;
 protected:
-    RenderableCompositeParallel();
+    RenderableCompositeParallel(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation);
     virtual ~RenderableCompositeParallel();
 };
 

@@ -16,7 +16,7 @@ public:
     void rem(std::vector<Renderable*>::iterator child);
     void rem(const int child);
 protected:
-    RenderableComposite();
+    RenderableComposite(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation);
     virtual ~RenderableComposite();
     std::vector<Renderable*> children;
 };

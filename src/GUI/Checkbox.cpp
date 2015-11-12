@@ -2,12 +2,10 @@
 using namespace std;
 using namespace glm;
 
-Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed) : RenderableCompositeSwitching{}, state{false}, cooldown(false), imagePosition{inPosition}, imageSize{inSize}
+Checkbox::Checkbox(glm::vec2 inPosition, glm::vec2 inSize, std::string texUnpressed, std::string texPressed) : RenderableCompositeSwitching(shared_ptr<mat4>{new mat4{translate(mat4{}, vec3{imagePosition, 0})}}, shared_ptr<mat4>{new mat4{}}), state{false}, cooldown(false), imagePosition{inPosition}, imageSize{inSize}
 {
     add(new Image{inPosition, inSize, texUnpressed});
     add(new Image{inPosition, inSize, texPressed});
-    position.reset(new mat4{translate(mat4{}, vec3{imagePosition, 0})});
-    orientation.reset(new mat4{});
 }
 
 void Checkbox::handle()
