@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef RENDEROBJECT2D_HPP
-#define RENDEROBJECT2D_HPP
+#pragma once
+
 #include "Global.hpp"
 #include "RenderObject.hpp"
 
@@ -35,5 +35,3 @@ protected:
      */
     virtual void render(std::shared_ptr<Program> const prg) const override;
 };
-
- #endif // RENDEROBJECT2D_HPP

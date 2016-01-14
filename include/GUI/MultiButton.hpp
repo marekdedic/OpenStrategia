@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef MULTIBUTTON_HPP
-#define MULTIBUTTON_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "Button.hpp"
 
@@ -40,5 +40,3 @@ protected:
 };
 
 #include "../../src/GUI/MultiButton.tpp"
-
-#endif // MULTIBUTTON_HPP

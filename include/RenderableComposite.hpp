@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef RENDERABLECOMPOSITE_HPP
-#define RENDERABLECOMPOSITE_HPP
+#pragma once
+
 #include "Global.hpp"
 #include "Renderable.hpp"
 
@@ -20,5 +20,3 @@ protected:
     virtual ~RenderableComposite();
     std::vector<Renderable*> children;
 };
-
-#endif // RENDERABLECOMPOSITE_HPP

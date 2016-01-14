@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef CHECKBOX_HPP
-#define CHECKBOX_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "../RenderableCompositeSwitching.hpp"
 #include "Image.hpp"
@@ -39,5 +39,3 @@ protected:
     bool hover(glm::dvec2 cursor);
     bool click(glm::dvec2 cursor, int mouseButton);
 };
-
- #endif // CHECKBOX_HPP

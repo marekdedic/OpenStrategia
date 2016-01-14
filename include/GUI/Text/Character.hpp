@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef CHARACTER_HPP
-#define CHARACTER_HPP
+#pragma once
+
 #include "../../Global.hpp"
 #include "../Image.hpp"
 class Font;
@@ -32,5 +32,3 @@ public:
 private:
     FT_UInt glyphIndex;
 };
-
-#endif // TEXT_HPP

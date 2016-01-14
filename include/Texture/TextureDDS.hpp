@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef TEXTUREDDS_HPP
-#define TEXTUREDDS_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "TextureBridge.hpp"
 
@@ -78,5 +78,3 @@ public:
      */
     bool load(std::string name) override final;
 };
-
-#endif // TEXTUREDDS_HPP

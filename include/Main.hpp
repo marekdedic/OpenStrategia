@@ -6,8 +6,7 @@
  * \author GenaBitu
  **/
 
-#ifndef MAIN_HPP
-#define MAIN_HPP
+#pragma once
 
 #include "Global.hpp"
 
@@ -24,5 +23,3 @@
 #include "RenderObject2D.hpp"
 #include "RenderObject3D.hpp"
 #include "Texture.hpp"
-
-#endif // MAIN_HPP

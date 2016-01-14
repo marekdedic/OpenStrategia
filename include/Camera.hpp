@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef CAMERA_HPP
-#define CAMERA_HPP
+#pragma once
+
 #include "Global.hpp"
 
 /** \brief Camera class
@@ -56,5 +56,3 @@ private:
     std::unique_ptr<glm::quat> orientation; /**< Orientation of the camera represented by a quaternion */
     float speed; /**< Movement speed */
 };
-
- #endif // CAMERA_HPP

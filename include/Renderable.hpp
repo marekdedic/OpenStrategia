@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef RENDERABLE_HPP
-#define RENDERABLE_HPP
+#pragma once
+
 #include "Global.hpp"
 class Program;
 
@@ -40,5 +40,3 @@ protected:
     Renderable(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation);
     virtual ~Renderable();
 };
-
-#endif // RENDERABLE_HPP

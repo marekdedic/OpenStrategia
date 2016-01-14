@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef RENDERABLECOMPOSITEPARALLEL_HPP
-#define RENDERABLECOMPOSITEPARALLEL_HPP
+#pragma once
+
 #include "Global.hpp"
 #include "RenderableComposite.hpp"
 
@@ -17,5 +17,3 @@ protected:
     RenderableCompositeParallel(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation);
     virtual ~RenderableCompositeParallel();
 };
-
-#endif // RENDERABLECOMPOSITEPARALLEL_HPP

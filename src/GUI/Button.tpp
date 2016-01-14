@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../../include/GUI/Button.hpp"
 
 template<class T>

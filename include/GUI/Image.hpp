@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef IMAGE_HPP
-#define IMAGE_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "../RenderObject2D.hpp"
 class Texture;
@@ -66,5 +66,3 @@ public:
      */
     bool click(glm::dvec2 cursor, int mouseButton);
 };
-
- #endif // IMAGE_HPP

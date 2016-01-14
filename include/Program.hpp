@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef PROGRAM_HPP
-#define PROGRAM_HPP
+#pragma once
+
 #include "Global.hpp"
 
 /** \brief Program class
@@ -39,5 +39,3 @@ public:
 private:
     std::vector<std::unique_ptr<Shader>> shaders; /**< Vector with pointers to all shaders in the shader program */
 };
-
- #endif // PROGRAM_HPP

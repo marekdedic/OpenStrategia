@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef RENDEROBJECT_HPP
-#define RENDEROBJECT_HPP
+#pragma once
+
 #include "Global.hpp"
 #include "Renderable.hpp"
 class Program;
@@ -58,5 +58,3 @@ protected:
      */
     virtual ~RenderObject();
 };
-
- #endif // RENDEROBJECT_HPP

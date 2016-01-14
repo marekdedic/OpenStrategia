@@ -4,8 +4,7 @@
  * \author GenaBitu
  **/
 
-#ifndef GLOBAL_HPP
-#define GLOBAL_HPP
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -33,5 +32,3 @@ extern float SPEED; /**< Game speed multiplier */
 extern double PAUSE; /**< If 0, the game runs. If greater than 0, it works like a pause counter in seconds. If -1, the game is paused until "manualy" unpaused (e.g. by pressing the pause key). */
 extern glm::dvec2 CURSOR; /**< The position of the cursor represented as a vec2(). Ranges from (0, 0) in the bootom left corner and (width, height) in hte top right corner. */
 extern glm::ivec2 SCREENSIZE; /**< Screen size represented as vec2(width, height) */
-
-#endif // GLOBAL_HPP

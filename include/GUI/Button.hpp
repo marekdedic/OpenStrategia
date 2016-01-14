@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef BUTTON_HPP
-#define BUTTON_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "Image.hpp"
 #include "../Texture.hpp"
@@ -63,5 +63,3 @@ protected:
 };
 
 #include "../../src/GUI/Button.tpp"
-
- #endif // BUTTON_HPP

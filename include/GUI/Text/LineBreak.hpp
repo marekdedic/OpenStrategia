@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef LINEBREAK_HPP
-#define LINEBREAK_HPP
+#pragma once
+
 #include "../../Global.hpp"
 #include "Character.hpp"
 
@@ -22,5 +22,3 @@ public:
     virtual void update() override;
     virtual void render(std::shared_ptr<Program> prg) const override;
 };
-
-#endif // LINEBREAK_HPP

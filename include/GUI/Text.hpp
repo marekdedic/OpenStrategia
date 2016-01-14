@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef TEXT_HPP
-#define TEXT_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "Image.hpp"
 
@@ -40,5 +40,3 @@ public:
 protected:
     Character* head;
 };
-
-#endif // TEXT_HPP

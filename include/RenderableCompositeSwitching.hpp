@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef RENDERABLECOMPOSITESWITCHING_HPP
-#define RENDERABLECOMPOSITESWITCHING_HPP
+#pragma once
+
 #include "Global.hpp"
 #include "RenderableComposite.hpp"
 
@@ -18,5 +18,3 @@ protected:
     RenderableCompositeSwitching(std::shared_ptr<glm::mat4> position, std::shared_ptr<glm::mat4> orientation);
     virtual ~RenderableCompositeSwitching();
 };
-
-#endif // RENDERABLECOMPOSITESWITCHING_HPP

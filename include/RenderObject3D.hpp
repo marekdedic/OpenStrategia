@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef RENDEROBJECT3D_HPP
-#define RENDEROBJECT3D_HPP
+#pragma once
+
 #include "Global.hpp"
 #include "RenderObject.hpp"
 class Texture;
@@ -66,5 +66,3 @@ protected:
     std::unique_ptr<Texture> texture; /**< Surface texture of the object */
     GLuint NBO; /**< Index of the GL_ARRAY_BUFFER containing normals */
 };
-
- #endif // RENDEROBJECT3D_HPP

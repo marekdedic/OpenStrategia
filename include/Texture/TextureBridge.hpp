@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef TEXTUREBRIDGE_HPP
-#define TEXTUREBRIDGE_HPP
+#pragma once
+
 #include "../Global.hpp"
 
 /** \brief TextureBridge class
@@ -51,5 +51,3 @@ public:
 protected:
     std::string fileName;
 };
-
-#endif // TEXTUREBRIDGE_HPP

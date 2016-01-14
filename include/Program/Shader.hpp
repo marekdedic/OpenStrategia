@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef SHADER_HPP
-#define SHADER_HPP
+#pragma once
+
 #include "../Global.hpp"
 
 /** \brief Shader class
@@ -28,5 +28,3 @@ public:
      */
     ~Shader();
 };
-
- #endif // SHADER_HPP

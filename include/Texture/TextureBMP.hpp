@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef TEXTUREBMP_HPP
-#define TEXTUREBMP_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "TextureBridge.hpp"
 
@@ -53,5 +53,3 @@ public:
      */
     bool load(std::string name) override final;
 };
-
-#endif // TEXTUREBMP_HPP

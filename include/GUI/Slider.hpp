@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef SLIDER_HPP
-#define SLIDER_HPP
+#pragma once
+
 #include "../Global.hpp"
 #include "Image.hpp"
 template <class T> class MultiButton;
@@ -58,5 +58,3 @@ protected:
     void decrease(); /**< Decrease function callback */
     void increase(); /**< Increase function callback */
 };
-
- #endif // SLIDER_HPP

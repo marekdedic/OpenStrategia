@@ -6,8 +6,7 @@
  * \author GenaBitu
  **/
 
-#ifndef GUI_HPP
-#define GUI_HPP
+#pragma once
 
 #include "GUI/Button.hpp"
 #include "GUI/Checkbox.hpp"
@@ -15,5 +14,3 @@
 #include "GUI/MultiButton.hpp"
 #include "GUI/Slider.hpp"
 #include "GUI/Text.hpp"
-
-#endif // GUI_HPP

@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef TEXTURE_HPP
-#define TEXTURE_HPP
+#pragma once
+
 #include "Global.hpp"
 #include "Program.hpp"
 
@@ -82,6 +82,3 @@ private:
     glm::mat3 transformation; /**< Matrix which is applied on the UV coordinates. Can be used to rotate/flip... the Texture without changing the actual data. */
     std::unique_ptr<TextureBridge> implementation; /**< The actual implementation in the client filesystem. Look up Bridge design pattern for more information. */
 };
-
- #endif // TEXTURE_HPP
-

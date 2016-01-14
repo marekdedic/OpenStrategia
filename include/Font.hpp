@@ -4,8 +4,8 @@
  * \author GenaBitu
  **/
 
-#ifndef FONT_HPP
-#define FONT_HPP
+#pragma once
+
 #include "Global.hpp"
 
 /** \brief Font class
@@ -26,5 +26,3 @@ protected:
     static FT_Library library;
     std::string fileName;
 };
-
- #endif // FONT_HPP
