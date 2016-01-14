@@ -5,6 +5,8 @@ LIB_ALL = -lglfw3 -lfreetype
 
 CFLAGS_WIN = $(CFLAGS_ALL) -DGLEW_STATIC
 CFLAGS_LINUX = -I /usr/include/freetype2 $(CFLAGS_ALL)
+LDFLAGS_WIN =
+LDFLAGS_LINUX =
 LIB_WIN = $(LIB_ALL) -lmingw32 -lglew32s -lopengl32 -mwindows
 LIB_LINUX = $(LIB_ALL) -lGLEW -lGL -lX11 -lXxf86vm -lpthread -lXrandr -lXi -lXcursor -lXinerama
 EXEC_NAME_WIN = OpenStrategia.exe
@@ -16,12 +18,14 @@ MKDIR_LINUX = mkdir -p $(1)
 
 ifeq ($(OS),Windows_NT)
 	CFLAGS = $(CFLAGS_WIN)
+	LDFLAGS = $(LDFLAGS_WIN)
 	LIB = $(LIB_WIN)
 	EXEC_NAME = $(EXEC_NAME_WIN)
 	RM = $(RM_WIN)
 	MKDIR = $(MKDIR_WIN)
 else
 	CFLAGS = $(CFLAGS_LINUX)
+	LDFLAGS = $(LDFLAGS_LINUX)
 	LIB = $(LIB_LINUX)
 	EXEC_NAME = $(EXEC_NAME_LINUX)
 	RM = $(RM_LINUX)
@@ -36,6 +40,7 @@ CORE = /core
 VALG_OUT = /valgrind-output.txt
 
 CFLAGS_DEBUG = $(CFLAGS) -g
+LDFLAGS_DEBUG = $(LDFLAGS)
 LIB_DEBUG = $(LIB)
 SRCDIR_DEBUG = $(SRCDIR)
 OBJDIR_DEBUG = $(OBJDIR)/debug
@@ -43,7 +48,8 @@ OBJDIRS_DEBUG = $(OBJDIR_DEBUG)/GUI $(OBJDIR_DEBUG)/GUI/Text $(OBJDIR_DEBUG)/Pro
 BINDIR_DEBUG = $(BINDIR)/debug
 OUT_DEBUG = $(BINDIR_DEBUG)/$(EXEC_NAME)
 
-CFLAGS_RELEASE = $(CFLAGS) -s -O3
+CFLAGS_RELEASE = $(CFLAGS) -s -O3 -flto
+LDFLAGS_RELEASE = $(LDFLAGS) -flto
 LIB_RELEASE = $(LIB)
 SRCDIR_RELEASE = $(SRCDIR)
 OBJDIR_RELEASE = $(OBJDIR)/release
@@ -52,6 +58,7 @@ BINDIR_RELEASE = $(BINDIR)/release
 OUT_RELEASE = $(BINDIR_RELEASE)/$(EXEC_NAME)
 
 CFLAGS_PROFILE = $(CFLAGS) -pg
+LDFLAGS_PROFILE = $(LDFLAGS)
 LIB_PROFILE = $(LIB) -pg
 SRCDIR_PROFILE = $(SRCDIR)
 OBJDIR_PROFILE = $(OBJDIR)/profile
@@ -95,7 +102,7 @@ before_debug:
 debug: before_debug out_debug
 
 out_debug: $(OBJ_DEBUG)
-	$(LD) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
+	$(LD) $(LDFLAGS_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
 
 $(OBJDIR_DEBUG)/%.o: $(SRCDIR_DEBUG)/%.cpp
 	$(CXX) $(CFLAGS_DEBUG) -c $< -o $@
@@ -115,8 +122,8 @@ before_release:
 
 release: before_release out_release
 
-out_release: before_release $(OBJ_RELEASE)
-	$(LD) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
+out_release: $(OBJ_RELEASE)
+	$(LD) $(LDFLAGS_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
 
 $(OBJDIR_RELEASE)/%.o: $(SRCDIR_RELEASE)/%.cpp
 	$(CXX) $(CFLAGS_RELEASE) -c $< -o $@
@@ -136,7 +143,7 @@ before_profile:
 profile: before_profile out_profile
 
 out_profile: $(OBJ_PROFILE)
-	$(LD) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
+	$(LD) $(LDFLAGS_PROFILE) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
 
 $(OBJDIR_PROFILE)/%.o: $(SRCDIR_PROFILE)/%.cpp
 	$(CXX) $(CFLAGS_PROFILE) -c $< -o $@
