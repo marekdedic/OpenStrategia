@@ -1,14 +1,14 @@
 LD = $(CXX)
 
 CFLAGS_ALL = -Wnon-virtual-dtor -Winit-self -Wredundant-decls -Wcast-align -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -std=c++11 -Wfatal-errors -Wextra -Wall
-LIB_ALL = -lglfw3 -lfreetype
+LIB_ALL = -lfreetype
 
 CFLAGS_WIN = $(CFLAGS_ALL) -DGLEW_STATIC
 CFLAGS_LINUX = -I /usr/include/freetype2 $(CFLAGS_ALL)
 LDFLAGS_WIN =
 LDFLAGS_LINUX =
-LIB_WIN = $(LIB_ALL) -lmingw32 -lglew32s -lopengl32 -mwindows
-LIB_LINUX = $(LIB_ALL) -lGLEW -lGL -lX11 -lXxf86vm -lpthread -lXrandr -lXi -lXcursor -lXinerama
+LIB_WIN = $(LIB_ALL) -lglfw3 -lmingw32 -lglew32s -lopengl32 -mwindows
+LIB_LINUX = $(LIB_ALL) -lglfw -lpthread -lGL -lGLEW
 EXEC_NAME_WIN = OpenStrategia.exe
 EXEC_NAME_LINUX = OpenStrategia
 RM_WIN = del /Q
@@ -90,16 +90,21 @@ ifeq ($(OS),Windows_NT)
 	OUT_PROFILE ::= $(subst /,\, $(OUT_PROFILE))
 endif
 
-all: debug release profile
+.DEFAULT_GOAL := help
 
-clean: clean_debug clean_release clean_profile
+setup: ## Setup development environment
+	@./initialize.sh
+
+all: debug release profile ## Build all build targets
+
+clean: clean_debug clean_release clean_profile ## Clean all build files
 
 before_debug:
 	$(call MKDIR, $(OBJDIR_DEBUG))
 	$(call MKDIR, $(OBJDIRS_DEBUG))
 	$(call MKDIR, $(BINDIR_DEBUG))
 
-debug: before_debug out_debug
+debug: before_debug out_debug ## Build the "debug" target
 
 out_debug: $(OBJ_DEBUG)
 	$(LD) $(LDFLAGS_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG) $(LIB_DEBUG)
@@ -107,7 +112,7 @@ out_debug: $(OBJ_DEBUG)
 $(OBJDIR_DEBUG)/%.o: $(SRCDIR_DEBUG)/%.cpp
 	$(CXX) $(CFLAGS_DEBUG) -c $< -o $@
 
-clean_debug:
+clean_debug: ## Clean build files for the "debug" target
 	$(RM) $(OBJDIR_DEBUG)
 	$(RM) $(OBJDIRS_DEBUG)
 	$(RM) $(BINDIR_DEBUG)$(ERRFILE)
@@ -115,12 +120,17 @@ clean_debug:
 	$(RM) $(BINDIR_DEBUG)$(VALG_OUT)
 	$(RM) $(OUT_DEBUG)
 
+$(OUT_DEBUG): debug
+
+run_debug: $(OUT_DEBUG) ## Run OpenStrategia "debug" target
+	(cd $(BINDIR_DEBUG) ; ./$(EXEC_NAME))
+
 before_release:
 	$(call MKDIR, $(OBJDIR_RELEASE))
 	$(call MKDIR, $(OBJDIRS_RELEASE))
 	$(call MKDIR, $(BINDIR_RELEASE))
 
-release: before_release out_release
+release: before_release out_release ## Build the "release" target
 
 out_release: $(OBJ_RELEASE)
 	$(LD) $(LDFLAGS_RELEASE) -o $(OUT_RELEASE) $(OBJ_RELEASE) $(LIB_RELEASE)
@@ -128,19 +138,24 @@ out_release: $(OBJ_RELEASE)
 $(OBJDIR_RELEASE)/%.o: $(SRCDIR_RELEASE)/%.cpp
 	$(CXX) $(CFLAGS_RELEASE) -c $< -o $@
 
-clean_release:
+clean_release: ## Clean build files for the "release" target
 	$(RM) $(OBJDIR_RELEASE)
 	$(RM) $(OBJDIRS_RELEASE)
 	$(RM) $(BINDIR_RELEASE)$(ERRFILE)
 	$(RM) $(BINDIR_RELEASE)$(CORE)
 	$(RM) $(OUT_RELEASE)
 
+$(OUT_RELEASE): release
+
+run_release: $(OUT_RELEASE) ## Run OpenStrategia "release" target
+	(cd $(BINDIR_RELEASE) ; ./$(EXEC_NAME))
+
 before_profile:
 	$(call MKDIR, $(OBJDIR_PROFILE))
 	$(call MKDIR, $(OBJDIRS_PROFILE))
 	$(call MKDIR, $(BINDIR_PROFILE))
 
-profile: before_profile out_profile
+profile: before_profile out_profile ## Build the "profile" target
 
 out_profile: $(OBJ_PROFILE)
 	$(LD) $(LDFLAGS_PROFILE) -o $(OUT_PROFILE) $(OBJ_PROFILE) $(LIB_PROFILE)
@@ -148,11 +163,26 @@ out_profile: $(OBJ_PROFILE)
 $(OBJDIR_PROFILE)/%.o: $(SRCDIR_PROFILE)/%.cpp
 	$(CXX) $(CFLAGS_PROFILE) -c $< -o $@
 
-clean_profile:
+clean_profile: ## Clean build files for the "profile" target
 	$(RM) $(OBJDIR_PROFILE)
 	$(RM) $(OBJDIRS_PROFILE)
 	$(RM) $(BINDIR_PROFILE)$(ERRFILE)
 	$(RM) $(BINDIR_PROFILE)$(CORE)
 	$(RM) $(OUT_PROFILE)
 
-.PHONY: all clean before_debug debug out_debug clean_debug before_release release out_release clean_release before_profile profile out_profile clean_profile
+$(OUT_PROFILE): profile
+
+run_profile: $(OUT_PROFILE) ## Run OpenStrategia "profile" target
+	(cd $(BINDIR_PROFILE) ; ./$(EXEC_NAME))
+
+run: run_release ## Run OpenStrategia (default target is "release")
+
+help: ## Print this help
+ifeq ($(OS),Windows_NT)
+	echo "Help not supported on Windows. Please run \"make all\"."
+else
+	@printf "\033[0;31mIf you don't know what you are doing, just run \"make setup\", followed by \"make run\".\033[0m\n"
+	@grep -E '^[a-zA-Z0-9_-]+:.*?##.*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+endif
+
+.PHONY: all help clean before_debug debug out_debug clean_debug before_release release out_release clean_release before_profile profile out_profile clean_profile
