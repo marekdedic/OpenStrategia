@@ -8,8 +8,7 @@ compiler:
 addons:
  apt:
   sources:
-   - ppa:george-edison55-precise-backports
-   - ppa:ubuntu-toolchain-r/test
+   - ubuntu-toolchain-r-test
   packages:
    - libglew-dev
    - libglfw3-dev
