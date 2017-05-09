@@ -100,7 +100,7 @@ int main()
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
                                                                         Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
                                                                         shared_ptr<Font> charis{new Font{"CharisSILR.ttf"}};
-                                                                        //Text* objekt4{new Text(vec2{100, 100}, vec2{800, 400}, charis, "AV line 1\n BC line 2")};
+                                                                        Text* objekt4{new Text(vec2{100, 100}, vec2{800, 400}, charis, "AV line 1\n BC line 2")};
                                                                         Checkbox* objekt5{new Checkbox{vec2{200, 200}, vec2{100, 100}, "unpressed.bmp", "pressed.bmp"}};    while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
@@ -108,7 +108,7 @@ int main()
                                                                         //objekt->render(shaders, MAINCAM);
                                                                         objekt2->render(shaders3D, MAINCAM);
                                                                         objekt3->render(shaders2D);
-                                                                        //objekt4->render(shaders2D);
+                                                                        objekt4->render(shaders2D);
                                                                         objekt5->render(shaders2D);
 
         // Input handling
@@ -139,7 +139,7 @@ int main()
     //delete objekt;
     delete objekt2;
     delete objekt3;
-    //delete objekt4;
+    delete objekt4;
     delete objekt5;
     shaders3D.reset();
     shaders2D.reset();

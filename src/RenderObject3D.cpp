@@ -80,7 +80,7 @@ RenderObject3D::RenderObject3D(std::string ObjectName) : RenderObject(), texture
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 
-    texture->load("tank-tex.DDS");
+    texture->load("tank-tex.bmp");
     ObjectName = "models/" + ObjectName;
     vector<GLuint> vertexIndices{}, UVIndices{}, normalIndices{};
     vector<vec3> rawVertices{};
