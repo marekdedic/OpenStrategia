@@ -24,7 +24,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     GLFWmonitor* monitor{glfwGetPrimaryMonitor()};
-    WINDOW = glfwCreateWindow(1400, 1050, "OpenStrategia", monitor, nullptr);
+    WINDOW = glfwCreateWindow(1920, 1080, "OpenStrategia", monitor, nullptr);
     glfwMakeContextCurrent(WINDOW);
     if(!WINDOW)
     {
@@ -98,18 +98,19 @@ int main()
                                                                         vector<GLuint> iData2{0,1,2};
                                                                         //RenderObject3D* objekt{new RenderObject3D{&vData, &iData}};
                                                                         RenderObject3D* objekt2{new RenderObject3D{"tank.obj"}};
-                                                                        Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
+                                                                        //Slider* objekt3{new Slider{100, 50, vec2{50, 50}, vec2{300, 40}, vec2{40, 40}, vec2{30, 40}, "slider-BG.bmp", "slider-slider.bmp", "slider-left.bmp", "slider-leftP.bmp"}};
                                                                         shared_ptr<Font> charis{new Font{"CharisSILR.ttf"}};
                                                                         Text* objekt4{new Text(vec2{100, 100}, vec2{800, 400}, charis, "AV line 1\n BC line 2")};
-                                                                        Checkbox* objekt5{new Checkbox{vec2{200, 200}, vec2{100, 100}, "unpressed.bmp", "pressed.bmp"}};    while(!glfwWindowShouldClose(WINDOW)) // Main loop
+                                                                        //Checkbox* objekt5{new Checkbox{vec2{200, 200}, vec2{100, 100}, "unpressed.bmp", "pressed.bmp"}};
+	while(!glfwWindowShouldClose(WINDOW)) // Main loop
     {
         // Rendering
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                                                                         //objekt->render(shaders, MAINCAM);
                                                                         objekt2->render(shaders3D, MAINCAM);
-                                                                        objekt3->render(shaders2D);
+                                                                        //objekt3->render(shaders2D);
                                                                         objekt4->render(shaders2D);
-                                                                        objekt5->render(shaders2D);
+                                                                        //objekt5->render(shaders2D);
 
         // Input handling
         glfwGetCursorPos(WINDOW, &CURSOR.x, &CURSOR.y);
@@ -123,12 +124,12 @@ int main()
             thread t(&Camera::handle, MAINCAM);
             t.detach();
         }
-                                                                        objekt3->handle();
-                                                                        objekt5->handle();
+                                                                        //objekt3->handle();
+                                                                        //objekt5->handle();
 
         // Updating
-                                                                        objekt3->update();
-                                                                        objekt5->update();
+                                                                        //objekt3->update();
+                                                                        //objekt5->update();
 
         // Timer restart
         DELTA = glfwGetTime();
@@ -138,9 +139,9 @@ int main()
     }
     //delete objekt;
     delete objekt2;
-    delete objekt3;
+    //delete objekt3;
     delete objekt4;
-    delete objekt5;
+    //delete objekt5;
     shaders3D.reset();
     shaders2D.reset();
     MAINCAM.reset();
