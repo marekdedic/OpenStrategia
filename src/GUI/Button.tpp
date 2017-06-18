@@ -43,10 +43,10 @@ void Button<T>::render(std::shared_ptr<Program> prg) const
 {
     if((state == 0) or (state == -1))
     {
-        Image::render(prg, texture);
+        //Image::render(prg, texture);
     }
     else
     {
-        Image::render(prg, texture1);
+        //Image::render(prg, texture1);
     }
 }
